@@ -65,6 +65,12 @@ gh pr create --base main --head dev --title "Release: B-5 Feedback" --fill
 
 Check it the same way, then merge it yourself.
 
+## The PDFs
+
+`team/pdf/` is made from the `.md` files: `01-…`–`08-…` (the files in reading order) and one `AI-PACK-<name>.pdf`
+per person (rules + how it works + why + their tasks + the checklist's "Backends left to connect" entries). After a
+change to any of those files, ask Claude to rebuild `team/pdf/` so the PDFs don't go stale.
+
 ## Keeping it on track
 
 - Ask for a **draft** pull request on day 1 of each task (the plan), so you see the direction before the code.

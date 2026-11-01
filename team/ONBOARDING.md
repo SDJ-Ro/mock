@@ -52,6 +52,10 @@ Check it is healthy: `bash bin/check.sh` must end with `0 error(s)`.
 | 4 | `team/GIT.md` | Branches, commits, pull requests |
 | 5 | `team/handover/{your name}.md` | Your tasks, in order, and a practice pull request |
 | 6 | `team/CHECKLIST.md` → "Backends left to connect" | Your tasks, with every decision already made |
+| 7 | `team/AI-GUIDE.md` | **Using ChatGPT, Gemini, Copilot or any AI other than Claude Code**: which files to give it, in order, and the prompts to paste |
+
+Reading on paper or giving it to an AI? The same files are in `team/pdf/`, numbered in this order. Your
+`team/pdf/AI-PACK-<your name>.pdf` is everything an AI needs about your tasks, in one file.
 
 Then follow one request through the code yourself, with Claude:
 
@@ -77,6 +81,7 @@ Plus, for a new column or table: a new file `database/updates/NNN_name.sql`, the
 
 1. Pick up your next task from your handover file. Make a branch (`team/GIT.md`).
 2. `/next-feature B-5 Feedback` — Claude reads everything and writes one plan. **Don't build yet.**
+   (Another AI: prompt 2 in `team/AI-GUIDE.md`.)
 3. Send the plan to the lead (or open a draft pull request with it). Answer the questions in it.
 4. Build in small steps; **read every diff before you accept it**; one commit per step.
 5. Test: `bash bin/check.sh` (0 errors), every page in the browser, curl attacks (below).
@@ -100,8 +105,10 @@ wrong role, signed out".
 
 ## 5. Using AI without making a mess
 
-- **Start every session in `code_lecole/`**, so Claude reads its `CLAUDE.md` and the project's hooks and skills
-  (it may also read and update `../team/`, e.g. the checklist).
+- **Claude Code:** start every session in `code_lecole/`, so Claude reads its `CLAUDE.md` and the project's hooks
+  and skills (it may also read and update `../team/`, e.g. the checklist).
+- **Any other AI:** it knows nothing until you give it your `AI-PACK` PDF and the real files — follow
+  `team/AI-GUIDE.md`. It has no edit hook, so run `bash bin/check.sh` yourself after every step.
 - **Plan first, build second.** `/next-feature` before any code. Never "just build B-5".
 - **Small steps.** One step, read the diff, test, commit. A 2,000-line change can't be reviewed or explained.
 - **You must be able to explain every line.** If you can't, ask `/explain` until you can. In the code check you
