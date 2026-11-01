@@ -1,0 +1,17 @@
+{
+    "name": "school-portal/app",
+    "description": "A school portal for students, parents, teachers, management and admin (vanilla PHP)",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "dompdf/dompdf": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    }
+}

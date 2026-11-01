@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Composer (rebuilt with: composer install)
+/vendor/
+
+# Secrets — never commit real passwords
+.env
+
+# Logs, cache & user uploads (the empty folders are kept with a .gitkeep: PHP writes into them)
+storage/logs/*
+storage/cache/*
+storage/uploads/*
+public/uploads/*
+!.gitkeep
+
+# A database dump holds every person's details: never in git (schema.sql + seed.sql + updates/ rebuild it)
+database/*backup*.sql
+
+# Papers with people's index numbers, names and signatures (the proposal): shared privately, never in git
+/private/
+
+# Claude Code's personal settings (each person's own)
+.claude/settings.local.json
+
+# Editor folders
+.idea/
+.vscode/
