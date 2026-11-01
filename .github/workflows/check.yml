@@ -22,4 +22,5 @@ jobs:
           node-version: '22'
 
       - name: bin/check.sh (0 errors)
+        working-directory: code_lecole
         run: bash bin/check.sh

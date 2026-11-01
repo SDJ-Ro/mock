@@ -22,7 +22,7 @@ Task:
 - [ ] Who may do what from `config/permissions.php` · numbers (limits, marks, ages) in `config/white_label/rules.php` or the feature's config
 - [ ] School words via `word()` / `plural()` · no school name typed anywhere
 - [ ] The example data this replaces (`app/Mock/…`) is deleted · no dead code left behind
-- [ ] `docs/CHECKLIST.md` ticked and updated
+- [ ] `team/CHECKLIST.md` ticked and updated
 
 ## I can explain it
 - [ ] I can explain every line of this pull request myself, and change it live (code check)

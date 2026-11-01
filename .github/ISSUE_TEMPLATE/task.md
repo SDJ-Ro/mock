@@ -1,6 +1,6 @@
 ---
 name: Task
-about: A piece of work from docs/CHECKLIST.md, or a bug found while testing
+about: A piece of work from team/CHECKLIST.md, or a bug found while testing
 title: "B-?: "
 labels: ''
 assignees: ''
@@ -16,4 +16,4 @@ assignees: ''
 - [ ] works for every role that sees it
 - [ ] `bash bin/check.sh` = 0 errors
 - [ ] curl attacks refused
-- [ ] `docs/CHECKLIST.md` ticked
+- [ ] `team/CHECKLIST.md` ticked
