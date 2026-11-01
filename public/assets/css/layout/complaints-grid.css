@@ -1,0 +1,10 @@
+/* =========================================================================
+   COMPLAINTS LIST: the inquiry cards, one under the other, full width
+   Only the arrangement; each card's look is complaints.css.
+   ========================================================================= */
+
+.l-complaints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -1,0 +1,113 @@
+/* =========================================================================
+   CERTIFICATE CARD (components/_certificate_card.php): the capsule card on the certificates list — 144px wide,
+   fully rounded ends, in one of the student card tones (--card-slate … --card-sage, global.css), a 112px white ring
+   round the initials. --waiting on the photo: a scarlet ring outside the white one, plus a scarlet dot (a request or the certificate waits).
+   How the cards line up: css/layout/certificates-grid.css.
+   ========================================================================= */
+
+.c-certificate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 144px;
+  min-height: 248px;
+  border-radius: var(--radius-full);
+  padding: 16px 12px 20px;
+  background: var(--card-tone);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  text-decoration: none;
+  color: var(--white);
+  transition: transform var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-certificate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.c-certificate-card--slate {
+  --card-tone: var(--card-slate);
+}
+
+.c-certificate-card--steel {
+  --card-tone: var(--card-steel);
+}
+
+.c-certificate-card--taupe {
+  --card-tone: var(--card-taupe);
+}
+
+.c-certificate-card--sand {
+  --card-tone: var(--card-sand);
+}
+
+.c-certificate-card--seafoam {
+  --card-tone: var(--card-seafoam);
+}
+
+.c-certificate-card--sage {
+  --card-tone: var(--card-sage);
+}
+
+/* The 112px white ring and the initials in the card's tone */
+.c-certificate-card__photo {
+  position: relative;
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  border-radius: var(--radius-full);
+  padding: 5px;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Waiting: a 3px scarlet ring outside the white one, and a soft scarlet glow under it */
+.c-certificate-card__photo--waiting {
+  box-shadow: 0 0 0 3px var(--scarlet), 0 4px 10px color-mix(in srgb, var(--scarlet) 40%, transparent);
+}
+
+.c-certificate-card__photo--waiting::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  box-sizing: border-box;   /* 14px with its white edge (the reset doesn't reach ::after) */
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-full);
+  background: var(--scarlet);
+}
+
+.c-certificate-card__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--card-tone);
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.c-certificate-card__name {
+  margin: 12px 0 0;
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-certificate-card__line {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: color-mix(in srgb, var(--white) 85%, transparent);
+}

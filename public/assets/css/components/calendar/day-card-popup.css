@@ -1,0 +1,184 @@
+/* =========================================================================
+   "VIEW ALL" POP-UP (components/calendar/_day_card_popup_template.php)
+   Only its own parts; the shell (header, ×, backdrop) is pop-up.css
+   ========================================================================= */
+
+/* A darker backdrop and a taller box (staying on top of other pop-ups is the browser's job now) */
+.c-pop-up--day-schedule::backdrop {
+  background: color-mix(in srgb, var(--midnight) 75%, transparent);
+}
+
+.c-pop-up--day-schedule {
+  max-height: min(42rem, calc(100vh - 2rem));
+}
+
+
+/* Day Schedule Dialog */
+.c-day-schedule__body {
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--cream);
+  padding: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .c-day-schedule__body {
+    padding: 1.5rem;
+  }
+}
+
+.c-day-schedule__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.c-day-schedule__item {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  padding: 0.875rem 1rem;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: c-fade-in 220ms ease forwards;
+}
+
+.c-day-schedule__item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.c-day-schedule__time {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  color: var(--flameorange);
+}
+
+.c-day-schedule__heading-col {
+  min-width: 0;
+  flex: 1;
+}
+
+.c-day-schedule__title {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--midnight);
+  word-break: break-word;
+}
+
+/* The event's category: a tag (tag.css) in the calendar's orange */
+.c-day-schedule__type {
+  border: 1px solid color-mix(in srgb, var(--flameorange) 30%, transparent);
+  background: color-mix(in srgb, var(--flameorange) 10%, transparent);
+  color: var(--flameorange);
+}
+
+.c-day-schedule__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.c-day-schedule__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1875rem 0.3125rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  transition: opacity var(--speed) ease;
+}
+
+.c-day-schedule__btn--edit {
+  color: var(--midnight);
+  opacity: 0.7;
+}
+
+.c-day-schedule__btn--edit:hover {
+  opacity: 1;
+}
+
+.c-day-schedule__btn--delete {
+  color: var(--terracotta);
+}
+
+.c-day-schedule__btn--delete:hover {
+  opacity: 0.8;
+}
+
+.c-day-schedule__details {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  word-break: break-word;
+  white-space: normal;
+}
+
+.c-day-schedule__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  padding-top: 0.375rem;
+  border-top: 1px dashed var(--line);
+}
+
+.c-day-schedule__meta-author {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-day-schedule__empty {
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  border: 1px dashed var(--alabaster);
+  background: var(--white);
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.c-day-schedule__empty[hidden] {
+  display: none;
+}
+
+.c-day-schedule__empty-icon {
+  margin-bottom: 0.75rem;
+  color: var(--text-hint);
+}
+
+.c-day-schedule__empty-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-day-schedule__empty-text {
+  margin: 0.375rem 0 0;
+  max-width: 22rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+

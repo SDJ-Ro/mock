@@ -1,0 +1,73 @@
+/* =========================================================================
+   AVATAR: the round circle with someone's initials ("AB", from initials() in PHP), an icon, or their photo (<img>).
+   Every signed-in page loads it (layouts/page_top.php). One look everywhere (owner, 2026-10-26):
+   <span class="c-avatar">AB</span> — 32px, midnight, white letters (the dropdown's teacher options, the workload
+   card, the Record pop-up, the record book's student)
+   --light   white with a soft shadow (a notice's author)
+   --medium  44px (the term marks panel, a student card in a banner)   --large  72px (a student card)
+   --row     40px (People's rows) · a role's colour: --alabaster · --sky · --sunshine · --terracotta · --maroon
+   Where it sits and any ring around it belong to the component (c-avatar + its own class).
+   ========================================================================= */
+
+.c-avatar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: var(--midnight);
+  object-fit: cover;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.c-avatar--light {
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  color: var(--midnight);
+}
+
+.c-avatar--medium {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1rem;
+}
+
+.c-avatar--large {
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 1.25rem;
+}
+
+/* --row: 40px (People's teacher / parent / management rows) */
+.c-avatar--row {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.875rem;
+}
+
+/* A role's colour (People): alabaster for students, the others solid with white letters */
+.c-avatar--alabaster {
+  background: var(--alabaster);
+  color: var(--midnight);
+}
+
+.c-avatar--sky {
+  background: var(--skyblue);
+  color: var(--midnight);
+}
+
+.c-avatar--sunshine {
+  background: var(--sunshine);
+}
+
+.c-avatar--terracotta {
+  background: var(--terracotta);
+}
+
+.c-avatar--maroon {
+  background: var(--maroon);
+}

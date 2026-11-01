@@ -1,0 +1,99 @@
+/* =========================================================================
+   JOIN REQUEST CARD (components/_join_request_card.php) and the row they scroll in (.c-join-requests, in
+   _enrolment_panel.php): the teacher's join-request card — tag, programme, grade · age group, a cream student box
+   (name, date, index no., the parent's yes), Reject / Accept.
+   ========================================================================= */
+
+/* The cards side by side; the row scrolls sideways and stops at each card */
+.c-join-requests {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.25rem 1.25rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--line-strong) transparent;
+  scrollbar-width: thin;
+}
+
+.c-join-card {
+  display: flex;
+  flex: 0 0 460px;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 400px;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-2xl);
+  padding: 1.15rem 1.35rem;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  scroll-snap-align: start;
+}
+
+.c-join-card__title {
+  margin: 0.4rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--midnight);
+}
+
+.c-join-card__meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+/* The student: name + date left, index no. middle, the parent's yes right */
+.c-join-card__student {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 0.85rem 0;
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1.1rem;
+  background: var(--cream);
+}
+
+.c-join-card__who {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The name and the date may take a second line: a real index number (STU-2026-0001) is wider than the example's */
+.c-join-card__name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-join-card__date {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.c-join-card__index {
+  text-align: right;
+}
+
+.c-join-card__index-number {
+  margin: 0.15rem 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-join-card__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.c-join-card__actions form {
+  display: flex;
+  flex: 1;
+}

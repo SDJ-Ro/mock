@@ -1,0 +1,127 @@
+/* =========================================================================
+   STAFF CARD (components/_staff_card.php): a small cream card on a programme's page — a person (the teacher in
+   charge, the coach: photo, name, line, a soft box with email and phone) or a list (Details, Status, Created Date:
+   a teal icon box, label, value). An optional "Edit" top right.
+   ========================================================================= */
+
+.c-staff-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-xl);
+  padding: 0.875rem 1.125rem;
+  background: var(--cream);
+}
+
+.c-staff-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.c-staff-card__title {
+  margin: 0;
+}
+
+.c-staff-card__edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.4rem;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--midnight);
+  cursor: pointer;
+}
+
+.c-staff-card__edit:hover {
+  background: var(--wash);
+}
+
+/* ---- A person ---- */
+.c-staff-card__person {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.c-staff-card__photo {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.c-staff-card__name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--midnight);
+}
+
+.c-staff-card__line {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.c-staff-card__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-md);
+  padding: 0.45rem 0.625rem;
+  background: color-mix(in srgb, var(--alabaster) 40%, transparent);
+  font-size: 0.8125rem;
+  color: var(--text-soft);
+}
+
+.c-staff-card__contact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.c-staff-card__contact-row .c-icon {
+  flex-shrink: 0;
+  color: var(--skyblue);
+}
+
+/* ---- A list ---- */
+.c-staff-card__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.c-staff-card__item-icon {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  padding: 0.45rem;
+  background: color-mix(in srgb, var(--teal) 15%, transparent);
+  color: var(--teal);
+}
+
+.c-staff-card__item-label {
+  margin: 0 0 0.15rem;
+}
+
+.c-staff-card__item-value {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--midnight);
+}

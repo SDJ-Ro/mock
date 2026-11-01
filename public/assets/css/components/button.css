@@ -1,0 +1,286 @@
+/* =========================================================================
+   BUTTONS (.c-btn) — every button of the app: one base, a look by job
+   <button class="c-btn c-btn--solid">Save</button> · c-btn--outline for Cancel · c-btn--ghost for a quiet Cancel
+   <button class="c-btn c-btn--pill c-btn--sky">+ Post Notice</button> (the page header's button)
+   <a class="c-btn c-btn--back" href="…">← Back</a> (above a form; --dark / --glass on the sign-in and honours pages)
+   <button class="c-btn c-btn--close" aria-label="Close">×</button> (every pop-up's and panel's ×)
+   A look is a colour (--solid, --outline, --ghost, --accent, --sky, --sunshine, --terracotta, --maroon, --moss, --danger,
+   --dark, --glass, --link)
+   and, if needed, a shape (--pill, --back, --close, --icon) and a size (--large, --small, --compact, --decision). A place that needs its own colour (the question
+   pop-up's tone) adds only that colour. Focus and disabled looks: global.css.
+   ========================================================================= */
+
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: var(--radius-lg);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color var(--speed) ease, color var(--speed) ease, box-shadow var(--speed) ease,
+              transform var(--speed) ease;
+}
+
+/* Every button lifts a little on hover (Back slides left, × grows, a link only changes colour) */
+.c-btn:hover {
+  transform: translateY(-1px);
+}
+
+.c-btn:disabled {
+  transform: none;
+}
+
+.c-btn .c-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Quiet (Cancel) */
+.c-btn--ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.c-btn--ghost:hover {
+  background: var(--alabaster);
+}
+
+/* Second choice next to a main button (Cancel, Change password) */
+.c-btn--outline {
+  border: 1px solid var(--line-strong);
+  background: var(--alabaster);
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.c-btn--outline:hover {
+  background: var(--white);
+}
+
+/* Main action (Save) */
+.c-btn--solid {
+  background: var(--midnight);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-btn--solid:hover {
+  background: var(--deepsea);
+}
+
+/* Orange main action (sign in, the landing page) */
+.c-btn--accent {
+  background: var(--flameorange);
+  color: var(--white);
+}
+
+.c-btn--accent:hover {
+  background: var(--brightorange);
+}
+
+/* Sky (the page header's "+ Post Notice", "+ New Feedback") */
+.c-btn--sky {
+  background: var(--skyblue);
+  color: var(--midnight);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-btn--sky:hover {
+  background: var(--skyblue-deep);
+}
+
+/* Sunshine (the Record Achievement pop-up's main button) */
+.c-btn--sunshine {
+  background: var(--sunshine);
+  color: var(--white);
+}
+
+.c-btn--sunshine:hover {
+  background: color-mix(in srgb, var(--sunshine) 90%, transparent);
+}
+
+/* Terracotta and maroon (People's "Add Parent" and "Add Staff": each role's colour) */
+.c-btn--terracotta {
+  background: var(--terracotta);
+  color: var(--white);
+}
+
+.c-btn--terracotta:hover {
+  background: color-mix(in srgb, var(--terracotta) 90%, transparent);
+}
+
+.c-btn--maroon {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.c-btn--maroon:hover {
+  background: var(--redwine);
+}
+
+/* Moss: something done / settled (an inquiry's "Resolve") */
+.c-btn--moss {
+  background: var(--moss);
+  color: var(--white);
+}
+
+.c-btn--moss:hover {
+  background: var(--moss-deep);
+}
+
+/* Link: plain text with an arrow, no box ("‹ Back" above a student's timeline) */
+.c-btn--link {
+  padding: 0;
+  background: transparent;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-soft);
+}
+
+.c-btn--link:hover {
+  color: var(--midnight);
+  transform: none;
+}
+
+.c-btn--link .c-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Shape: a round pill */
+.c-btn--pill {
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  line-height: normal;
+}
+
+.c-btn--pill .c-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Size: a bigger main button at the end of a form ("Publish Notice") */
+.c-btn--large {
+  padding: 0.625rem 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* Size: small, inside a card ("+ Add Class", "Delete", an inline editor's Save / Cancel) */
+.c-btn--small {
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+/* Size: compact, a toolbar's buttons (the certificate pages: Print, Student Requests, Edit Wording, Finalise, the
+   student's header buttons): 12px words, 36px tall */
+.c-btn--compact {
+  padding: 0.65rem 0.875rem;
+  font-size: 0.75rem;
+}
+
+/* Size: a decision pair at the bottom of a card (Reject / Decline + Approve: notices, Parent → Approvals): two equal
+   buttons sharing the row, 12px words, 31px tall */
+.c-btn--decision {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+/* Pale red: a delete that opens a question first (Academic's "Delete") */
+.c-btn--danger {
+  border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  font-weight: 600;
+  color: var(--danger);
+}
+
+.c-btn--danger:hover {
+  background: color-mix(in srgb, var(--danger) 15%, transparent);
+}
+
+/* Shape: only an icon (✎, bin) — no box until hovered; a place may give it its own colour */
+.c-btn--icon {
+  padding: 0.375rem;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.c-btn--icon:hover {
+  background: color-mix(in srgb, var(--skyblue) 15%, transparent);
+  color: var(--midnight);
+  transform: none;
+}
+
+/* Back (moss): back to the page it came from; slides a little left on hover */
+.c-btn--back {
+  gap: 0.5rem;
+  background: var(--moss);
+  color: var(--white);
+  font-weight: 500;
+  line-height: normal;
+  box-shadow: var(--shadow-sm);
+}
+
+.c-btn--back:hover {
+  background: var(--moss-deep);
+  transform: translateX(-2px);
+}
+
+.c-btn--back .c-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Dark: on a light background without a card (the sign-in pages' back button, the landing's big pills) */
+.c-btn--dark {
+  background: var(--deepsea);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+.c-btn--dark:hover {
+  background: var(--midnight);
+}
+
+/* See-through: on a dark photo (the honours board's back button) */
+.c-btn--glass {
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+  box-shadow: none;
+}
+
+.c-btn--glass:hover {
+  background: color-mix(in srgb, var(--white) 20%, transparent);
+}
+
+/* × (close): a light grey circle that turns red on hover */
+.c-btn--close {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  padding: 0;
+  background: var(--wash);
+  color: var(--text-muted);
+}
+
+.c-btn--close:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+  transform: scale(1.05);
+}
+
+.c-btn--close .c-icon {
+  width: 16px;
+  height: 16px;
+}

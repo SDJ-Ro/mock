@@ -1,0 +1,11 @@
+/* =========================================================================
+   NOTICE BOARD (components/_notice_board.php) — only its layout: the column of header, message, filter bar, cards
+   and "nothing found". The filter bar's row is the shared one (css/layout/filter-bar-grid.css).
+   Shared looks: banner.css (the message), search-field.css, tabs.css, empty-box.css; the cards: notice-card.css.
+   ========================================================================= */
+
+.c-notice-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

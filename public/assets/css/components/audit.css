@@ -1,0 +1,208 @@
+/* =========================================================================
+   AUDIT LOG (admin/audit.php + components/_audit_card.php): the toolbar (search + two filters) and the event cards.
+   A card is the shared white card (c-card, panel.css) with a 6px left edge in the person's role colour
+   (.c-log-card--{tone}, config/audit.php). The role is a label, the action a tag, the initials an avatar: here only
+   their place and the role's colour. The ID is its own tinted box.
+   ========================================================================= */
+
+.c-audit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---- Toolbar: search, then the activity and actor filters ---- */
+.c-audit__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .c-audit__toolbar {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.c-audit__search {
+  flex: 1 1 auto;
+  max-width: 28rem;
+}
+
+.c-audit__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-audit__filters .c-dropdown {
+  width: 11rem;
+}
+
+.c-audit__sliders {
+  display: flex;
+  padding: 0 0.5rem;
+  color: var(--text-hint);
+}
+
+/* ---- The list ---- */
+.c-audit__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ---- One event ---- */
+.c-log-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-left: 6px solid var(--tone);
+  padding: 1rem;
+  transition: box-shadow var(--speed) ease;
+}
+
+.c-log-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 640px) {
+  .c-log-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.c-log-card__actor {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .c-log-card__actor {
+    width: 28%;
+    flex-shrink: 0;
+  }
+}
+
+/* 40px, the role's colour behind dark initials */
+.c-log-card__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: color-mix(in srgb, var(--tone) 24%, transparent);
+  box-shadow: inset 0 2px 4px color-mix(in srgb, var(--midnight) 6%, transparent);
+  color: var(--midnight);
+}
+
+.c-log-card__who {
+  min-width: 0;
+}
+
+/* The person's ID on the role's tint (14px bold, 29px high; a long ID is cut at the box's edge) */
+.c-log-card__id {
+  display: inline-flex;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.6rem;
+  background: color-mix(in srgb, var(--tone) 15%, transparent);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--midnight);
+}
+
+.c-log-card__role {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--tone-text);
+}
+
+/* Action · details · date and time: three columns from 640px */
+.c-log-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .c-log-card__body {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* Every action tag the same width, its words centred */
+.c-log-card__action {
+  width: 140px;
+  text-align: center;
+}
+
+.c-log-card__details {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+@media (min-width: 640px) {
+  .c-log-card__time {
+    text-align: right;
+  }
+}
+
+.c-log-card__date {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.c-log-card__clock {
+  margin: 0.125rem 0 0;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.625rem;
+  color: var(--text-hint);
+}
+
+/* ---- The role colours (config/audit.php 'tones'): the edge, the tints, and the role's words ---- */
+.c-log-card--moss {
+  --tone: var(--moss);
+  --tone-text: var(--moss);
+}
+
+.c-log-card--maroon {
+  --tone: var(--maroon);
+  --tone-text: var(--maroon);
+}
+
+.c-log-card--sunshine {
+  --tone: var(--sunshine);
+  --tone-text: var(--sunshine);
+}
+
+.c-log-card--terracotta {
+  --tone: var(--terracotta);
+  --tone-text: var(--terracotta);
+}
+
+/* Sky is too light for words: they are teal */
+.c-log-card--sky {
+  --tone: var(--skyblue);
+  --tone-text: var(--teal);
+}
+
+.c-log-card--bronze {
+  --tone: var(--bronze);
+  --tone-text: var(--bronze);
+}

@@ -1,0 +1,210 @@
+/* =========================================================================
+   CURRICULUM CARD (components/_curriculum_card.php): one curriculum stage, or the page's one stage editor.
+   'card'   the range, its description, "6 SUBJECTS" (c-tag), ✎ and the bin (c-btn--icon), the subjects (c-chip)
+            in five tints that repeat
+   'editor' the same card with a dashed sky edge: from / to pickers, description, subjects as chips with ×, Cancel / Save
+   The cards sit two by two: css/layout/grade-grid.css (.l-stage-grid).
+   ========================================================================= */
+
+.c-curriculum-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--speed) ease;
+}
+
+.c-curriculum-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.c-curriculum-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.c-curriculum-card__range {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-curriculum-card__desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-curriculum-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.c-curriculum-card__count {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+/* ✎ and the bin in the card's maroon */
+.c-curriculum-card__icon {
+  color: color-mix(in srgb, var(--maroon) 65%, transparent);
+}
+
+.c-curriculum-card__icon:hover {
+  background: color-mix(in srgb, var(--cherry) 25%, transparent);
+  color: var(--maroon);
+}
+
+.c-curriculum-card__subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.c-curriculum-card__subject {
+  border-radius: var(--radius-lg);
+  padding: 0.35rem 0.65rem;
+  color: var(--midnight);
+}
+
+.c-curriculum-card__subject--0 {
+  background: color-mix(in srgb, var(--skyblue) 25%, transparent);
+}
+
+.c-curriculum-card__subject--1 {
+  background: color-mix(in srgb, var(--sunshine) 20%, transparent);
+}
+
+.c-curriculum-card__subject--2 {
+  background: color-mix(in srgb, var(--cherry) 35%, transparent);
+}
+
+.c-curriculum-card__subject--3 {
+  background: color-mix(in srgb, var(--moss) 15%, transparent);
+}
+
+.c-curriculum-card__subject--4 {
+  background: color-mix(in srgb, var(--sand) 45%, transparent);
+}
+
+/* -------------------------------------------------------------------------
+   The editor
+   ------------------------------------------------------------------------- */
+.c-curriculum-card--editor {
+  gap: 0.75rem;
+  border: 2px dashed var(--skyblue);
+  background: var(--ivory);
+}
+
+.c-curriculum-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.c-curriculum-card__range-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.c-curriculum-card__range-pick {
+  display: flex;
+  flex: 1 1 6.25rem;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.c-curriculum-card__small {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+}
+
+/* "Grades 6–9" as the two pickers say it, level with the middle of the pickers */
+.c-curriculum-card__range-label {
+  margin-bottom: 0.625rem;
+  background: color-mix(in srgb, var(--skyblue) 22%, transparent);
+  color: var(--midnight);
+}
+
+.c-curriculum-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+/* A subject in the editor: cherry, with its × */
+.c-curriculum-card__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--maroon) 12%, transparent);
+  background: color-mix(in srgb, var(--cherry) 30%, transparent);
+  padding: 0.3rem 0.55rem;
+  color: var(--midnight);
+}
+
+/* The name is a box you can type in (a rename keeps the subject's teachers and marks); it looks like the chip's text.
+   academic.js sets its size= to the name's length, so the chip is as wide as its name */
+.c-curriculum-card__chip-name {
+  min-width: 1ch;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.c-curriculum-card__chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  padding: 2px;
+  color: var(--maroon);
+  transition: background-color var(--speed) ease, transform var(--speed) ease;
+}
+
+.c-curriculum-card__chip-remove:hover {
+  background: color-mix(in srgb, var(--maroon) 15%, transparent);
+  transform: scale(1.15);
+}
+
+.c-curriculum-card__add {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.c-curriculum-card__add .c-field__input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.c-curriculum-card__add-btn {
+  background: color-mix(in srgb, var(--cherry) 50%, transparent);
+  color: var(--maroon);
+}
+
+.c-curriculum-card__add-btn:hover {
+  background: color-mix(in srgb, var(--cherry) 70%, transparent);
+}
+
+.c-curriculum-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border-top: 1px solid var(--alabaster);
+  padding-top: 0.75rem;
+}

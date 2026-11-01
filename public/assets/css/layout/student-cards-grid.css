@@ -1,0 +1,76 @@
+/* =========================================================================
+   STUDENT CARDS GRID: the teacher's student cards (teacher achievements, term marks)
+   .l-student-cards-bar   the search box on the left, the filter on the right (wraps on small screens)
+   .l-student-cards-back  the "‹ Back" link above one student's timeline
+   .l-student-cards-grid  1 column on phones, 2 from 640px, 4 from 1024px; the room above is for the photos that
+                          pop out of the first row's cards
+   --marks on the bar and the grid: term marks' own sizes (below)
+   ========================================================================= */
+
+.l-student-cards-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.l-student-cards-bar .c-search {
+  flex: 1 1 auto;
+  min-width: 18rem;
+  max-width: 28rem;
+}
+
+/* --marks (term marks): the Term filter at least 9.5rem wide; 16px to the cards */
+.l-student-cards-bar--marks {
+  margin-bottom: 1rem;
+}
+
+.l-student-cards-bar--marks .c-dropdown {
+  min-width: 9.5rem;
+}
+
+/* The bar's right side (term marks): the Term filter, the term's status tag and Publish Term in one row */
+.l-student-cards-bar__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* "‹ Back" above one student's timeline */
+.l-student-cards-back {
+  display: flex;
+  margin: 0 0 2.25rem;
+}
+
+.l-student-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem 1.5rem;
+  padding-top: 2.25rem;
+}
+
+.l-student-cards-grid[hidden] {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .l-student-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .l-student-cards-grid:not(.l-student-cards-grid--marks) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* --marks (term marks): 4 columns only from 1100px (the marks panel takes room beside them) */
+@media (min-width: 1100px) {
+  .l-student-cards-grid--marks {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

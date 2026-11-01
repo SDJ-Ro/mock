@@ -1,0 +1,67 @@
+/* =========================================================================
+   CLASS EDITOR (components/_grade_class_editor.php): section, places, class teacher, Save / Cancel in one row
+   on a pale cream band inside a grade card (stacked on narrow screens). Fields: form-field.css (--small).
+   ========================================================================= */
+
+.c-class-editor {
+  display: grid;
+  gap: 0.75rem;
+  background: color-mix(in srgb, var(--cream) 70%, transparent);
+  padding: 1rem 1.25rem;
+}
+
+/* At the end of a grade card it keeps the card's round bottom corners */
+.c-class-editor:last-child {
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+@media (min-width: 1024px) {
+  .c-class-editor {
+    grid-template-columns: minmax(0, 0.65fr) minmax(0, 0.5fr) minmax(0, 1.35fr) auto;
+    align-items: end;
+  }
+}
+
+.c-class-editor__field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* "6-" in front of the section box, so the full name shows while typing */
+.c-class-editor__section {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.c-class-editor__prefix {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.c-class-editor__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.c-class-editor__hint {
+  display: none;
+  font-size: 0.625rem;   /* 10px: the smallest size in the set */
+  color: var(--text-hint);
+}
+
+@media (min-width: 1280px) {
+  .c-class-editor__hint {
+    display: inline;
+  }
+}
+
+.c-class-editor__actions {
+  display: flex;
+  gap: 0.5rem;
+}

@@ -1,0 +1,156 @@
+/* =========================================================================
+   METRIC CARD (components/_metric_card.php)
+   One number card; its colour is .c-metric-card--{sand | maroon | sunshine | lightblue | moss}.
+   How the cards line up on a page: css/layout/metric-cards-grid.css
+   ========================================================================= */
+
+.c-metric-card {
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: c-fade-up 420ms ease forwards;
+  transition: box-shadow var(--speed) ease;
+}
+
+/* The cards fade in one after another (up to 5 in a row) */
+.c-metric-card:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.c-metric-card:nth-child(3) {
+  animation-delay: 100ms;
+}
+
+.c-metric-card:nth-child(4) {
+  animation-delay: 150ms;
+}
+
+.c-metric-card:nth-child(5) {
+  animation-delay: 200ms;
+}
+
+.c-metric-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* "Reduce motion" turned on in the computer's settings: no fade, the cards are simply there */
+@media (prefers-reduced-motion: reduce) {
+  .c-metric-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* ---- Colours ---- */
+.c-metric-card--sand {
+  background: var(--sand);
+  color: var(--midnight);
+}
+
+.c-metric-card--maroon {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.c-metric-card--sunshine {
+  background: var(--sunshine);
+  color: var(--white);
+}
+
+.c-metric-card--lightblue {
+  background: var(--lightblue);
+  color: var(--midnight);
+}
+
+.c-metric-card--moss {
+  background: var(--moss);
+  color: var(--white);
+}
+
+/* ---- Inside the card ---- */
+.c-metric-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.c-metric-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: var(--radius-lg);
+}
+
+/* Light cards get a stronger white behind the icon than dark cards */
+.c-metric-card--sand .c-metric-card__icon,
+.c-metric-card--lightblue .c-metric-card__icon {
+  background: color-mix(in srgb, var(--white) 45%, transparent);
+}
+
+.c-metric-card--maroon .c-metric-card__icon,
+.c-metric-card--sunshine .c-metric-card__icon,
+.c-metric-card--moss .c-metric-card__icon {
+  background: color-mix(in srgb, var(--white) 22%, transparent);
+}
+
+.c-metric-card__icon .c-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.c-metric-card__value {
+  margin: 0 0 0.25rem;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* The label (label.css) in the card's own text colour (white or midnight, by tone) */
+.c-metric-card__label {
+  margin: 0;
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* =========================================================================
+   --tab: the card is a link that filters the page (Parent → Approvals). White with a thin border; the chosen one
+   has its colour class (above). 20px inside, a 24px number.
+   ========================================================================= */
+.c-metric-card--tab {
+  display: block;
+  border: 1px solid transparent;
+  padding: 1.25rem;
+  text-decoration: none;
+  transition: box-shadow var(--speed) ease, border-color var(--speed) ease;
+}
+
+/* Not chosen: white (the chosen one keeps its colour class's background) */
+.c-metric-card--tab:not([aria-current]) {
+  border-color: var(--line-faint);
+  background: var(--white);
+  color: var(--midnight);
+}
+
+.c-metric-card--tab:not([aria-current]):hover {
+  border-color: var(--line-strong);
+}
+
+.c-metric-card--tab:not([aria-current]) .c-metric-card__icon {
+  background: var(--alabaster);
+}
+
+.c-metric-card--tab .c-metric-card__value {
+  margin-bottom: 0.125rem;
+  font-size: 1.5rem;
+  line-height: normal;
+}
+
+.c-metric-card--tab:not([aria-current]) .c-metric-card__label {
+  opacity: 0.65;
+}

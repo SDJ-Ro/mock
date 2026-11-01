@@ -1,0 +1,256 @@
+/* =========================================================================
+   MARKS PANEL (components/_term_marks_panel.php): one student's marks on the teacher's Term Marks page.
+   --slate · --steel · --taupe · --sand · --seafoam · --sage   a light tint of the student's card colour; the banner
+   in the card colour itself. It slides in from the right (not when the computer asks for less motion).
+   With one subject chosen in the filter, its row fills the width (the others are hidden).
+   Shared pieces: the boxes (form-field.css), ×, Cancel and Submit (button.css), "Marks updated" (banner.css).
+   ========================================================================= */
+
+.c-marks-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius-xl);
+  padding: 0.875rem 1.125rem 1rem;
+  background: var(--panel-tint);
+  box-shadow: var(--shadow-sm);
+  animation: c-marks-panel-in 240ms var(--ease-out);
+}
+
+.c-marks-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.c-marks-panel::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-full);
+  background: var(--line-strong);
+}
+
+@keyframes c-marks-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.c-marks-panel--slate {
+  --card-tone: var(--card-slate);
+  --panel-tint: var(--card-slate-tint);
+  --panel-line: var(--card-slate-line);
+}
+
+.c-marks-panel--steel {
+  --card-tone: var(--card-steel);
+  --panel-tint: var(--card-steel-tint);
+  --panel-line: var(--card-steel-line);
+}
+
+.c-marks-panel--taupe {
+  --card-tone: var(--card-taupe);
+  --panel-tint: var(--card-taupe-tint);
+  --panel-line: var(--card-taupe-line);
+}
+
+.c-marks-panel--sand {
+  --card-tone: var(--card-sand);
+  --panel-tint: var(--card-sand-tint);
+  --panel-line: var(--card-sand-line);
+}
+
+.c-marks-panel--seafoam {
+  --card-tone: var(--card-seafoam);
+  --panel-tint: var(--card-seafoam-tint);
+  --panel-line: var(--card-seafoam-line);
+}
+
+.c-marks-panel--sage {
+  --card-tone: var(--card-sage);
+  --panel-tint: var(--card-sage-tint);
+  --panel-line: var(--card-sage-line);
+}
+
+/* ---- × ---- */
+.c-marks-panel__top {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  margin-bottom: -0.15rem;
+}
+
+/* ---- The student: photo (or initials), name, ID • class ---- */
+.c-marks-panel__student {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.875rem;
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1rem;
+  background: var(--card-tone);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+/* The circle is c-avatar --medium (avatar.css); here only its see-through look on the panel's tint */
+.c-marks-panel__avatar {
+  border: 2px solid color-mix(in srgb, var(--white) 80%, transparent);
+  background: color-mix(in srgb, var(--white) 25%, transparent);
+  letter-spacing: 0.04em;
+}
+
+.c-marks-panel__who {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-marks-panel__name {
+  margin: 0 0 0.12rem;
+  overflow: hidden;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-marks-panel__sub {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--white) 88%, transparent);
+}
+
+.c-marks-panel__dot {
+  opacity: 0.6;
+}
+
+/* ---- The form ---- */
+.c-marks-panel__form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-height: 0;
+}
+
+.c-marks-panel__filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--line-faint);
+  padding-bottom: 0.15rem;
+}
+
+/* The subjects: two columns; one column when the filter hides the others */
+.c-marks-panel__grid {
+  display: grid;
+  flex-shrink: 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.c-marks-panel__grid:has(> [hidden]) {
+  grid-template-columns: 1fr;
+}
+
+.c-marks-panel__mark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0.625rem;
+  background: color-mix(in srgb, var(--white) 60%, transparent);
+  transition: border-color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-marks-panel__mark:hover {
+  border-color: var(--line-strong);
+  background: color-mix(in srgb, var(--white) 90%, transparent);
+}
+
+.c-marks-panel__subject {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A mark (0–100 or AB): the small field (form-field.css), narrow, centred */
+.c-marks-panel__input {
+  flex-shrink: 0;
+  width: 3.5rem;
+  border-color: var(--line-strong);
+  background: color-mix(in srgb, var(--white) 85%, transparent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.c-marks-panel__input:hover,
+.c-marks-panel__input:focus {
+  border-color: var(--skyblue);
+  background: var(--white);
+}
+
+/* ---- Feedback: fills the space down to the buttons ---- */
+.c-marks-panel__feedback {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 0;
+  margin-top: 0.35rem;
+}
+
+/* The feedback box: the normal field (form-field.css), filling the space down to the buttons */
+.c-marks-panel__textarea {
+  flex: 1;
+  min-height: 4.5rem;
+  border-color: var(--line-strong);
+  background: color-mix(in srgb, var(--white) 85%, transparent);
+  font-weight: 500;
+  line-height: 1.5;
+  resize: none;
+}
+
+.c-marks-panel__textarea::placeholder {
+  color: var(--text-hint);
+}
+
+.c-marks-panel__textarea:focus {
+  background: var(--white);
+}
+
+/* ---- Cancel · Submit (c-btn pills) ---- */
+.c-marks-panel__actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-marks-panel {
+    animation: none;
+  }
+}

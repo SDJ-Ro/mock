@@ -1,0 +1,169 @@
+/* =========================================================================
+   PROFILE HERO (components/_profile_hero.php): the role-coloured band at the top of a profile.
+   <div class="c-profile-hero c-profile-hero--teacher"> photo · eyebrow · name · portal line · badges · Edit button
+   One colour per role (--admin, --student, --parent, --management, --teacher), with a soft light in the top-right corner
+   and a glow underneath in the role's colour (--hero-glow).
+   ========================================================================= */
+
+.c-profile-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 8.5rem;
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--hero-glow) 30%, transparent);   /* a glow in the role's colour */
+}
+
+/* The corner light (its colour per role below) */
+.c-profile-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top right, var(--hero-light) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.c-profile-hero--admin {
+  --hero-light: color-mix(in srgb, var(--skyblue) 32%, transparent);
+  --hero-glow: var(--midnight);
+  background: linear-gradient(135deg, var(--midnight) 0%, var(--pine) 100%);
+}
+
+.c-profile-hero--student {
+  --hero-light: color-mix(in srgb, var(--white) 20%, transparent);
+  --hero-glow: var(--lagoon);
+  background: linear-gradient(135deg, var(--lagoon) 0%, var(--harbour) 100%);
+}
+
+.c-profile-hero--parent {
+  --hero-light: color-mix(in srgb, var(--white) 22%, transparent);
+  --hero-glow: var(--terracotta);
+  background: linear-gradient(135deg, var(--terracotta) 0%, var(--rust) 100%);
+}
+
+.c-profile-hero--management {
+  --hero-light: color-mix(in srgb, var(--white) 22%, transparent);
+  --hero-glow: var(--maroon);
+  background: linear-gradient(135deg, var(--maroon) 0%, var(--oxblood) 100%);
+}
+
+.c-profile-hero--teacher {
+  --hero-light: color-mix(in srgb, var(--white) 24%, transparent);
+  --hero-glow: var(--sunshine);
+  background: linear-gradient(135deg, var(--sunshine) 0%, var(--amber) 100%);
+}
+
+/* The photo, and while editing a small round button on its corner to change it (My Profile) */
+.c-profile-hero__photo {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.c-profile-hero__photo-form {
+  display: none;
+  margin: 0;
+}
+
+[data-editing="true"] .c-profile-hero__photo-form {
+  display: block;
+}
+
+.c-profile-hero__photo-button {
+  position: absolute;
+  right: -0.125rem;
+  bottom: -0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  color: var(--midnight);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+
+.c-profile-hero__photo-button:has(:focus-visible) {
+  box-shadow: var(--ring);
+}
+
+.c-profile-hero__avatar {
+  display: block;
+  width: 5.25rem;
+  height: 5.25rem;
+  border: 3.5px solid color-mix(in srgb, var(--white) 40%, transparent);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+}
+
+.c-profile-hero__body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.c-profile-hero__eyebrow {
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+
+.c-profile-hero__name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+}
+
+.c-profile-hero__sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--white) 80%, transparent);
+}
+
+.c-profile-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* The ID tag (tag.css) in the hero's white glass; --status is the ACTIVE one (the same for every role) */
+.c-profile-hero__badge {
+  border: 1px solid color-mix(in srgb, var(--white) 28%, transparent);
+  background: color-mix(in srgb, var(--white) 18%, transparent);
+  color: var(--white);
+}
+
+.c-profile-hero__badge--status {
+  border-color: color-mix(in srgb, var(--white) 38%, transparent);
+  background: color-mix(in srgb, var(--white) 24%, transparent);
+}
+
+/* Edit Profile: the glass button (button.css) with a white border, above the corner light; pressed (while
+   editing) it says Cancel, turns sky and drops its pencil */
+.c-profile-hero__edit-btn {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--white) 30%, transparent);
+  color: var(--white);
+}
+
+.c-profile-hero__edit-btn[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--skyblue) 60%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 35%, transparent);
+}
+
+.c-profile-hero__edit-btn[aria-pressed="true"] .c-icon {
+  display: none;
+}

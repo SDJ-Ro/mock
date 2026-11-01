@@ -1,0 +1,12 @@
+/* =========================================================================
+   CHILD PROFILE: how the parent's Child profile lines up — the child's header and the tabs, 20px apart and 20px
+   above the chosen tab. The tab's own pieces keep the spacing they have on the student's pages (their
+   own margins), so the tab's content is not spaced again here. Only the arrangement; the looks are each piece's CSS.
+   ========================================================================= */
+
+.l-child-profile__top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}

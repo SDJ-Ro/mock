@@ -1,0 +1,136 @@
+/* =========================================================================
+   PEOPLE TABLE (components/_people_table.php): one row per person. The header row is tinted in the role's colour
+   (--sky / --sunshine / --terracotta / --maroon); a wide table scrolls sideways inside the card.
+   Avatars: avatar.css · tags: tag.css (--soft) · status dropdown: dropdown.css ('status') · View / Edit: button.css
+   (--icon: icons only, owner 2026-10-27).
+   ========================================================================= */
+
+.c-people-table-wrap {
+  overflow-x: auto;
+}
+
+.c-people-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.c-people-table th {
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.c-people-table--sky thead tr {
+  background: color-mix(in srgb, var(--skyblue) 20%, transparent);
+}
+
+.c-people-table--sunshine thead tr {
+  background: color-mix(in srgb, var(--sunshine) 20%, transparent);
+}
+
+.c-people-table--terracotta thead tr {
+  background: color-mix(in srgb, var(--terracotta) 15%, transparent);
+}
+
+.c-people-table--maroon thead tr {
+  background: color-mix(in srgb, var(--maroon) 10%, transparent);
+}
+
+.c-people-table td {
+  border-top: 1px solid var(--alabaster);
+  padding: 0.875rem 1.25rem;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--midnight);
+}
+
+.c-people-table tbody tr {
+  transition: background-color var(--speed) ease;
+}
+
+.c-people-table tbody tr:hover {
+  background: var(--wash);
+}
+
+/* The last column (View / Edit) on the right */
+.c-people-table th:last-child {
+  text-align: right;
+}
+
+/* ---- Cells ---- */
+.c-people-table__person {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.c-people-table__name {
+  font-weight: 600;
+  white-space: nowrap;   /* a name stays on one line */
+}
+
+
+.c-people-table__sub {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+/* (two classes: they must win over the general ".c-people-table td" size) */
+.c-people-table .c-people-table__code {
+  white-space: nowrap;
+}
+
+.c-people-table .c-people-table__code,
+.c-people-table .c-people-table__contact {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.c-people-table__contact p {
+  margin: 0;
+  white-space: nowrap;   /* a long email stays beside its icon */
+}
+
+.c-people-table__contact p + p {
+  margin-top: 0.25rem;
+}
+
+.c-people-table__contact .c-icon {
+  margin-right: 0.375rem;
+  vertical-align: -2px;
+}
+
+.c-people-table__none {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-hint);
+}
+
+.c-people-table__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+/* A parent's child, in the sunshine tint */
+.c-people-table__child {
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--sunshine) 20%, transparent);
+  color: var(--sunshine);
+}
+
+.c-people-table .c-dropdown--status {
+  width: 9rem;
+}
+
+.c-people-table__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}

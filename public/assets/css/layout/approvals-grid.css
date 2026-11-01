@@ -1,0 +1,27 @@
+/* =========================================================================
+   APPROVALS GRID (Parent → Approvals): the line under the number cards, then the request cards, one column on a
+   phone and two side by side from 768px. Only the arrangement; the cards' look is approval-card.css.
+   ========================================================================= */
+
+/* Everything under the page header */
+.l-approvals {
+  margin-top: 3.25rem;   /* joins the page header's 28px margin (the larger one wins): 52px */
+}
+
+/* 28px above (the cards row's 24px + 4px; padding, because margins would merge into the 24px) and 28px below */
+.l-approvals-summary {
+  margin: 0 0 1.75rem;
+  padding-top: 0.25rem;
+}
+
+.l-approvals-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .l-approvals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

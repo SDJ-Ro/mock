@@ -1,0 +1,100 @@
+/* =========================================================================
+   TERM MARKS GRID: the page header and search bar stay put; only the student cards scroll. When a student's marks
+   panel is open (--open), the cards take 3 parts and the panel 2, and the cards go to 2 columns.
+   Only the arrangement; the cards are student-card.css, the panel term-marks-panel.css.
+   <div class="l-term-marks [l-term-marks--open]"> page header · bar ·
+     <div class="l-term-marks__workspace"> <div class="l-term-marks__cards"> the card grid </div>
+                                           <div class="l-term-marks__side"> the panels </div> </div> </div>
+   Below 960px nothing is pinned: the page scrolls and the panel goes under the cards.
+   ========================================================================= */
+
+.l-term-marks {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 3.25rem);   /* the window minus the page's top (2rem) and a smaller bottom (1.25rem) */
+  margin-bottom: -0.75rem;         /* the page's own bottom space is 2rem; here it is 1.25rem */
+}
+
+.l-term-marks__workspace {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 2rem;
+  min-height: 0;
+}
+
+/* The cards: the only part that scrolls (a thin scrollbar) */
+.l-term-marks__cards {
+  flex: 1 1 100%;
+  min-width: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 0.75rem 2.5rem 0;
+}
+
+.l-term-marks__cards::-webkit-scrollbar {
+  width: 6px;
+}
+
+.l-term-marks__cards::-webkit-scrollbar-track {
+  border-radius: var(--radius-full);
+  background: var(--wash);
+}
+
+.l-term-marks__cards::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-full);
+  background: var(--line-strong);
+}
+
+/* The panel's column: level with the top of the cards (under their photos), down to the bottom */
+.l-term-marks__side {
+  display: none;
+  min-height: 0;
+  margin-top: 2.25rem;
+}
+
+/* ---- A panel is open: 3 : 2, the cards in 2 columns ---- */
+.l-term-marks--open .l-term-marks__workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+
+.l-term-marks--open .l-term-marks__cards {
+  padding-bottom: 2rem;
+}
+
+.l-term-marks--open .l-term-marks__side {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .l-term-marks--open .l-student-cards-grid--marks {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.25rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .l-term-marks {
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .l-term-marks__workspace,
+  .l-term-marks--open .l-term-marks__workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .l-term-marks__cards {
+    height: auto;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .l-term-marks__side {
+    margin-top: 1.5rem;
+  }
+}

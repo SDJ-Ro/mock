@@ -1,0 +1,139 @@
+/* =========================================================================
+   TAGS: a small capital word on a tinted background — <span class="c-tag c-tag--sky">Students</span>
+   One size for every tag (owner, 2026-10-22: the same kind of thing looks the same): 10px · 700 · capitals · 0.08em.
+   Shape: square corners, --round (a pill: "3 EVENTS", an achievement's group) or --soft (10px: People's tags).
+   Tones: linen · sky · sunshine · terracotta · maroon · moss · flame · sand · cherry · grey · ink · rose · fern · violet · oat · seaglass
+   A component may give a tag its own colours (the profile hero's ID, the calendar's category): c-tag + its class.
+   ========================================================================= */
+
+.c-tag {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  padding: 0.2rem 0.55rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.c-tag--round {
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.625rem;
+  white-space: nowrap;
+}
+
+/* --soft: 10px corners (People's activity, subject and class tags) */
+.c-tag--soft {
+  border-radius: var(--radius-lg);
+}
+
+/* ---- Tones ---- */
+.c-tag--linen {
+  background: var(--alabaster);
+  color: var(--text-soft);
+}
+
+.c-tag--sky {
+  background: color-mix(in srgb, var(--skyblue) 22%, transparent);
+  color: var(--midnight);
+}
+
+.c-tag--sunshine {
+  background: color-mix(in srgb, var(--sunshine) 20%, transparent);
+  color: var(--midnight);
+}
+
+.c-tag--terracotta {
+  background: color-mix(in srgb, var(--terracotta) 16%, transparent);
+  color: var(--terracotta);
+}
+
+.c-tag--maroon {
+  background: color-mix(in srgb, var(--maroon) 12%, transparent);
+  color: var(--maroon);
+}
+
+/* Moss: an account that is active (People's profile) */
+.c-tag--moss {
+  background: color-mix(in srgb, var(--moss) 15%, transparent);
+  color: var(--moss);
+}
+
+/* Flame: still open / in progress (an inquiry's "In Progress") */
+.c-tag--flame {
+  background: color-mix(in srgb, var(--flameorange) 12%, transparent);
+  color: var(--flameorange);
+}
+
+.c-tag--sand {
+  background: color-mix(in srgb, var(--sand) 45%, transparent);
+  color: var(--midnight);
+}
+
+.c-tag--cherry {
+  background: var(--cherry);
+  color: var(--maroon);
+}
+
+.c-tag--grey {
+  background: var(--wash-strong);
+  color: var(--midnight);
+}
+
+/* The achievement groups (Academic, Sports, Clubs, Leadership) */
+.c-tag--ink {
+  background: var(--frost);
+  color: var(--ink);
+}
+
+.c-tag--rose {
+  background: var(--rose);
+  color: var(--maroon);
+}
+
+.c-tag--fern {
+  background: var(--fern-soft);
+  color: var(--fern);
+}
+
+.c-tag--violet {
+  background: var(--violet-soft);
+  color: var(--violet);
+}
+
+/* The Record pop-up's student type (CLASS) and a student's FINALISED */
+.c-tag--oat {
+  background: var(--alabaster);
+  color: var(--midnight);
+}
+
+.c-tag--seaglass {
+  background: var(--seaglass);
+  color: var(--tidewater);
+}
+
+/* =========================================================================
+   CHIPS: a short name in normal letters on a tint — "Grade 10 · 10-A", a chosen option in a multi-select.
+   A tag shouts a category in capitals; a chip names one thing. 12px · 600. --round = a pill.
+   Colours come from where it sits (the dropdown's sky, the calendar's sunshine): c-chip + its own class.
+   ========================================================================= */
+
+.c-chip {
+  display: inline-block;
+  flex-shrink: 0;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  padding: 0.1875rem 0.4375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c-chip--round {
+  border-radius: var(--radius-full);
+  padding: 0.125rem 0.5rem;
+}

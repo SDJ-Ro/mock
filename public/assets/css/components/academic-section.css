@@ -1,0 +1,299 @@
+/* =========================================================================
+   ACADEMIC SECTION (components/_academic_section.php): the cards next to the record book —
+   the green total marks card and the Performance Trend card (one grade's bar chart at a time, ‹ › and dots).
+   Both fade up when the page opens (not when the computer asks for less motion).
+   ========================================================================= */
+
+/* ---- Total marks ---- */
+.c-total-marks {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--moss) 15%, transparent);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, var(--sprout), var(--sprout-soft));
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  animation: c-fade-up 400ms ease forwards;
+}
+
+.c-total-marks__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--white) 70%, transparent);
+  color: var(--leaf);
+}
+
+.c-total-marks__label {
+  margin: 0 0 0.5rem;
+  color: var(--lichen);
+}
+
+.c-total-marks__value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--forest);
+}
+
+.c-total-marks__out-of {
+  font-size: 1.125rem;
+  color: var(--willow);
+}
+
+.c-total-marks__line {
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--lichen);
+}
+
+.c-total-marks__value + .c-total-marks__line {
+  margin-top: 0.75rem;
+}
+
+.c-total-marks__line strong {
+  font-weight: 700;
+  color: var(--forest);
+}
+
+/* ---- Performance Trend ---- */
+/* The white card itself: c-card (panel.css) */
+.c-trend {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  opacity: 0;
+  animation: c-fade-up 400ms ease 100ms forwards;
+}
+
+.c-trend__title {
+  margin-bottom: 4px;
+}
+
+.c-trend__sub {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-trend__carousel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+/* ‹ › */
+.c-trend__nav {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-full);
+  padding: 0;
+  background: var(--white);
+  color: var(--midnight);
+  transition: border-color var(--speed) ease, background-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-trend__nav:hover:not(:disabled) {
+  border-color: var(--midnight);
+  background: var(--cream);
+  box-shadow: var(--shadow-sm);
+}
+
+/* One grade's chart (the record book's grade: --current) */
+.c-trend__card {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px 10px;
+  background: var(--white);
+  text-align: left;
+  color: var(--midnight);
+  transition: border-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-trend__card:hover {
+  border-color: var(--midnight);
+  box-shadow: var(--shadow-md);
+}
+
+.c-trend__card--current {
+  border-color: var(--midnight);
+  background: var(--ivory);
+}
+
+.c-trend__card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.c-trend__card-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.c-trend__card-average {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.c-trend__chart {
+  display: block;
+  width: 100%;
+  height: 165px;
+}
+
+/* The chart's text is in the SVG's own units: it stretches with the chart (8.5 shows ~11px), so these sizes are
+   not page sizes */
+.c-trend__tick {
+  font-size: 8.5px;   /* svg units */
+  fill: var(--chart-tick);
+}
+
+.c-trend__axis {
+  stroke: var(--khaki);
+  stroke-width: 1.25;
+}
+
+.c-trend__axis-title {
+  font-size: 8.5px;   /* svg units */
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  fill: var(--moss);
+}
+
+.c-trend__term {
+  font-size: 9px;   /* svg units */
+  font-weight: 600;
+  fill: var(--chart-label);
+}
+
+.c-trend__bar {
+  cursor: pointer;
+  transition: opacity var(--speed) ease;
+}
+
+.c-trend__bar--mine {
+  fill: var(--maroon);
+}
+
+.c-trend__bar--grade {
+  fill: var(--skyblue);
+}
+
+/* The dots under the chart (the grade shown: aria-pressed="true") */
+.c-trend__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+}
+
+.c-trend__dot {
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0;
+  background: var(--alabaster);
+  transition: background-color var(--speed) ease, transform var(--speed) ease;
+}
+
+.c-trend__dot:hover {
+  background: var(--khaki);
+}
+
+.c-trend__dot[aria-pressed="true"] {
+  background: var(--midnight);
+  transform: scale(1.25);
+}
+
+/* My Average · Grade Average */
+.c-trend__legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.c-trend__key {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.c-trend__key::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-xs);
+}
+
+.c-trend__key--mine::before {
+  background: var(--maroon);
+}
+
+.c-trend__key--grade::before {
+  background: var(--skyblue);
+}
+
+/* The bar's tooltip, centred above the mouse (academic-section.js places it) */
+.c-trend__tooltip {
+  position: fixed;
+  z-index: var(--z-menu);
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 8px 12px;
+  background: var(--white);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: var(--midnight);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  transform: translate(-50%, -115%);
+}
+
+.c-trend__tooltip-mine {
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.c-trend__tooltip-grade {
+  font-weight: 700;
+  color: var(--skyblue-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-total-marks,
+  .c-trend {
+    opacity: 1;
+    animation: none;
+  }
+}

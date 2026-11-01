@@ -1,0 +1,80 @@
+/* =========================================================================
+   IMAGE PICKER (components/_image_picker.php): a picture from the computer with its preview (image-picker.js).
+   --box: a dashed sand box you click (Edit Programme, a team's cover) · --row: a preview + button + hint (an
+   achievement's cover)
+   ========================================================================= */
+
+.c-image-picker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.c-image-picker__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.c-image-picker__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* No picture yet: --box says "Upload Cover Photo" (a c-label), --row "No cover photo selected" */
+.c-image-picker__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ---- Box: the whole dashed box is the button ---- */
+.c-image-picker--box .c-image-picker__preview {
+  width: 100%;
+  height: 7.5rem;
+  border: 2px dashed var(--line-strong);
+  background: color-mix(in srgb, var(--sand) 12%, transparent);
+  transition: border-color var(--speed) ease;
+}
+
+.c-image-picker--box:hover .c-image-picker__preview {
+  border-color: var(--sand);
+}
+
+/* ---- Row: a 220 × 130 preview beside the button ---- */
+.c-image-picker--row {
+  flex-wrap: wrap;
+}
+
+.c-image-picker--row .c-image-picker__preview {
+  width: 220px;
+  height: 130px;
+  border: 1px solid var(--alabaster);
+  background: var(--ivory);
+}
+
+.c-image-picker--row .c-image-picker__empty {
+  font-size: 0.75rem;
+  color: var(--text-hint);
+}
+
+.c-image-picker__side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.c-image-picker__button {
+  align-self: flex-start;
+}
+
+.c-image-picker__hint {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}

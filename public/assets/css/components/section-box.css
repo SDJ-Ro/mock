@@ -1,0 +1,75 @@
+/* =========================================================================
+   SECTION BOX (components/_section_box.php): a tinted header (icon, title, one button) over a cream body.
+   Tones: sky (Academic's grades and classes) · cherry (its curriculum). The white card itself is c-card and the
+   title the card title (both panel.css).
+   ========================================================================= */
+
+.c-section-box__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 1.25rem;
+}
+
+.c-section-box__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.c-section-box__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--white) 40%, transparent);
+}
+
+.c-section-box__body {
+  border-top: 1px solid var(--line-faint);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background: var(--cream);
+  padding: 1.25rem;
+}
+
+/* ---- Tones ---- */
+.c-section-box--sky .c-section-box__head {
+  border-bottom: 1px solid color-mix(in srgb, var(--skyblue) 50%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 75%, transparent);
+  color: var(--midnight);
+}
+
+.c-section-box--sky .c-section-box__button {
+  background: var(--skyblue);
+  color: var(--midnight);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-section-box--sky .c-section-box__button:hover {
+  background: var(--skyblue-deep);
+}
+
+.c-section-box--cherry .c-section-box__head {
+  border-bottom: 1px solid color-mix(in srgb, var(--cherry) 55%, transparent);
+  background: color-mix(in srgb, var(--cherry) 30%, transparent);
+}
+
+.c-section-box--cherry .c-section-box__icon {
+  color: var(--maroon);
+}
+
+.c-section-box--cherry .c-section-box__button {
+  border: 1px solid color-mix(in srgb, var(--maroon) 20%, transparent);
+  background: var(--white);
+  color: var(--maroon);
+}
+
+.c-section-box--cherry .c-section-box__button:hover {
+  border-color: var(--maroon);
+}

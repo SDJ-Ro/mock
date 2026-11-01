@@ -1,0 +1,25 @@
+/* =========================================================================
+   EVENTS + NOTICES GRID: "Upcoming Events" and "Unread Notices" side by side (students, parents)
+   Only the arrangement; their looks are upcoming-events.css and unread-notices.css.
+   One column on phones, two from tablets up.
+   ========================================================================= */
+
+.l-events-notices-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .l-events-notices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* only one of the two left (its module switched off): it takes the whole row. "Alone" = first, and nothing shown
+     after it ("Unread Notices" is followed by its pop-up <dialog>, which never sits in the row) */
+  .l-events-notices-grid > :first-child:not(:has(~ :not(template, dialog))) {
+    grid-column: 1 / -1;
+  }
+}

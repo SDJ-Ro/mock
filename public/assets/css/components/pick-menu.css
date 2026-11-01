@@ -1,0 +1,156 @@
+/* =========================================================================
+   PICK MENU (components/_pick_menu.php): a button that opens a short list of names (a <details>).
+   --change: a quiet "✎ Change" on a programme card; the list covers the card's photo (the card is its anchor)
+   --assign: the sky "Assign ▾" on an unassigned student; the list drops under the button
+   --child: the parent's "Amaya ▾" in the dark sidebar; the list opens under it, inside the sidebar
+   ========================================================================= */
+
+.c-pick-menu {
+  flex-shrink: 0;
+}
+
+.c-pick-menu__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.c-pick-menu__button::-webkit-details-marker {
+  display: none;
+}
+
+.c-pick-menu__list {
+  position: absolute;
+  z-index: var(--z-menu);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.c-pick-menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border: none;
+  background: none;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--midnight);
+  cursor: pointer;
+}
+
+/* ---- Change (a programme card's teacher in charge) ---- */
+.c-pick-menu--change {
+  margin-left: auto;
+}
+
+.c-pick-menu--change .c-pick-menu__button {
+  border-radius: var(--radius-md);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.c-pick-menu--change .c-pick-menu__button:hover,
+.c-pick-menu--change[open] .c-pick-menu__button {
+  background: var(--wash);
+  color: var(--midnight);
+}
+
+.c-pick-menu--change .c-pick-menu__list {
+  inset: 0.5rem 0.5rem auto;
+  gap: 0.375rem;
+  max-height: 9rem;
+  border-color: color-mix(in srgb, var(--skyblue) 60%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+}
+
+.c-pick-menu--change .c-pick-menu__option {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  background: var(--cream);
+}
+
+.c-pick-menu--change .c-pick-menu__option:hover,
+.c-pick-menu--change .c-pick-menu__option[aria-pressed="true"] {
+  border-color: var(--midnight);
+}
+
+/* ---- Assign (an unassigned student's team) ---- */
+.c-pick-menu--assign {
+  position: relative;
+}
+
+.c-pick-menu--assign .c-pick-menu__button {
+  border: 1px solid color-mix(in srgb, var(--skyblue) 60%, transparent);
+  border-radius: var(--radius-sm);
+  padding: 0.375rem 0.75rem;
+  background: var(--skyblue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.c-pick-menu--assign .c-pick-menu__button:hover {
+  background: var(--skyblue-deep);
+}
+
+.c-pick-menu--assign .c-pick-menu__list {
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 180px;
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0;
+}
+
+.c-pick-menu--assign .c-pick-menu__option {
+  padding: 0.5rem 0.875rem;
+}
+
+.c-pick-menu--assign .c-pick-menu__option:hover,
+.c-pick-menu--child .c-pick-menu__option:hover {
+  background: color-mix(in srgb, var(--skyblue) 15%, transparent);
+}
+
+/* ---- Child (the parent's sidebar: which child the portal shows; the list opens inside the sidebar, which clips) ---- */
+.c-pick-menu--child .c-pick-menu__button {
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--white) 15%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--white) 8%, transparent);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.c-pick-menu--child .c-pick-menu__button:hover {
+  background: color-mix(in srgb, var(--white) 14%, transparent);
+}
+
+.c-pick-menu--child .c-pick-menu__list {
+  position: static;
+  margin-top: 0.35rem;
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0;
+}
+
+.c-pick-menu--child .c-pick-menu__option {
+  padding: 0.5rem 0.875rem;
+}
+
+.c-pick-menu--child .c-pick-menu__option[aria-pressed="true"] {
+  background: var(--wash-strong);
+}

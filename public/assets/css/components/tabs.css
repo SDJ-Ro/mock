@@ -1,0 +1,147 @@
+/* =========================================================================
+   TABS: a white pill holding a few buttons; the chosen one is filled (notice board "My Notices / My Posts", people's
+   role tabs …). The chosen tab is the one with aria-selected="true" (the page's script sets it).
+   <div class="c-tabs" role="tablist"><button class="c-tabs__tab" role="tab" aria-selected="true">…</button>…</div>
+   Other looks are variants below (--roles, --grey, --wide, --sub).
+   ========================================================================= */
+
+.c-tabs {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.2rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.25rem;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-tabs__tab {
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.95rem;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--speed) ease, color var(--speed) ease;
+}
+
+.c-tabs__tab:hover {
+  background: color-mix(in srgb, var(--alabaster) 50%, transparent);
+  color: var(--midnight);
+}
+
+.c-tabs__tab[aria-selected="true"] {
+  background: var(--skyblue);
+  box-shadow: var(--shadow-md);
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+/* A tab can be a link that reloads the page with its choice (People) */
+a.c-tabs__tab {
+  text-decoration: none;
+}
+
+/* A number in a tab (Character Certificates: "Pending Review 12") */
+.c-tabs__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.25rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  padding: 0 0.45rem;
+  background: var(--wash);
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.c-tabs__tab[aria-selected="true"] .c-tabs__count {
+  background: color-mix(in srgb, var(--white) 45%, transparent);
+}
+
+/* --roles: People's role tabs (12px, 7.2 / 18.4 padding); the chosen one in its role's colour
+   (c-tabs__tab--{tone}, sky is the default above) */
+.c-tabs--roles {
+  gap: 0.35rem;
+  padding: 0.35rem 0.4rem;
+}
+
+.c-tabs--roles .c-tabs__tab {
+  padding: 0.45rem 1.15rem;
+  font-size: 0.75rem;
+}
+
+.c-tabs__tab--sunshine[aria-selected="true"] {
+  background: var(--sunshine);
+  color: var(--white);
+}
+
+.c-tabs__tab--terracotta[aria-selected="true"] {
+  background: var(--terracotta);
+  color: var(--white);
+}
+
+.c-tabs__tab--maroon[aria-selected="true"] {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+/* --grey: white-on-grey status tabs (People's All / Active / Deactivated): a grey well, the chosen one white */
+.c-tabs--grey {
+  gap: 0.125rem;
+  border-color: var(--line);
+  padding: 0.125rem;
+  background: var(--wash);
+  box-shadow: none;
+}
+
+.c-tabs--grey .c-tabs__tab {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.25;   /* a link would take the page's taller line (these stay 26px) */
+}
+
+.c-tabs--grey .c-tabs__tab[aria-selected="true"] {
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* --wide: a page's own tabs (the parent's Child profile): across the page, each tab an equal share, its name in the
+   middle */
+.c-tabs--wide {
+  display: flex;
+}
+
+.c-tabs--wide .c-tabs__tab {
+  flex: 1;
+  text-align: center;
+}
+
+/* --sub: tabs inside a pop-up (People's profile): a soft rounded well across the width, 10px tabs, the chosen white */
+.c-tabs--sub {
+  display: flex;
+  gap: 0.25rem;
+  border-radius: var(--radius-xl);
+  padding: 0.375rem;
+  background: color-mix(in srgb, var(--alabaster) 35%, transparent);
+  box-shadow: none;
+}
+
+.c-tabs--sub .c-tabs__tab {
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.c-tabs--sub .c-tabs__tab[aria-selected="true"] {
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}

@@ -1,0 +1,32 @@
+/* =========================================================================
+   TEACHER HANDOVER (components/_teacher_handover.php, in People's handover pop-up: pop-up.css --wide).
+   Everything else is the shared pop-up look (the body, the footer band, banner.css's warning, the fields and the
+   standard dropdown); this file only has the teacher's line (initials, name, subjects · code) and a duty's label
+   with its tag on the right (sky: their class · terracotta: a subject · moss: a club / sport).
+   ========================================================================= */
+
+.c-handover__who {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.c-handover__name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-handover__meta {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.c-handover__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}

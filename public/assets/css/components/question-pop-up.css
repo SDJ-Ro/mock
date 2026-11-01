@@ -1,0 +1,186 @@
+/* =========================================================================
+   "ARE YOU SURE?" POP-UP (components/_question_pop_up.php)
+   Only its own parts; the frame (backdrop, box, open / close) is pop-up.css, the buttons are button.css
+   (Cancel = c-btn--outline, the answer = c-btn--solid in the tone's colour).
+   Colour by tone (question-pop-up.js sets it): --danger maroon · --warning terracotta · --success moss
+   ========================================================================= */
+
+.c-pop-up--question {
+  max-width: 30rem;
+  padding: 2.25rem 2rem 2rem;
+  background: var(--white);
+}
+
+.c-question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* The round icon at the top */
+.c-question__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--radius-full);
+  background: var(--question-soft);
+  color: var(--question-color);
+}
+
+/* The look is the pop-up title's (pop-up.css); a long question wraps onto a second line */
+.c-question__title {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.c-question__text {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+/* askQuestion's extra (e.g. the grade / class choices) and its "can't be done" box (a banner, banner.css) */
+.c-question__extra:empty {
+  display: none;
+}
+
+.c-question__blocked {
+  width: 100%;
+  text-align: left;
+}
+
+/* A field inside the extra (e.g. a Reject's reason; form-field.css): the pop-up's full width, left-aligned */
+.c-question__extra:has(.c-question__field) {
+  width: 100%;
+}
+
+.c-question__field {
+  text-align: left;
+}
+
+/* Choices inside the extra: a small capital label over a row of pills (e.g. "All of Grade 6", "6-A", "6-B") */
+.c-question__choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.c-question__pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* One choice: a checkbox inside a pill — maroon when ticked, faded when it can't be chosen (its title says why) */
+.c-question__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  padding: 0.45rem 0.95rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--midnight);
+  cursor: pointer;
+  transition: background-color var(--speed) ease, border-color var(--speed) ease, transform var(--speed) ease;
+}
+
+.c-question__pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.c-question__pill:hover {
+  background: var(--ivory);
+  transform: translateY(-1px);
+}
+
+.c-question__pill:has(:checked) {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-question__pill:has(:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.c-question__pill:has(:focus-visible) {
+  box-shadow: var(--ring);
+}
+
+.c-question__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* The answer button: only its tone's colour (a border too, so it is as tall as Cancel) */
+.c-question__confirm {
+  min-width: 6.5rem;
+  border: 1px solid var(--question-color);
+  background: var(--question-color);
+}
+
+.c-question__confirm:hover {
+  background: var(--question-color);
+  filter: brightness(0.9);
+}
+
+/* The log-out button carries a small icon before its words (askQuestion's buttonIcon) */
+.c-question__confirm .c-icon {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---- Wide (askQuestion's wide: true — the log-out look): two equal buttons, a white Cancel ---- */
+.c-question--wide .c-question__icon {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.c-question--wide .c-btn {
+  flex: 1;
+}
+
+.c-question--wide .c-question__cancel {
+  background: var(--white);
+}
+
+.c-question--wide .c-question__cancel:hover {
+  background: var(--ivory);
+}
+
+/* ---- Tones: the icon circle and the main button ---- */
+.c-pop-up--question.c-question--danger {
+  --question-color: var(--danger);
+  --question-soft: color-mix(in srgb, var(--danger) 8%, transparent);
+}
+
+.c-pop-up--question.c-question--warning {
+  --question-color: var(--terracotta);
+  --question-soft: color-mix(in srgb, var(--terracotta) 12%, transparent);
+}
+
+.c-pop-up--question.c-question--success {
+  --question-color: var(--moss);
+  --question-soft: color-mix(in srgb, var(--moss) 12%, transparent);
+}

@@ -1,0 +1,37 @@
+/* =========================================================================
+   GRADE GRID: the Academic page's two section boxes and the cards inside them
+   Only the arrangement; their looks are section-box.css, grade-card.css and curriculum-card.css.
+   .l-grade-sections  the two section boxes, one under the other
+   .l-grade-grid      the grade cards: 2 columns from 1024px that fill top to bottom (cards differ in height)
+   .l-stage-grid      the curriculum stages: 2 columns side by side, each row as tall as its tallest card
+   ========================================================================= */
+
+.l-grade-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.l-grade-grid {
+  column-gap: 1.25rem;
+}
+
+.l-grade-grid > * {
+  margin-bottom: 1.25rem;
+  break-inside: avoid;
+}
+
+.l-stage-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .l-grade-grid {
+    column-count: 2;
+  }
+
+  .l-stage-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

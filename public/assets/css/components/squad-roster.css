@@ -1,0 +1,94 @@
+/* =========================================================================
+   SQUAD ROSTER (components/_squad_roster.php): the student's "Team & Roster" — a sky header with the squad's name
+   and size, then the players (initials, name, grade, role); the student's own row warm with a "You" tag.
+   The panel fills its grid row (as tall as the calendar beside it: programme-panel.css --fill), the list scrolls inside.
+   ========================================================================= */
+
+/* The card fills the panel's height (programme-panel.css: --fill) */
+.c-squad__card {
+  overflow: hidden;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-squad__head {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid color-mix(in srgb, var(--skyblue) 45%, transparent);
+  padding: 0.875rem 1.125rem;
+  background: color-mix(in srgb, var(--skyblue) 25%, transparent);
+}
+
+.c-squad__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-squad__count {
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  color: var(--text-soft);
+}
+
+/* The players: scroll inside the card (height comes from the grid row) */
+.c-squad__list {
+  flex: 1 1 0;
+  min-height: 0;
+  margin: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0;
+  list-style: none;
+  scrollbar-color: var(--line-strong) transparent;
+  scrollbar-width: thin;
+}
+
+.c-squad__player {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--alabaster);
+  padding: 0.75rem 1.125rem;
+}
+
+.c-squad__player:last-child {
+  border-bottom: none;
+}
+
+.c-squad__player--you {
+  background: color-mix(in srgb, var(--clay) 8%, transparent);
+}
+
+.c-squad__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.c-squad__name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-squad__you {
+  background: var(--clay);
+  color: var(--white);
+}
+
+.c-squad__grade {
+  margin-top: 0.1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.c-squad__role {
+  flex-shrink: 0;
+  color: var(--clay);
+}

@@ -1,0 +1,313 @@
+/* =========================================================================
+   PROGRAMME CARD (components/_extracurricular_card.php): one sport / club on the Extracurricular list.
+   The photo with its pill, category and name; the teacher in charge (+ Change: pick-menu.css);
+   the contact line; the action. --waiting = not approved yet (greyed, dashed sunshine edge).
+   The "Create New Extracurricular" card: .c-programme-create. How the cards line up: layout/extracurricular-grid.css.
+   ========================================================================= */
+
+.c-programme-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  border: 2px solid var(--alabaster);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--speed) ease, box-shadow var(--speed) ease, border-color var(--speed) ease;
+}
+
+.c-programme-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--skyblue) 50%, transparent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Not approved yet: greyed out with a dashed sunshine edge (clearer on hover) */
+.c-programme-card--waiting {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--sunshine) 60%, transparent);
+  background: var(--ivory);
+  filter: grayscale(0.65);
+  opacity: 0.88;
+}
+
+.c-programme-card--waiting:hover {
+  border-color: var(--sunshine);
+  filter: grayscale(0.2);
+  opacity: 1;
+}
+
+/* ---- The photo: pill top right, category and name bottom left, darker towards the bottom ---- */
+.c-programme-card__top {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 9.5rem;
+  padding: 1.25rem;
+  background: var(--deepsea);
+  color: var(--white);
+}
+
+.c-programme-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.c-programme-card__top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--deepsea) 25%, transparent), color-mix(in srgb, var(--deepsea) 70%, transparent));
+}
+
+.c-programme-card__pill,
+.c-programme-card__titles {
+  position: relative;
+  z-index: 1;
+}
+
+.c-programme-card__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: flex-end;
+}
+
+.c-programme-card__pill--sport {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.c-programme-card__pill--club {
+  background: var(--card-seafoam-line);
+  color: var(--midnight);
+}
+
+.c-programme-card__pill--enrolled {
+  background: color-mix(in srgb, var(--white) 25%, transparent);
+  color: var(--white);
+  backdrop-filter: blur(4px);
+}
+
+.c-programme-card__pill--waiting {
+  border: 1px solid color-mix(in srgb, var(--sunshine) 50%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 25%, transparent);
+  color: var(--marigold);
+}
+
+.c-programme-card__category {
+  margin: 0 0 0.25rem;
+  color: color-mix(in srgb, var(--white) 75%, transparent);
+}
+
+.c-programme-card__name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* ---- Under the photo ---- */
+.c-programme-card__bottom {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.c-programme-card__tic {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.c-programme-card__tic-photo {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1.5px solid var(--alabaster);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.c-programme-card__tic-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-programme-card__tic-label {
+  margin: 0 0 0.125rem;
+}
+
+.c-programme-card__tic-name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--midnight);
+}
+
+/* The coach's phone (maroon), or why it's hidden (a soft italic box) */
+.c-programme-card__contact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.c-programme-card__contact--locked {
+  border-radius: var(--radius-md);
+  padding: 0.375rem 0.625rem;
+  background: color-mix(in srgb, var(--alabaster) 50%, transparent);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ---- The action at the bottom: a full-width pill, or the admin's Reject / Accept pair ---- */
+.c-programme-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.c-programme-card__actions form {
+  display: flex;
+  flex: 1;
+}
+
+.c-programme-card__button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--speed) ease, transform var(--speed) ease;
+}
+
+.c-programme-card__button:hover {
+  opacity: 0.92;
+  transform: scale(1.01);
+}
+
+.c-programme-card__button--sport {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.c-programme-card__button--club {
+  background: var(--card-seafoam-line);
+  color: var(--midnight);
+}
+
+/* Interest: a soft pill with a terracotta heart */
+.c-programme-card__button--interest {
+  border: 1px solid var(--line);
+  background: var(--alabaster);
+  color: var(--midnight);
+}
+
+.c-programme-card__button--interest:hover {
+  background: var(--sand);
+  opacity: 1;
+}
+
+.c-programme-card__button--interest .c-icon {
+  color: var(--terracotta);
+}
+
+/* Requested / Pending Approval: nothing to press yet */
+.c-programme-card__button--done {
+  border: 1px dashed var(--line-strong);
+  background: color-mix(in srgb, var(--alabaster) 60%, transparent);
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.c-programme-card__button--done:hover {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================================
+   "Create New Extracurricular": a dashed card that opens the Create pop-up (management, admin)
+   ========================================================================= */
+.c-programme-create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 18rem;
+  border: 2px dashed color-mix(in srgb, var(--sunshine) 45%, transparent);
+  border-radius: var(--radius-2xl);
+  padding: 1.75rem;
+  background: color-mix(in srgb, var(--cream) 60%, transparent);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--speed) ease, border-color var(--speed) ease, transform var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-programme-create:hover {
+  transform: translateY(-3px);
+  border-color: var(--sunshine);
+  background: color-mix(in srgb, var(--alabaster) 85%, transparent);
+  box-shadow: var(--shadow-md);
+}
+
+.c-programme-create__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  color: var(--midnight);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-programme-create:hover .c-programme-create__icon {
+  transform: scale(1.08);
+  background: var(--sand);
+}
+
+.c-programme-create__title {
+  margin-bottom: 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-programme-create__text {
+  max-width: 14rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-programme-card,
+  .c-programme-card__button,
+  .c-programme-create {
+    transition: none;
+  }
+}

@@ -1,0 +1,169 @@
+/* =========================================================================
+   COMPLAINT CARD (components/_complaint_card.php) and the New Inquiry pop-up (Inquiries & Complaints: parent,
+   management). The shared white card (c-card, panel.css) with a 6px left edge in the category's colour: each
+   category (config/complaints.php) sets --tone; the school's answer and management's resolve form are tinted in it
+   (--tint, --tint-line). The status and category are tags (tag.css), the buttons button.css.
+   How the cards line up: css/layout/complaints-grid.css.
+   ========================================================================= */
+
+.c-complaint-card {
+  --tint: color-mix(in srgb, var(--tone) 8%, transparent);
+  --tint-line: color-mix(in srgb, var(--tone) 25%, transparent);
+  overflow: hidden;
+  border-left: 6px solid var(--tone);
+  transition: box-shadow var(--speed) ease;
+  animation: c-fade-up 220ms ease;
+}
+
+.c-complaint-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-complaint-card {
+    animation: none;
+  }
+}
+
+/* ---- The categories' colours ---- */
+.c-complaint-card--sky {
+  --tone: var(--skyblue);
+  --tint: color-mix(in srgb, var(--skyblue) 10%, transparent);
+  --tint-line: color-mix(in srgb, var(--skyblue) 30%, transparent);
+}
+
+.c-complaint-card--flame {
+  --tone: var(--flameorange);
+}
+
+.c-complaint-card--terracotta {
+  --tone: var(--terracotta);
+}
+
+.c-complaint-card--sunshine {
+  --tone: var(--sunshine);
+}
+
+/* Administration: a maroon edge, but a calm cream answer */
+.c-complaint-card--maroon {
+  --tone: var(--maroon);
+  --tint: color-mix(in srgb, var(--cream) 70%, transparent);
+  --tint-line: color-mix(in srgb, var(--sand) 30%, transparent);
+}
+
+/* ---- The card's content: the inquiry on the left, "Mark as Resolved" (management) on the right ---- */
+.c-complaint-card__body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.c-complaint-card__main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Status · category · date */
+.c-complaint-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.c-complaint-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.c-complaint-card__separator {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--midnight) 25%, transparent);
+}
+
+.c-complaint-card__date {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.c-complaint-card__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--midnight);
+}
+
+.c-complaint-card__message {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+/* Student (· Parent) */
+.c-complaint-card__context {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-complaint-card__context strong {
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+/* ---- The school's answer, and management's resolve form, under the card in the category's tint ---- */
+.c-complaint-card__answer {
+  border-top: 1px solid var(--tint-line);
+  padding: 0.875rem 1.5rem;
+  background: var(--tint);
+}
+
+.c-complaint-card__answer-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+
+.c-complaint-card__answer-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--midnight) 85%, transparent);
+}
+
+/* The resolve form: the message box, ×, Resolve (switched off until something is typed) */
+.c-complaint-card__resolve {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.75rem;
+}
+
+.c-complaint-card__input {
+  flex: 1;
+}
+
+.c-complaint-card__resolve:has(.c-complaint-card__input:placeholder-shown) .c-complaint-card__send {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ---- The New Inquiry pop-up: a sky icon badge ---- */
+.c-pop-up--inquiry .c-pop-up__icon-badge {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--skyblue) 25%, transparent);
+  color: var(--midnight);
+}

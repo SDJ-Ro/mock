@@ -1,0 +1,101 @@
+/* =========================================================================
+   EXTRACURRICULAR: how the parts of the four Extracurricular pages line up. Only the arrangement;
+   the looks are each component's own CSS.
+   The list: under the filter bar (filter-bar-grid.css), the programme cards 1 → 2 → 3 across.
+   A programme / an achievement: everything in one column, 24px apart (the hero 32px).
+   ========================================================================= */
+
+.l-programme-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .l-programme-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .l-programme-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.l-programme {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* The hero keeps 32px under it */
+.l-programme__hero {
+  margin-bottom: 0.5rem;
+}
+
+/* Two cards side by side from 768px (the student's staff, Details & Status, the team cards) */
+.l-pair-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .l-pair-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The calendar the shape it has on the dashboards: 360 wide, at least 528 tall (a grid, so the calendar stretches to it) */
+.l-calendar-box {
+  display: grid;
+  width: 22.5rem;
+  max-width: 100%;
+  min-height: 33rem;
+}
+
+/* The student's roster beside the calendar: the roster takes the rest of the row and is as tall as the calendar */
+.l-roster-calendar-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .l-roster-calendar-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+/* Staff: the calendar, and beside it the two people above Details + Created Date */
+.l-schedule-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .l-schedule-grid {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.l-schedule-grid__side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.875rem;
+}
+
+.l-schedule-grid__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.875rem;
+}
+
+@media (min-width: 600px) {
+  .l-schedule-grid__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

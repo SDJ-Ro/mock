@@ -1,0 +1,71 @@
+/* =========================================================================
+   PROGRAMME PANEL: the white panel every part of a programme's page sits in (one frame, written once):
+   achievements, staff, schedule, roster, notices, enrolment, teams, details & status.
+   <section class="c-card c-programme-panel">
+     <header class="c-programme-panel__head">
+       <h2 class="c-panel__title c-programme-panel__title"><span class="c-programme-panel__icon">✎</span>Notice Board</h2> … a button
+     </header> …
+   The icon: plain in the title's colour (a terracotta trophy for Achievements), or --boxed (a soft teal box: notices,
+   teams, enrolment). How the panels stack: layout/extracurricular-grid.css.
+   ========================================================================= */
+
+.c-programme-panel {
+  padding: 1.5rem;
+}
+
+.c-programme-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.c-programme-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-programme-panel__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--midnight);
+}
+
+.c-programme-panel__icon--trophy {
+  color: var(--terracotta);
+}
+
+.c-programme-panel__icon--boxed {
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--teal) 10%, transparent);
+  color: var(--teal);
+}
+
+/* --fill: what's under the title fills the rest of the panel's height and doesn't add any of its own (the student's
+   roster: as tall as the calendar beside it, its list scrolls): <div class="c-programme-panel__fill"> */
+.c-programme-panel--fill {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-programme-panel__fill {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* A line under the title (Enrollment Processing: the programme · the parents' rule) */
+.c-programme-panel__line {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}

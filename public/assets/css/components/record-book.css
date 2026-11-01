@@ -1,0 +1,174 @@
+/* =========================================================================
+   DIGITAL RECORD BOOK (components/_digital_record_book.php): a white card with the title + Export PDF, the Grade and
+   Term dropdowns, the maroon marks table and the class teacher's feedback. Only the chosen grade × term shows
+   (the others carry the hidden attribute; record-book.js swaps them).
+   ========================================================================= */
+
+/* The white card itself: c-card (panel.css) */
+.c-record-book {
+  padding: 1.25rem 1.5rem;
+}
+
+/* ---- Title + Export PDF ---- */
+.c-record-book__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.c-record-book__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.c-record-book__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  color: var(--maroon);
+}
+
+/* ---- Grade + Term ---- */
+.c-record-book__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--alabaster);
+  padding-bottom: 14px;
+}
+
+.c-record-book__filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+/* ---- The marks table: a maroon header bar, then one row per subject ---- */
+.c-record-book__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.c-record-book__table th {
+  padding: 9px 14px;
+  background: var(--maroon);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--white);
+}
+
+.c-record-book__table th:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  text-align: left;
+}
+
+.c-record-book__table th:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.c-record-book__table tbody tr {
+  border-bottom: 1px solid var(--alabaster);
+  transition: background-color var(--speed) ease;
+}
+
+.c-record-book__table tbody tr:hover {
+  background: color-mix(in srgb, var(--alabaster) 25%, transparent);
+}
+
+.c-record-book__table td {
+  padding: 10px 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.c-record-book__table td:first-child {
+  font-weight: 700;
+  text-align: left;
+  color: var(--midnight);
+}
+
+.c-record-book__table td:nth-child(2) {
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+/* ---- The class teacher's feedback ---- */
+.c-record-book__feedback {
+  margin-top: 20px;
+  border-top: 1px solid var(--alabaster);
+  padding-top: 16px;
+}
+
+.c-record-book__feedback-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-record-book__feedback-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+}
+
+.c-record-book__note {
+  display: flex;
+  gap: 12px;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  background: var(--cream);
+}
+
+.c-record-book__note-body {
+  min-width: 0;
+}
+
+.c-record-book__note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0 0 0.35rem;
+  font-size: 0.8125rem;
+}
+
+.c-record-book__teacher {
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-record-book__date {
+  font-weight: 500;
+  color: var(--text-faint);
+}
+
+.c-record-book__text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+}

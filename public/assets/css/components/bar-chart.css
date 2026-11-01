@@ -1,0 +1,173 @@
+/* =========================================================================
+   BAR CHART (components/_bar_chart.php)
+   380px high; the Y-axis stays put while the bars scroll sideways.
+   The bar colours (.c-series--{name}) and the tooltip are shared with the donuts: chart.css.
+   ========================================================================= */
+
+/* The row with the chart + calendar side by side: css/layout/chart-calendar-grid.css */
+
+/* -------------------------------------------------------------------------
+   1. CARD HEADER (the white card itself: panel.css; the Term picker: the 'cream' dropdown)
+   ------------------------------------------------------------------------- */
+.c-bar-chart-card__head {
+  position: relative;
+  z-index: var(--z-raised);   /* the Term menu opens over the chart */
+  display: flex;
+  flex-wrap: wrap;   /* narrow screens: the pickers go under the title */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.c-bar-chart-card__extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------
+   2. PINNED Y-AXIS & SCROLLABLE CHART CANVAS
+   ------------------------------------------------------------------------- */
+.c-bar-chart__wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.c-bar-chart__y-axis {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;   /* the arrow tip is a little wider than the 50px axis */
+}
+
+.c-bar-chart__area {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 380px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-hint) var(--wash);
+  -webkit-overflow-scrolling: touch;
+}
+
+.c-bar-chart__area svg {
+  display: block;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+/* Sleek custom scrollbar (8px rounded pill thumb) */
+.c-bar-chart__area::-webkit-scrollbar {
+  height: 8px;
+}
+
+.c-bar-chart__area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.c-bar-chart__area::-webkit-scrollbar-thumb {
+  background: var(--alabaster);
+  border-radius: var(--radius-full);
+}
+
+.c-bar-chart__area::-webkit-scrollbar-thumb:hover {
+  background: var(--text-hint);
+}
+
+/* The axis titles are labels (label.css) in moss */
+.c-bar-chart__axis-x-title {
+  margin: 0.25rem 0;
+  text-align: center;
+  color: var(--moss);
+}
+
+/* -------------------------------------------------------------------------
+   3. SVG BAR STYLING & HOVER EFFECTS
+   ------------------------------------------------------------------------- */
+.c-bar-chart__group {
+  cursor: pointer;
+}
+
+.c-bar-chart__group:hover .c-bar-chart__bar {
+  filter: brightness(1.08);
+  opacity: 0.9;
+}
+
+.c-bar-chart__bar {
+  fill: var(--series-color);
+  cursor: pointer;
+  transition: height 350ms cubic-bezier(0.16, 1, 0.3, 1),
+    y 350ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity var(--speed) ease,
+    filter var(--speed) ease;
+}
+
+.c-bar-chart__bar:hover {
+  filter: brightness(1.15);
+  opacity: 1;
+}
+
+.c-bar-chart__axis-line {
+  stroke: var(--chart-axis);
+  stroke-width: 1.5;
+}
+
+.c-bar-chart__arrow {
+  fill: var(--chart-axis);
+}
+
+.c-bar-chart__tick-label {
+  font-size: 0.75rem;
+  fill: var(--chart-tick);
+}
+
+.c-bar-chart__cat-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  fill: var(--chart-label);
+}
+
+.c-bar-chart__axis-title {
+  fill: var(--moss);
+}
+
+/* -------------------------------------------------------------------------
+   4. CHART LEGEND (the colour names and the tooltip: chart.css)
+   ------------------------------------------------------------------------- */
+.c-bar-chart__legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 0;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.c-bar-chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--midnight);
+}
+
+.c-bar-chart__legend-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: var(--series-color);
+}

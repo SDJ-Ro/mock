@@ -1,0 +1,25 @@
+/* =========================================================================
+   ACADEMIC GRID: the record book on the left, the total marks + trend cards stacked on the right
+   Only the arrangement; their looks are record-book.css and academic-section.css.
+   <div class="l-academic-grid"> … record book … <div class="l-academic-grid__side"> … two cards … </div></div>
+   Wide screens: two columns (1.5 : 1.2). Narrower: one under the other.
+   ========================================================================= */
+
+.l-academic-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr;
+  align-items: start;
+  gap: 1.25rem;
+}
+
+.l-academic-grid__side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1080px) {
+  .l-academic-grid {
+    grid-template-columns: 1fr;
+  }
+}

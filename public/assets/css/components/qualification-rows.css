@@ -1,0 +1,32 @@
+/* =========================================================================
+   QUALIFICATION ROWS (components/_qualification_rows.php): each row = qualification (wider), institution, year and
+   Remove in one line (one under the other on phones); "+ Add Qualification" under them on the left.
+   The boxes: form-field.css · the buttons: button.css (--maroon, --sunshine, --small).
+   ========================================================================= */
+
+.c-qualifications {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.c-qualifications__rows {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.c-qualifications__row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 6rem auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .c-qualifications__row {
+    grid-template-columns: 1fr;
+  }
+}

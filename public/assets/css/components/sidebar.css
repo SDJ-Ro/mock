@@ -1,0 +1,338 @@
+/* =====================================================================
+   SIDEBAR (components/_sidebar.php)
+   The dark menu on the left (16rem; 5rem when collapsed — .c-is-collapsed). The page area itself: .c-main in global.css.
+   ===================================================================== */
+
+.c-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: var(--z-sidebar);
+  display: flex;
+  height: 100vh;
+  width: 16rem;
+  flex-direction: column;
+  background-color: var(--midnight);
+  color: var(--white);
+  box-shadow: var(--shadow-xl);
+  transition: width 300ms ease;
+}
+
+.c-sidebar.c-is-collapsed {
+  width: 5rem;
+}
+
+/* Collapsed: the page area moves left with it */
+.c-sidebar.c-is-collapsed ~ .c-main {
+  margin-left: 5rem;
+  max-width: calc(100vw - 5rem);
+}
+
+/* Collapsed: the words go (the menu's "Main Menu" label only fades, so the icons don't jump up) */
+.c-sidebar.c-is-collapsed .c-sidebar__brand-text,
+.c-sidebar.c-is-collapsed .c-nav-item__label,
+.c-sidebar.c-is-collapsed .c-profile-btn__meta,
+.c-sidebar.c-is-collapsed .c-profile-btn__status-dot,
+.c-sidebar.c-is-collapsed .c-logout-btn__label,
+.c-sidebar.c-is-collapsed .c-sidebar__child {
+  display: none;
+}
+
+.c-sidebar.c-is-collapsed .c-sidebar__nav-label {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ---- School name + logo ---- */
+.c-sidebar__brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 0.75rem;
+  height: 5rem;
+  box-sizing: border-box;
+}
+
+.c-sidebar__brand-link {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  color: inherit;
+}
+
+.c-sidebar__brand-mark {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2.5rem;
+}
+
+.c-sidebar__brand-logo {
+  width: 2.35rem;
+  height: 2.35rem;
+  object-fit: contain;
+}
+
+.c-sidebar__brand-text {
+  min-width: 0;
+  margin-left: 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.c-sidebar__brand-title {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--alabaster);
+}
+
+.c-sidebar__brand-subtitle {
+  display: block;
+}
+
+/* The round « button on the sidebar's edge (turns to » when collapsed) */
+.c-sidebar__collapse-btn {
+  position: absolute;
+  right: -0.75rem;
+  top: 1.75rem;
+  z-index: var(--z-raised);
+  display: flex;
+  height: 1.5rem;
+  width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--midnight);
+  background: var(--sand);
+  color: var(--midnight);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 300ms ease, background var(--speed) ease;
+}
+
+.c-sidebar__collapse-btn:hover {
+  background: var(--alabaster);
+}
+
+.c-sidebar.c-is-collapsed .c-sidebar__collapse-btn .c-icon {
+  transform: rotate(180deg);
+}
+
+/* ---- The menu ---- */
+.c-sidebar__nav {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  padding: 0 0.75rem;
+}
+
+.c-sidebar__nav-label {
+  margin: 1.25rem 0 0.5rem 0.75rem;
+  height: 1rem;
+  line-height: 1rem;
+  white-space: nowrap;
+  transition: opacity var(--speed) ease;
+}
+
+.c-sidebar__nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.c-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--white) 75%, transparent);
+  transition: background var(--speed) ease, color var(--speed) ease;
+  overflow: hidden;
+}
+
+.c-nav-item:hover {
+  background: color-mix(in srgb, var(--white) 8%, transparent);
+  color: var(--white);
+}
+
+.c-nav-item.c-is-selected {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* The current page's orange background: it pops in (drawn by CSS, behind the icon and the words) */
+.c-nav-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: var(--flameorange);
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.c-nav-item.c-is-selected::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.c-nav-item__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2.5rem;
+}
+
+.c-nav-item__label {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 0.75rem;
+}
+
+/* ---- The person + Logout at the bottom ---- */
+.c-sidebar__profile-wrap {
+  overflow: hidden;
+  border-top: 1px solid color-mix(in srgb, var(--white) 10%, transparent);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* A parent with more than one child: "Viewing" + the child switch (pick-menu.css --child), above the profile */
+.c-sidebar__child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.c-sidebar__child-label {
+  margin: 0;
+}
+
+.c-profile-btn {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--white) 8%, transparent);
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+  padding: 0.5rem 0.625rem;
+  color: var(--white);
+  transition: background-color var(--speed) ease, border-color var(--speed) ease;
+}
+
+.c-profile-btn:hover {
+  background: color-mix(in srgb, var(--white) 18%, transparent);
+  border-color: color-mix(in srgb, var(--white) 15%, transparent);
+}
+
+.c-profile-btn.c-is-selected {
+  border-color: color-mix(in srgb, var(--skyblue) 50%, transparent);
+  background: color-mix(in srgb, var(--white) 20%, transparent);
+}
+
+.c-profile-btn__avatar {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 2px solid color-mix(in srgb, var(--white) 25%, transparent);
+  object-fit: cover;
+}
+
+.c-profile-btn__meta {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.c-profile-btn__name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* The green "account active" dot */
+.c-profile-btn__status-dot {
+  flex-shrink: 0;
+  height: 0.5rem;
+  width: 0.5rem;
+  margin-left: auto;
+  border-radius: var(--radius-full);
+  background: var(--online);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--online) 30%, transparent);   /* a soft halo, not a shadow */
+}
+
+.c-logout-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.625rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+  transition: background-color var(--speed) ease, color var(--speed) ease;
+}
+
+.c-logout-btn:hover {
+  background: color-mix(in srgb, var(--white) 8%, transparent);
+  color: var(--white);
+}
+
+.c-logout-btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.c-logout-btn__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsed: the person and Logout become two square icon buttons */
+.c-sidebar.c-is-collapsed .c-profile-btn,
+.c-sidebar.c-is-collapsed .c-logout-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+}

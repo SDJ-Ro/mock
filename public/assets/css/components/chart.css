@@ -1,0 +1,101 @@
+/* =========================================================================
+   WHAT THE CHARTS SHARE (bar chart and donuts): colour names and the hover tooltip (chart.js)
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. COLOURS — the controller names a colour ('maroon'); the bar / slice, its legend dot and its tooltip dot
+   all get .c-series--maroon and use --series-color
+   ------------------------------------------------------------------------- */
+.c-series--maroon {
+  --series-color: var(--maroon);
+}
+
+.c-series--skyblue {
+  --series-color: var(--skyblue);
+}
+
+.c-series--lightblue {
+  --series-color: var(--lightblue);
+}
+
+.c-series--sunshine {
+  --series-color: var(--sunshine);
+}
+
+.c-series--terracotta {
+  --series-color: var(--terracotta);
+}
+
+.c-series--moss {
+  --series-color: var(--moss);
+}
+
+.c-series--midnight {
+  --series-color: var(--midnight);
+}
+
+/* -------------------------------------------------------------------------
+   2. THE TOOLTIP — one for the whole page, next to the mouse
+   ------------------------------------------------------------------------- */
+.c-chart-tooltip {
+  position: fixed;
+  z-index: var(--z-menu);
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--skyblue) 40%, transparent);
+  background: var(--white);
+  padding: 0.625rem 0.875rem;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--speed) ease, transform var(--speed) ease;
+  white-space: nowrap;
+}
+
+.c-chart-tooltip.c-is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bar chart: a title, then one line per bar */
+.c-chart-tooltip__title {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-chart-tooltip__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.5;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--midnight);
+  margin-top: 0.2rem;
+}
+
+.c-chart-tooltip__row strong {
+  font-weight: 700;
+}
+
+.c-chart-tooltip__color-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: var(--series-color);
+}
+
+/* Donut: a small capital name (a .c-label, label.css), then the number */
+.c-chart-tooltip__value {
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--midnight);
+}
+
+.c-chart-tooltip__value strong {
+  font-weight: 700;
+  font-size: 1rem;
+}

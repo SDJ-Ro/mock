@@ -1,0 +1,343 @@
+/* =========================================================================
+   DATE PICKER (components/_datepicker.php)
+   The button + its month calendar (a popover: the browser puts it on top; datepicker.js places it under the button).
+   Tones: .c-datepicker--{sky | sunshine | terracotta | maroon | sand} colour the button, the hover and the chosen day.
+   ========================================================================= */
+
+.c-datepicker {
+  position: relative;
+  width: 100%;
+}
+
+/* ---- The button ---- */
+.c-datepicker__trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.625rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--midnight);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-datepicker__label--empty {
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+/* ---- The calendar (the browser's popover box, reset to a card; top / left come from datepicker.js) ---- */
+.c-datepicker__calendar {
+  inset: auto;
+  margin: 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  color: var(--midnight);
+  padding: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  width: 20rem;
+  max-width: min(20rem, calc(100vw - 1.5rem));
+  overflow-x: hidden;
+}
+
+.c-datepicker__calendar:popover-open {
+  animation: c-fade-down 160ms ease-out;
+}
+
+.c-datepicker__head {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 2.5rem;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.c-datepicker__nav {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background-color var(--speed) ease;
+}
+
+.c-datepicker__nav--next {
+  justify-self: end;
+}
+
+.c-datepicker__month-year {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+}
+
+.c-datepicker__pick {
+  position: relative;
+}
+
+.c-datepicker__pick-btn {
+  display: flex;
+  height: 2.25rem;
+  width: 6.85rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--alabaster);
+  background: var(--white);
+  padding: 0 0.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--midnight);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.c-datepicker__pick-btn--year {
+  width: 5.25rem;
+}
+
+/* ---- The month / year menus ---- */
+.c-datepicker__menu {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 100%;
+  min-width: 6.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--alabaster);
+  padding: 0.25rem;
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.c-datepicker__menu--years {
+  max-height: 12rem;
+  overflow-y: auto;
+}
+
+.c-datepicker__menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--midnight);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+.c-datepicker__menu-item:hover,
+.c-datepicker__menu-item--selected {
+  background: color-mix(in srgb, var(--alabaster) 50%, transparent);
+  font-weight: 700;
+}
+
+/* ---- Weekdays + the 42 days ---- */
+.c-datepicker__weekdays {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.c-datepicker__weekday {
+  padding: 0.25rem 0;
+}
+
+.c-datepicker__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.c-datepicker__day {
+  display: flex;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--midnight);
+  cursor: pointer;
+  transition: background-color var(--speed) ease;
+}
+
+.c-datepicker__day--outside {
+  color: var(--text-hint);
+}
+
+.c-datepicker__day--today {
+  box-shadow: inset 0 0 0 1px var(--text-hint);
+}
+
+/* ---- Footer ---- */
+.c-datepicker__foot {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--alabaster);
+  padding-top: 0.625rem;
+}
+
+.c-datepicker__hint {
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: var(--text-faint);
+}
+
+.c-datepicker__today {
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  transition: background-color var(--speed) ease;
+}
+
+.c-datepicker__today:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--alabaster) 50%, transparent);
+}
+
+/* =========================================================================
+   TONES: the button, a hovered day / arrow, the chosen day
+   ========================================================================= */
+.c-datepicker--sky .c-datepicker__trigger {
+  border-color: color-mix(in srgb, var(--skyblue) 45%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 8%, transparent);
+}
+
+.c-datepicker--sky .c-datepicker__trigger:hover {
+  border-color: color-mix(in srgb, var(--skyblue) 75%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 15%, transparent);
+}
+
+.c-datepicker--sky .c-datepicker__nav:hover,
+.c-datepicker--sky .c-datepicker__day:hover {
+  background: color-mix(in srgb, var(--skyblue) 18%, transparent);
+}
+
+.c-datepicker--sky .c-datepicker__day.c-datepicker__day--selected {
+  background: var(--skyblue);
+  color: var(--midnight);
+  font-weight: 700;
+}
+
+.c-datepicker--sunshine .c-datepicker__trigger {
+  border-color: color-mix(in srgb, var(--sunshine) 45%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 8%, transparent);
+}
+
+.c-datepicker--sunshine .c-datepicker__trigger:hover {
+  border-color: color-mix(in srgb, var(--sunshine) 75%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 15%, transparent);
+}
+
+.c-datepicker--sunshine .c-datepicker__nav:hover,
+.c-datepicker--sunshine .c-datepicker__day:hover {
+  background: color-mix(in srgb, var(--sunshine) 18%, transparent);
+}
+
+.c-datepicker--sunshine .c-datepicker__day.c-datepicker__day--selected {
+  background: var(--sunshine);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.c-datepicker--terracotta .c-datepicker__trigger {
+  border-color: color-mix(in srgb, var(--terracotta) 40%, transparent);
+  background: color-mix(in srgb, var(--terracotta) 8%, transparent);
+}
+
+.c-datepicker--terracotta .c-datepicker__trigger:hover {
+  border-color: color-mix(in srgb, var(--terracotta) 70%, transparent);
+  background: color-mix(in srgb, var(--terracotta) 15%, transparent);
+}
+
+.c-datepicker--terracotta .c-datepicker__nav:hover,
+.c-datepicker--terracotta .c-datepicker__day:hover {
+  background: color-mix(in srgb, var(--terracotta) 15%, transparent);
+}
+
+.c-datepicker--terracotta .c-datepicker__day.c-datepicker__day--selected {
+  background: var(--terracotta);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.c-datepicker--maroon .c-datepicker__trigger {
+  border-color: color-mix(in srgb, var(--maroon) 40%, transparent);
+  background: color-mix(in srgb, var(--maroon) 5%, transparent);
+}
+
+.c-datepicker--maroon .c-datepicker__trigger:hover {
+  border-color: color-mix(in srgb, var(--maroon) 70%, transparent);
+  background: color-mix(in srgb, var(--maroon) 10%, transparent);
+}
+
+.c-datepicker--maroon .c-datepicker__nav:hover,
+.c-datepicker--maroon .c-datepicker__day:hover {
+  background: color-mix(in srgb, var(--maroon) 12%, transparent);
+}
+
+.c-datepicker--maroon .c-datepicker__day.c-datepicker__day--selected {
+  background: var(--maroon);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.c-datepicker--sand .c-datepicker__trigger {
+  border-color: color-mix(in srgb, var(--sand) 70%, transparent);
+  background: color-mix(in srgb, var(--sand) 12%, transparent);
+}
+
+.c-datepicker--sand .c-datepicker__trigger:hover {
+  border-color: var(--sand);
+  background: color-mix(in srgb, var(--sand) 22%, transparent);
+}
+
+.c-datepicker--sand .c-datepicker__nav:hover,
+.c-datepicker--sand .c-datepicker__day:hover {
+  background: color-mix(in srgb, var(--sand) 30%, transparent);
+}
+
+.c-datepicker--sand .c-datepicker__day.c-datepicker__day--selected {
+  background: var(--sand);
+  color: var(--midnight);
+  font-weight: 700;
+}
+
+/* A day outside the limits (before $minDate, outside the age range): last, so it beats every tone above */
+.c-datepicker .c-datepicker__day:disabled {
+  background: transparent;
+  color: var(--text-hint);
+}

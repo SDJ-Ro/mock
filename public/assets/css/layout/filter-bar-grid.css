@@ -1,0 +1,52 @@
+/* =========================================================================
+   FILTER BAR: the row above a list of cards — the search box on the left, the dropdowns on the right (Notice
+   Board, Feedback, Complaints, Extracurricular). Only the arrangement; the search box is search-field.css, the
+   dropdowns dropdown.css. A column on a phone, one row from 860px (the notice board's tabs need the room).
+   <… class="l-filter-bar"><label class="c-search l-filter-bar__search">…</label> (tabs) <div class="l-filter-bar__selects">…
+   --page: the bar is the first thing under the page header (Feedback, Complaints): 52px above (with the header's
+   28px), 48px down to the cards — the notice board's spacing, which comes from its own column there.
+   ========================================================================= */
+
+.l-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 860px) {
+  .l-filter-bar {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.l-filter-bar--page {
+  margin: 3.25rem 0 3rem;   /* the top joins the page header's 28px margin (the larger one wins) */
+}
+
+/* --close (with --page): only 28px down to the cards (Extracurricular) */
+.l-filter-bar--close {
+  margin-bottom: 1.75rem;
+}
+
+/* The search box: up to 448px (Feedback, Complaints); --narrow 260px (the notice board, which also has tabs) */
+.l-filter-bar__search {
+  flex: 1 1 auto;
+  max-width: 28rem;
+}
+
+.l-filter-bar__search--narrow {
+  flex: 0 1 260px;
+  min-width: 180px;
+  max-width: 280px;
+}
+
+.l-filter-bar__selects {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}

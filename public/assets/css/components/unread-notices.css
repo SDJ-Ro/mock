@@ -1,0 +1,155 @@
+/* =========================================================================
+   UNREAD NOTICES (components/_unread_notices.php)
+   The card (first 2 notices, or "No more Notices"), and its "View all" pop-up's own look
+   ========================================================================= */
+
+/* The card title (panel.css) with a bell before it */
+.c-notices-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-notices-card__bell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terracotta);
+}
+
+.c-notices-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* "VIEW ALL": a label (label.css) that is a button */
+.c-notices-card__view-all {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  color: var(--midnight);
+  transition: background-color var(--speed) ease, color var(--speed) ease;
+}
+
+.c-notices-card__view-all:hover {
+  background: var(--wash-strong);
+  color: var(--terracotta);
+}
+
+.c-notices-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.c-notices-card__item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--sand) 45%, transparent);
+  padding: 0.875rem 1rem 0.875rem 1.25rem;
+}
+
+.c-notices-card__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 4px;
+  border-radius: var(--radius-full);
+  background: var(--maroon);
+}
+
+.c-notices-card__item-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.c-notices-card__item-text {
+  margin: 0.375rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+.c-notices-card__empty {
+  border-radius: var(--radius-lg);
+  border: 1px dashed color-mix(in srgb, var(--terracotta) 35%, transparent);
+  background: color-mix(in srgb, var(--sand) 25%, transparent);
+  padding: 1rem;
+  text-align: center;
+}
+
+.c-notices-card__empty-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.c-notices-card__empty-text {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* The row with "Upcoming Events" + "Unread Notices": css/layout/events-notices-grid.css */
+
+/* -------------------------------------------------------------------------
+   "View all" pop-up: the shared frame (pop-up.css) with its own look —
+   a darker backdrop, a cream box, and its own white header
+   ------------------------------------------------------------------------- */
+.c-pop-up--notices::backdrop {
+  background: color-mix(in srgb, var(--deepsea) 45%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.c-pop-up--notices {
+  max-width: 540px;
+  max-height: min(42rem, calc(100vh - 3rem));
+  overflow: hidden;
+  background: var(--cream);
+  border: 1px solid color-mix(in srgb, var(--sand) 50%, transparent);
+  box-shadow: var(--shadow-xl);
+}
+
+/* The pop-up's own "nothing" message (its own class: sharing the card's dashed-box class took that box's side padding) */
+.c-notices-pop-up__empty {
+  margin: 0;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.c-notices-pop-up__header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--line-faint);
+  background: var(--white);
+}
+
+.c-notices-pop-up__title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+/* The look is the pop-up title's (pop-up.css), on one line with the bell and the count */
+.c-notices-pop-up__title {
+  margin: 0;
+}
+
+.c-notices-pop-up__body {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}

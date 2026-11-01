@@ -1,0 +1,182 @@
+/* =========================================================================
+   PERSON PROFILE (components/_person_profile.php, in People's pop-up: pop-up.css --large).
+   A header in the role's tint (avatar, eyebrow, name, line, ID + status tags, ×), then a student's tabs (tabs.css
+   --sub) or one page of sections: a title with a terracotta icon over a grid of cards (info-card.css --rounded).
+   A student's clubs / sports are small light-blue cards; their record book: record-book.css; their achievements:
+   achievements-timeline.css ('plain').
+   With Edit Profile: a footer with Edit Profile, or Cancel + Save Changes while editing.
+   ========================================================================= */
+
+/* ---- Header ---- */
+.c-person__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1.25rem 1.75rem;
+}
+
+/* --page: the parent's Child profile shows the header on the page itself — a rounded tinted box with a soft edge */
+.c-person__header--page {
+  border: 1px solid color-mix(in srgb, var(--skyblue) 50%, transparent);
+  border-radius: var(--radius-xl);
+}
+
+.c-person__header--sky {
+  background: color-mix(in srgb, var(--skyblue) 35%, transparent);
+}
+
+.c-person__header--sunshine {
+  background: color-mix(in srgb, var(--sunshine) 12%, transparent);
+}
+
+.c-person__header--terracotta {
+  background: color-mix(in srgb, var(--terracotta) 10%, transparent);
+}
+
+.c-person__header--maroon {
+  background: color-mix(in srgb, var(--maroon) 10%, transparent);
+}
+
+.c-person__who {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.c-person__eyebrow {
+  margin: 0;
+}
+
+.c-person__sub {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.c-person__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+
+/* ---- Body: the tabs, then one panel at a time (people-profile.js) ---- */
+.c-person__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+}
+
+.c-person__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.c-person__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.c-person__section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.c-person__section-title .c-icon {
+  color: var(--terracotta);
+}
+
+/* ---- A student's clubs / sports: small light-blue cards ---- */
+.c-person__items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.c-person__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border: 1px solid color-mix(in srgb, var(--lightblue) 55%, transparent);
+  border-radius: var(--radius-xl);
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--lightblue) 28%, transparent);
+}
+
+.c-person__item-title {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+/* The line under the name: "Team captain · Active" */
+.c-person__item-meta {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.c-person__none {
+  margin: 0;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-hint);
+}
+
+/* ---- Edit Profile: the footer (pop-up.css) stays at the bottom while the pop-up scrolls; people-profile.js sets
+   data-editing="true" on the pop-up's content, which swaps Edit Profile for Cancel + Save Changes ---- */
+.c-person__footer {
+  position: sticky;
+  bottom: 0;
+}
+
+.c-person__edit-only {
+  display: none;
+}
+
+[data-editing="true"] .c-person__edit-only {
+  display: inline-flex;
+}
+
+[data-editing="true"] .c-person__view-only {
+  display: none;
+}
+
+/* A student on Academic Watch (management / admin): the warning line above the tabs, with Lift Lock / Lock Again */
+.c-person__watch {
+  margin-bottom: 1rem;
+}
+
+.c-person__watch-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.c-person__watch-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.c-person__watch-form .c-field__input {
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .c-person__items {
+    grid-template-columns: 1fr;
+  }
+}

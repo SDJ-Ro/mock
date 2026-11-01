@@ -1,0 +1,126 @@
+/* =========================================================================
+   MY PROFILE (components/_profile_page.php): the column of white sections under the hero, the tinted role section,
+   the password form and the Save / Cancel row (while data-editing="true").
+   The hero: profile-hero.css · the cards and their grid: info-card.css · the boxes: form-field.css (small) ·
+   "Change Password": c-btn--outline · the "saved" message: the feedback banner.
+   ========================================================================= */
+
+.c-profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.375rem;
+}
+
+/* -------------------------------------------------------------------------
+   A section: icon + title (+ a button on the right), then its cards
+   ------------------------------------------------------------------------- */
+/* The white card itself: c-card (panel.css) */
+.c-profile-section {
+  padding: 1.25rem 1.5rem;
+}
+
+.c-profile-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.125rem;
+}
+
+.c-profile-section__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.c-profile-section__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line-faint);
+  border-radius: var(--radius-md);
+  background: var(--alabaster);
+  color: var(--midnight);
+}
+
+/* The role's section sits on a tinted box (one colour per role) */
+.c-profile-tinted {
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.25rem;
+}
+
+.c-profile-tinted--sky {
+  border-color: color-mix(in srgb, var(--skyblue) 38%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 11%, transparent);
+}
+
+.c-profile-tinted--sunshine {
+  border-color: color-mix(in srgb, var(--sunshine) 35%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 9%, transparent);
+}
+
+.c-profile-tinted--terracotta {
+  border-color: color-mix(in srgb, var(--terracotta) 35%, transparent);
+  background: color-mix(in srgb, var(--terracotta) 9%, transparent);
+}
+
+.c-profile-tinted--midnight {
+  border-color: var(--line-strong);
+  background: var(--wash-strong);
+}
+
+/* -------------------------------------------------------------------------
+   Change Password: the form under the account cards (opened by its button)
+   ------------------------------------------------------------------------- */
+.c-profile-pwd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--line-faint);
+  padding-top: 1rem;
+}
+
+.c-profile-pwd[hidden] {
+  display: none;
+}
+
+.c-profile-pwd__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* The password boxes: the small field (form-field.css) on a light alabaster */
+.c-profile-pwd__input {
+  background: color-mix(in srgb, var(--alabaster) 30%, transparent);
+}
+
+.c-profile-pwd__input:focus {
+  background: var(--white);
+}
+
+.c-profile-pwd__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.25rem;
+}
+
+/* -------------------------------------------------------------------------
+   Save / Cancel: only while editing
+   ------------------------------------------------------------------------- */
+.c-profile-actions {
+  display: none;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--line-faint);
+  padding-top: 1rem;
+}
+
+.c-profile-page[data-editing="true"] .c-profile-actions {
+  display: flex;
+}

@@ -1,0 +1,103 @@
+/* =========================================================================
+   AWARD CARD (in components/_extracurricular_awards_panel.php): one achievement of a programme — photo, title, year,
+   level · team / individual. A link to its page. 1 → 2 → 3 → 4 across (.c-award-grid).
+   ========================================================================= */
+
+.c-award-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .c-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .c-award-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .c-award-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.c-award-card {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-xl);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  transition: transform var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-award-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.c-award-card__media {
+  display: block;
+  height: 8.5rem;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.c-award-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.c-award-card:hover .c-award-card__image {
+  transform: scale(1.05);
+}
+
+.c-award-card__body {
+  display: block;
+  padding: 0.85rem;
+}
+
+.c-award-card__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.c-award-card__title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--midnight);
+}
+
+.c-award-card__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.c-award-card__level {
+  color: var(--sunshine);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-award-card,
+  .c-award-card__image {
+    transition: none;
+  }
+}

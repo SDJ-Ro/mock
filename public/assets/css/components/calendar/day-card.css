@@ -1,0 +1,193 @@
+/* =========================================================================
+   CALENDAR DAY CARDS (components/calendar/_day_card_template.php)
+   The chosen day's event cards, "Add event", the empty and "No more events" boxes
+   ========================================================================= */
+
+.c-day-event-card {
+  position: relative;
+  height: 4.5rem;
+  min-height: 4.5rem;
+  max-height: 4.5rem;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--flameorange) 70%, transparent);
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+  padding: 0.45rem 0.875rem;
+  overflow: hidden;
+  opacity: 0;
+  animation: c-fade-in 220ms ease forwards;
+  cursor: pointer;
+}
+
+.c-day-event-card__header {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 0.125rem;
+  overflow: hidden;
+}
+
+.c-day-event-card__actions {
+  position: absolute;
+  right: 0.625rem;
+  top: 0.625rem;
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+}
+
+.c-day-event-card__action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  padding: 0.1875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--speed) ease;
+}
+
+.c-day-event-card__action-btn:hover {
+  opacity: 0.8;
+}
+
+.c-day-event-card__action-btn--delete {
+  color: var(--coral);
+}
+
+.c-day-event-card--modifiable .c-day-event-card__header,
+.c-day-event-card--modifiable .c-day-event-card__title,
+.c-day-event-card--modifiable .c-day-event-card__details {
+  padding-right: 3.25rem;
+}
+
+.c-day-event-card__eyebrow {
+  margin: 0;
+  color: var(--flameorange);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-day-event-card__title {
+  margin: 0.2rem 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-day-event-card__details {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--white) 65%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The dashed boxes under / instead of the events: at least one card tall (4.5rem), and they GROW to fill whatever
+   space is left in the footer — so the footer is never half empty, whichever boxes the day shows */
+.c-calendar__empty-box,
+.c-calendar__no-more-events,
+.c-calendar__add-event-btn {
+  flex: 1 0 4.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  opacity: 0;
+  animation: c-fade-in 220ms ease forwards;
+}
+
+/* "Add event" (staff, today or later) */
+.c-calendar__add-event-btn {
+  gap: 0.5rem;
+  border: 1px dashed color-mix(in srgb, var(--white) 50%, transparent);
+  background: color-mix(in srgb, var(--white) 8%, transparent);
+  color: var(--sunshine);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: background-color var(--speed) ease, border-color var(--speed) ease;
+}
+
+.c-calendar__add-event-btn:hover {
+  background: color-mix(in srgb, var(--white) 16%, transparent);
+  border-color: color-mix(in srgb, var(--white) 85%, transparent);
+}
+
+/* "No more events today" (under the events when there is no "Add event") */
+.c-calendar__no-more-events {
+  gap: 0.5rem;
+  border: 1px dashed color-mix(in srgb, var(--white) 35%, transparent);
+  background: color-mix(in srgb, var(--white) 5%, transparent);
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* "No events" (a short line next to "Add event", or the icon + title + date when alone) */
+.c-calendar__empty-box {
+  flex-direction: column;
+  border: 1px dashed color-mix(in srgb, var(--white) 25%, transparent);
+  background: color-mix(in srgb, var(--white) 4%, transparent);
+}
+
+.c-calendar__empty-box-text {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+  line-height: 1.4;
+}
+
+.c-calendar__empty-icon {
+  margin-bottom: 0.5rem;
+  color: color-mix(in srgb, var(--white) 40%, transparent);
+}
+
+.c-calendar__empty-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.c-calendar__empty-subtext {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--white) 55%, transparent);
+}
+
+.c-calendar__no-more-icon {
+  color: color-mix(in srgb, var(--white) 60%, transparent);
+}
+
+@keyframes c-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Who the event is for ("Grade 10 · 10-A"): the shared round chip (tag.css) in sunshine; a long one is cut with … */
+.c-day-event-card__badge {
+  max-width: 130px;
+  border: 1px solid color-mix(in srgb, var(--sunshine) 35%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 20%, transparent);
+  color: var(--sunshine);
+}
+

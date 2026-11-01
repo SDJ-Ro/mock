@@ -1,0 +1,150 @@
+/* =========================================================================
+   INFO CARD (components/_info_card.php): one detail in a small white box — icon + label, value, and an optional text box.
+   Cards sit in a .c-info-card-grid (1 column on phones, 2 from 640px, 3 from 1024px; --four: 4 from 1024px).
+   --wide fills a whole row · --on-tint sits on a tinted section · --compact a small cream box (People's class
+   details) · --rounded (People's pop-up) · --editable has box(es), shown instead of the value
+   while a surrounding element has data-editing="true" (My Profile's and People's Edit Profile).
+   Used by My Profile and People; later Child profile.
+   ========================================================================= */
+
+.c-info-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .c-info-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .c-info-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .c-info-card-grid--four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .c-info-card-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.c-info-card {
+  border: 1px solid var(--line-faint);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.95rem;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  transition: border-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.c-info-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.c-info-card--wide {
+  grid-column: 1 / -1;
+}
+
+/* --rounded: 14px corners, a small value (People's profile pop-up) */
+.c-info-card--rounded {
+  border-color: var(--alabaster);
+  border-radius: var(--radius-xl);
+  padding: 0.75rem 0.875rem;
+}
+
+.c-info-card--rounded .c-info-card__value {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --compact: a cream box with a small bold value (People: a class's enrolment and class teacher) */
+.c-info-card--compact {
+  border-color: var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--cream) 65%, transparent);
+  box-shadow: none;
+}
+
+.c-info-card--compact:hover {
+  border-color: var(--alabaster);
+  box-shadow: none;
+}
+
+.c-info-card--compact .c-info-card__value {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.c-info-card--on-tint {
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+/* The label (label.css) with its icon before it */
+.c-info-card__label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.c-info-card__label .c-icon {
+  flex-shrink: 0;
+  color: var(--text-faint);
+}
+
+.c-info-card__value {
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--midnight);
+  word-break: break-word;
+}
+
+/* The box(es) (hidden until editing): text boxes, a date picker or a dropdown (--small), one under the other */
+.c-info-card__box {
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+/* A text box: the small field (form-field.css) in a light sky */
+.c-info-card__input {
+  border-color: color-mix(in srgb, var(--skyblue) 50%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 7%, transparent);
+  font-weight: 600;
+}
+
+.c-info-card__input:focus {
+  background: var(--white);
+}
+
+[data-editing="true"] .c-info-card--editable .c-info-card__value {
+  display: none;
+}
+
+[data-editing="true"] .c-info-card__box {
+  display: flex;
+}
+
+/* --edit-only: a whole card that shows only while editing (People's parent search, qualification rows) */
+.c-info-card--edit-only {
+  display: none;
+}
+
+[data-editing="true"] .c-info-card--edit-only {
+  display: block;
+}

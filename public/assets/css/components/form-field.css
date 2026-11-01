@@ -1,0 +1,459 @@
+/* =========================================================================
+   FORM FIELDS: the parts every form is made of — a label (+ the required *), a text / message box, a checkbox,
+   a radio, a file box and the red line under a wrong field.
+   A label is <span class="c-label c-field__label"> — the look is label.css (one for every form); a form look only
+   spaces it. A form picks its look ONCE, on its own element, and every field inside follows it:
+     .c-fields--sky       the notice form (sky boxes)
+     .c-fields--calendar  the calendar's "Add event" pop-up (stone boxes, bronze checkbox and radios)
+     .c-fields--sand      the Record Achievement pop-up (warm dashed file box)
+     .c-fields--people    People's Add pages (alabaster boxes; the * in the role's colour: c-field__required--{tone})
+     no look              the sign-in, sign-up and "Forgot password?" forms
+   Two sizes: c-field__input (42px, forms) and c-field__input--small (34px, a box inside a card).
+   Every box has the same size, corners and focus (the ring in global.css); a look only changes colours.
+   Boxed sentences (info / warning / error / success): banner.css.
+   ========================================================================= */
+
+/* ---- One field: its label, then its box ---- */
+.c-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+/* Two fields side by side in a pop-up (Record: date + issued by; New Feedback: category + subject; New Inquiry:
+   category + student) */
+.c-field-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+/* A titled group of fields under a line (Edit Programme: the teacher in charge, the coach):
+   <section class="c-field-section"><div><h3 class="c-field-section__title"> + <p class="c-field-section__hint"></div> fields… */
+.c-field-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  border-top: 1px solid var(--alabaster);
+  padding-top: 1.25rem;
+}
+
+.c-field-section__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-field-section__hint {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-field__input {
+  width: 100%;
+  min-height: 2.625rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 0.625rem 0.875rem;
+  background: var(--white);
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: var(--midnight);
+  transition: border-color var(--speed) ease;
+}
+
+.c-field__input:focus {
+  border-color: var(--skyblue);
+}
+
+/* Small: a box inside a card (My Profile's details and password, the term marks panel) */
+.c-field__input--small {
+  min-height: 2.125rem;
+  border-radius: var(--radius-md);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+/* The 6-digit code (sign-up and "Forgot password?"): big, spaced, monospaced */
+.c-field__input--code {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.4rem;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.c-field__input--area {
+  resize: vertical;
+}
+
+/* A checkbox or radio with its words: <label class="c-field__choice"><input …> Pin the notice</label> */
+.c-field__choice {
+  display: inline-flex;
+  align-items: center;
+  color: var(--midnight);
+  cursor: pointer;
+  user-select: none;
+}
+
+.c-field__checkbox,
+.c-field__radio {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex-shrink: 0;
+  margin: 0;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color var(--speed) ease, background-color var(--speed) ease;
+}
+
+/* The tick: two borders of a small box, turned 45° (its colour comes from the look) */
+.c-field__checkbox:checked::before {
+  content: "";
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.c-field__radio {
+  border-radius: var(--radius-full);
+}
+
+/* The line under a field that is wrong (the one red, like every error) */
+.c-field__error {
+  margin: 0.375rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--danger);
+}
+
+/* =========================================================================
+   LOOK: SKY (the notice form)
+   ========================================================================= */
+.c-fields--sky .c-field__required {
+  color: var(--skyblue);
+}
+
+.c-fields--sky .c-field__input {
+  border-color: color-mix(in srgb, var(--skyblue) 40%, transparent);
+  font-weight: 500;
+}
+
+.c-fields--sky .c-field__input--area {
+  min-height: 9rem;
+  font-weight: 400;
+}
+
+.c-fields--sky .c-field__choice {
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.c-fields--sky .c-field__checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--skyblue) 50%, transparent);
+  border-radius: var(--radius-xs);
+  color: var(--midnight);
+}
+
+.c-fields--sky .c-field__checkbox:checked {
+  border-color: var(--skyblue);
+  background: var(--skyblue);
+}
+
+/* The file box: the whole dashed box is the file input's label (no script opens the chooser) */
+.c-fields--sky .c-field__file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed color-mix(in srgb, var(--skyblue) 45%, transparent);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--aqua);
+  cursor: pointer;
+  transition: border-color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-fields--sky .c-field__file:hover {
+  border-color: color-mix(in srgb, var(--skyblue) 60%, transparent);
+  background: color-mix(in srgb, var(--alabaster) 15%, transparent);
+}
+
+.c-fields--sky .c-field__file:focus-within {
+  border-color: var(--skyblue);
+}
+
+.c-fields--sky .c-field__file .c-icon {
+  margin-bottom: 0.5rem;
+}
+
+/* A real input drawn by its label instead (a file box, a choice card's radio): invisible, but still reachable with
+   the keyboard (Tab, then Space). Its label needs position: relative. */
+.c-field__hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.c-field__file-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+/* A small line under a box or in a file box: what it accepts, what it is for */
+.c-field__hint {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+/* =========================================================================
+   LOOK: CALENDAR (the calendar's "Add event" pop-up)
+   ========================================================================= */
+.c-fields--calendar .c-field__label {
+  display: block;
+  margin-bottom: 0.375rem;
+}
+
+.c-fields--calendar .c-field__input {
+  border-color: var(--stone);
+}
+
+.c-fields--calendar .c-field__input--area {
+  min-height: 5rem;
+}
+
+.c-fields--calendar .c-field__choice {
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.c-fields--calendar .c-field__checkbox,
+.c-fields--calendar .c-field__radio {
+  border: 1.5px solid var(--tan);
+  color: var(--white);
+}
+
+.c-fields--calendar .c-field__checkbox {
+  width: 17px;
+  height: 17px;
+  border-radius: var(--radius-xs);
+}
+
+.c-fields--calendar .c-field__radio {
+  width: 18px;
+  height: 18px;
+}
+
+.c-fields--calendar .c-field__checkbox:hover,
+.c-fields--calendar .c-field__radio:hover {
+  border-color: var(--bronze);
+}
+
+.c-fields--calendar .c-field__radio:hover {
+  background-color: var(--ivory);
+}
+
+.c-fields--calendar .c-field__checkbox:checked,
+.c-fields--calendar .c-field__radio:checked {
+  border-color: var(--bronze);
+  background-color: var(--bronze);
+}
+
+/* A ticked radio: a bronze dot inside an ivory ring */
+.c-fields--calendar .c-field__radio:checked {
+  box-shadow: inset 0 0 0 3.5px var(--ivory);
+}
+
+/* =========================================================================
+   LOOK: SAND (the Record Achievement pop-up: 13px capital labels, tall white boxes, a warm dashed file box)
+   ========================================================================= */
+.c-fields--sand .c-field__label {
+  margin-bottom: 0.125rem;
+}
+
+.c-fields--sand .c-field__required {
+  margin-left: 2px;
+  color: var(--danger);
+}
+
+.c-fields--sand .c-field__input {
+  border-color: var(--alabaster);
+}
+
+.c-fields--sand .c-field__input::placeholder {
+  color: var(--text-faint);
+}
+
+.c-fields--sand .c-field__input--area {
+  min-height: 5.5rem;
+}
+
+/* The label right above the file box sits 2px closer to it than other labels */
+.c-fields--sand .c-field__label:has(+ .c-field__file) {
+  margin-bottom: 0;
+}
+
+/* The file box: the whole dashed box is the file input's label (no script opens the chooser) */
+.c-fields--sand .c-field__file {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed color-mix(in srgb, var(--clay) 35%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem;
+  background: var(--alabaster);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-fields--sand .c-field__file:hover,
+.c-fields--sand .c-field__file:focus-within {
+  border-color: var(--clay);
+  background: var(--bisque);
+}
+
+.c-fields--sand .c-field__file .c-icon {
+  margin-bottom: 0.5rem;
+  color: var(--umber);
+}
+
+.c-fields--sand .c-field__file-title {
+  font-size: 0.875rem;
+  color: var(--midnight);
+}
+
+.c-fields--sand .c-field__hint {
+  color: var(--text-muted);
+}
+
+/* The chosen file's name, in a sand pill */
+.c-fields--sand .c-field__file-name {
+  margin-top: 0.5rem;
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.625rem;
+  background: color-mix(in srgb, var(--sand) 35%, transparent);
+  font-size: 0.8125rem;
+}
+
+.c-fields--sand .c-field__file-name[hidden] {
+  display: none;
+}
+
+/* =========================================================================
+   LOOK: PEOPLE (People's Add pages: 10px labels at 70%, white boxes with an alabaster line, 14 / 500)
+   ========================================================================= */
+.c-fields--people .c-field__label {
+  color: var(--text-soft);
+}
+
+.c-fields--people .c-field__input {
+  border-color: var(--alabaster);
+  font-weight: 500;
+}
+
+.c-fields--people .c-field__input::placeholder {
+  color: var(--text-hint);
+}
+
+.c-fields--people .c-field__input--area {
+  min-height: 5.5rem;
+}
+
+/* The * in the role's colour */
+.c-field__required--sky {
+  color: var(--skyblue);
+}
+
+.c-field__required--sunshine {
+  color: var(--sunshine);
+}
+
+.c-field__required--terracotta {
+  color: var(--terracotta);
+}
+
+.c-field__required--maroon {
+  color: var(--maroon);
+}
+
+/* A phone box with the country's code in front (country.php 'phone.code') */
+.c-field__prefixed {
+  display: flex;
+}
+
+.c-field__prefix {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  border: 1px solid var(--alabaster);
+  border-right: 0;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  padding: 0 0.75rem;
+  background: color-mix(in srgb, var(--alabaster) 55%, transparent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.c-field__prefixed .c-field__input {
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+/* A photo: a bar with "Choose File" and the chosen file's name (the whole bar is the file input's label) */
+.c-field__photo {
+  position: relative;   /* the hidden file input sits inside */
+  display: flex;
+  min-height: 3.125rem;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.75rem;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.c-field__photo:focus-within {
+  border-color: var(--skyblue);
+}
+
+.c-field__photo-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid color-mix(in srgb, var(--skyblue) 60%, transparent);
+  border-radius: var(--radius-sm);
+  padding: 0.375rem 0.75rem;
+  background: color-mix(in srgb, var(--skyblue) 10%, transparent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-field__photo-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-faint);
+}

@@ -1,0 +1,100 @@
+/* =========================================================================
+   FEEDBACK BANNER (components/_feedback_banner.php): a white pill message that slides in at the top centre of the
+   page and leaves after a few seconds (feedback-banner.js). --success (moss) · --error (the one red) · --info (sky)
+   The only message that floats; a message that stays in its place is a banner (banner.css). Its ×: c-btn--close.
+   ========================================================================= */
+
+/* The stack the banners appear in (several can show at once) */
+.c-feedback-banners {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  width: 480px;
+  max-width: 90vw;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.c-feedback-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-full);
+  padding: 0.75rem 1.125rem;
+  background: var(--white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--midnight);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: auto;
+  transform: translateY(-20px) scale(0.96);
+  transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-feedback-banner.c-is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.c-feedback-banner.c-is-leaving {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-16px) scale(0.94);
+}
+
+.c-feedback-banner__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+}
+
+.c-feedback-banner--success {
+  border-color: color-mix(in srgb, var(--moss) 35%, transparent);
+}
+
+.c-feedback-banner--success .c-feedback-banner__icon {
+  background: color-mix(in srgb, var(--moss) 15%, transparent);
+  color: var(--moss);
+}
+
+.c-feedback-banner--error {
+  border-color: color-mix(in srgb, var(--danger) 20%, transparent);
+}
+
+.c-feedback-banner--error .c-feedback-banner__icon {
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  color: var(--danger);
+}
+
+.c-feedback-banner--info {
+  border-color: color-mix(in srgb, var(--skyblue) 35%, transparent);
+}
+
+.c-feedback-banner--info .c-feedback-banner__icon {
+  background: color-mix(in srgb, var(--skyblue) 25%, transparent);
+  color: var(--deepsea);
+}
+
+.c-feedback-banner__text {
+  flex: 1 1 auto;
+  margin: 0;
+  word-break: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-feedback-banner {
+    transition: none;
+  }
+}

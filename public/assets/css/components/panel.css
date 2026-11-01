@@ -1,0 +1,48 @@
+/* =========================================================================
+   PANEL: the white card box dashboards are built from
+   (bar chart, donuts, upcoming events, unread notices). What goes inside has its own CSS.
+   <section class="c-panel"><h2 class="c-panel__title">…</h2> … </section>
+   CARD: the same white card with smaller corners (14px), worn by a component next to its own class, which adds
+   only its padding and layout: <article class="c-card c-grade-card"> (profile sections, record book, timeline panel,
+   performance trend, grade card, section box)
+   ========================================================================= */
+
+.c-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 100%;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--line-faint);
+  background: var(--white);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* A panel's top row: its title on the left, a tag or button on the right (Upcoming Events, Unread Notices) */
+.c-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.c-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line-faint);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Every card's title, on every page (owner, 2026-10-22: one size for the same kind of thing). A card that is not a
+   .c-panel uses it too: <h2 class="c-panel__title c-record-book__title">; its own class only places it */
+.c-panel__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--midnight);
+}

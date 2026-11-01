@@ -1,0 +1,18 @@
+/* =========================================================================
+   LABEL: every small capital text — a form or filter label ("GRADE"), a weekday, a date, an eyebrow above a
+   title ("ACADEMIC STRUCTURE"). One look everywhere (owner, 2026-10-22): 10px · 700 · capitals · 0.08em.
+   <span class="c-label">Grade</span> · --light on a dark background (the sidebar, the sign-in photo)
+   Where it sits (margins, gaps) is the business of the component around it.
+   ========================================================================= */
+
+.c-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.c-label--light {
+  color: color-mix(in srgb, var(--white) 60%, transparent);
+}

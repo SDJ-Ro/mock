@@ -1,0 +1,211 @@
+/* =========================================================================
+   NOTICE CARD (components/_notice_card.php)
+   A white card with a 6px edge and a tinted footer in its category's colour (.c-notice-card--{category}),
+   the tags, the title, a 3-line body, an optional attachment and the author.
+   How the cards line up on a page: the page's row (css/layout/).
+   ========================================================================= */
+
+.c-notice-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;   /* the footer's tint follows the card's round bottom corners */
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line-faint);
+  border-left: 6px solid var(--skyblue);
+  background: var(--white);
+  padding: 1.25rem 1.5rem 0;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--speed) ease, transform var(--speed) ease;
+}
+
+.c-notice-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.c-notice-card__pin {
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
+  display: flex;
+  color: var(--skyblue);
+}
+
+/* ---- The row of tags: category, who it is for, dates, audience (each tag: tag.css, size sm) ---- */
+.c-notice-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-right: 2rem;
+}
+
+/* ---- Title, body, attachment ---- */
+.c-notice-card__title {
+  margin: 0 0 0.5rem;
+  padding-right: 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--midnight);
+}
+
+.c-notice-card__body {
+  margin: 0 0 1.25rem;
+  flex: 1 1 auto;
+  padding-right: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.c-notice-card__attachment {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0.5rem 0 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--skyblue) 40%, transparent);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.75rem;
+  background: var(--alabaster);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--text-soft);
+}
+
+.c-notice-card__attachment .c-icon {
+  color: var(--teal);
+}
+
+/* ---- Footer: the author + the buttons, on the category's tint ---- */
+.c-notice-card__footer {
+  margin: 0 -1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--skyblue) 20%, transparent);
+  padding: 0.75rem 1.5rem;
+  background: color-mix(in srgb, var(--skyblue) 12%, transparent);
+}
+
+.c-notice-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.c-notice-card__author-name {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--midnight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-notice-card__date {
+  margin: 0.0625rem 0 0;
+}
+
+.c-notice-card__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.375rem;
+  color: var(--text-faint);
+}
+
+/* The pin and delete forms add no box of their own: their button sits in the row like the edit link */
+.c-notice-card__action {
+  display: contents;
+}
+
+.c-notice-card__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  border: 0;
+  background: transparent;
+  padding: 0.25rem;
+  color: inherit;
+  cursor: pointer;
+  transition: color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.c-notice-card__icon-btn:hover {
+  color: var(--midnight);
+  background-color: var(--wash-strong);
+}
+
+.c-notice-card__icon-btn--danger:hover {
+  color: var(--danger);
+  background-color: var(--danger-soft);
+}
+
+/* The approver's Reject / Approve: a full-width row under the author (the buttons: button.css c-btn--decision) */
+.c-notice-card__review {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* =========================================================================
+   CATEGORIES: the left edge + the footer's tint (Academic = the sky look above)
+   ========================================================================= */
+.c-notice-card--extracurricular {
+  border-left-color: var(--sunshine);
+}
+
+.c-notice-card--extracurricular .c-notice-card__footer {
+  border-top-color: color-mix(in srgb, var(--sunshine) 20%, transparent);
+  background: color-mix(in srgb, var(--sunshine) 12%, transparent);
+}
+
+.c-notice-card--general {
+  border-left-color: var(--wheat);
+}
+
+.c-notice-card--general .c-notice-card__footer {
+  border-top-color: color-mix(in srgb, var(--bronze) 35%, transparent);
+  background: color-mix(in srgb, var(--tan) 32%, transparent);
+}
+
+.c-notice-card--administrative {
+  border-left-color: var(--maroon);
+}
+
+.c-notice-card--administrative .c-notice-card__footer {
+  border-top-color: color-mix(in srgb, var(--maroon) 12%, transparent);
+  background: color-mix(in srgb, var(--maroon) 6%, transparent);
+}
+
+/* =========================================================================
+   WAITING FOR APPROVAL (after the categories, so it wins): greyed out — a solid grey edge, a grey footer and faded
+   words; the buttons keep their colours. Once approved the class goes and the card takes its category's colours
+   ========================================================================= */
+.c-notice-card--waiting {
+  border-left-color: var(--line-strong);
+}
+
+.c-notice-card--waiting .c-notice-card__footer {
+  border-top-color: var(--line-faint);
+  background: var(--wash);
+}
+
+.c-notice-card--waiting :is(.c-notice-card__tags, .c-notice-card__title, .c-notice-card__body, .c-notice-card__author) {
+  opacity: 0.55;
+}

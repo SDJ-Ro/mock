@@ -1,0 +1,155 @@
+/* =========================================================================
+   CLASS ROW (components/_grade_class_row.php): one class in a grade card — a <details> that opens onto its subjects.
+   Section badge tones: A sky · B sunshine · C terracotta · D moss · E cherry · others linen.
+   ========================================================================= */
+
+.c-class-row__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.c-class-row__summary::-webkit-details-marker {
+  display: none;
+}
+
+.c-class-row__badge {
+  flex-shrink: 0;
+  min-width: 2.5rem;
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-class-row__badge--sky {
+  background: color-mix(in srgb, var(--skyblue) 35%, transparent);
+}
+
+.c-class-row__badge--sunshine {
+  background: color-mix(in srgb, var(--sunshine) 25%, transparent);
+}
+
+.c-class-row__badge--terracotta {
+  background: color-mix(in srgb, var(--terracotta) 20%, transparent);
+  color: var(--terracotta);
+}
+
+.c-class-row__badge--moss {
+  background: color-mix(in srgb, var(--moss) 20%, transparent);
+  color: var(--moss);
+}
+
+.c-class-row__badge--cherry {
+  background: color-mix(in srgb, var(--cherry) 35%, transparent);
+  color: var(--maroon);
+}
+
+.c-class-row__badge--linen {
+  background: var(--alabaster);
+}
+
+.c-class-row__teacher {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.c-class-row__teacher-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.c-class-row__teacher-name--pending {
+  font-style: italic;
+  color: var(--text-hint);
+}
+
+/* Students / places: a quiet round chip, pushed to the right */
+.c-class-row__places {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: var(--wash);
+  color: var(--text-soft);
+}
+
+.c-class-row__places .c-icon {
+  margin-right: 0.25rem;
+  vertical-align: -1px;
+  opacity: 0.6;
+}
+
+.c-class-row__toggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.375rem;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.c-class-row__chevron {
+  transition: transform var(--speed) ease;
+}
+
+.c-class-row[open] .c-class-row__chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- The subjects, when open ---- */
+.c-class-row__subjects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--cream);
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+/* The last row of a card keeps the card's round bottom corners (no overflow: hidden — it would cut off the menus) */
+.c-class-row:last-child .c-class-row__subjects {
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.c-class-row__subjects-title {
+  margin: 0 0 0.25rem;
+}
+
+.c-class-row__subject {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.c-class-row__subject-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-class-row__subject .c-dropdown {
+  width: 14rem;
+}
+
+.c-class-row__note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}

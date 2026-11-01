@@ -1,0 +1,48 @@
+/* =========================================================================
+   METRIC CARDS GRID: how the number cards line up on a page
+   Only the arrangement; each card's look is metric-card.css.
+   <div class="l-metric-cards-grid l-metric-cards-grid--four"> … _metric_card.php × 4 … </div>
+   Five across on wide screens (admin's 5 cards); --four keeps it at four; --three three from 768px;
+   --tight leaves 1.5rem below (not 2rem).
+   ========================================================================= */
+
+.l-metric-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.l-metric-cards-grid--tight {
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .l-metric-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .l-metric-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .l-metric-cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .l-metric-cards-grid--four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* --three: three side by side from 768px on every wider screen (Parent → Approvals' number cards). Last in the
+   file, so it beats the 4 / 5 columns above */
+@media (min-width: 768px) {
+  .l-metric-cards-grid--three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,192 @@
+/* =========================================================================
+   ACHIEVEMENTS TIMELINE (components/_achievements_timeline.php): "Full Timeline", the filter buttons, then the items
+   by year (a coloured dot on a line, title + tag, month, description).
+   --panel: in its own white panel (the student's page) · --plain: inside another card (the teacher's student view)
+   A hidden item (filtered out) takes its line with it; a year with nothing left hides (both in CSS, no script).
+   ========================================================================= */
+
+/* The white card itself: c-card (panel.css; the view adds it to the 'panel' look) */
+.c-timeline--panel {
+  padding: 1.25rem 1.5rem;
+}
+
+/* ---- "Full Timeline" ---- */
+.c-timeline__heading {
+  margin-bottom: 1.75rem;
+}
+
+.c-timeline--panel .c-timeline__heading {
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--frost);
+  padding-bottom: 0.875rem;
+}
+
+/* ---- The filter buttons (the chosen one: aria-pressed="true") ---- */
+.c-timeline__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.c-timeline__filter {
+  border: 1px solid var(--pewter);
+  border-radius: var(--radius-full);
+  padding: 0.4rem 1rem;
+  background: var(--white);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--iron);
+  transition: border-color var(--speed) ease, background-color var(--speed) ease, color var(--speed) ease;
+}
+
+.c-timeline__filter:hover {
+  border-color: var(--midnight);
+  color: var(--midnight);
+}
+
+.c-timeline__filter[aria-pressed="true"] {
+  border-color: var(--midnight);
+  background: var(--midnight);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- A year ---- */
+.c-timeline__year {
+  margin-bottom: 1.75rem;
+}
+
+.c-timeline__year:last-of-type {
+  margin-bottom: 0;
+}
+
+.c-timeline__year:not(:has(.c-timeline__item:not([hidden]))) {
+  display: none;
+}
+
+.c-timeline__year-label {
+  display: inline-block;
+  margin: 0 0 1rem;
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.9rem;
+  background: var(--alabaster);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--midnight);
+}
+
+/* ---- An item: the marker (dot + line down to the next item), then its text ---- */
+.c-timeline__item {
+  display: flex;
+  gap: 1.125rem;
+  padding-bottom: 1.75rem;
+}
+
+.c-timeline__item[hidden] {
+  display: none;
+}
+
+.c-timeline__item:nth-last-child(1 of :not([hidden])) {
+  padding-bottom: 0.5rem;
+}
+
+.c-timeline__marker {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  width: 16px;
+}
+
+.c-timeline__dot {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+  border: 2.5px solid currentColor;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  box-shadow: 0 0 0 1.5px var(--white);   /* a white ring that cuts the line */
+  box-sizing: border-box;
+  transition: transform var(--speed) ease;
+}
+
+.c-timeline__item:hover .c-timeline__dot {
+  transform: scale(1.2);
+}
+
+.c-timeline__dot--academic {
+  color: var(--ink);
+}
+
+.c-timeline__dot--sports {
+  color: var(--maroon);
+}
+
+.c-timeline__dot--clubs {
+  color: var(--fern);
+}
+
+.c-timeline__dot--leadership {
+  color: var(--violet);
+}
+
+.c-timeline__line {
+  flex: 1;
+  width: 2px;
+  margin: 4px 0 -4px;
+  background: var(--frost);
+}
+
+.c-timeline__item:nth-last-child(1 of :not([hidden])) .c-timeline__line {
+  display: none;
+}
+
+.c-timeline__card {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-timeline__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.25rem;
+}
+
+.c-timeline__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--abyss);
+}
+
+.c-timeline__date {
+  margin: 0 0 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--dusk);
+}
+
+.c-timeline__description {
+  max-width: 820px;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--graphite);
+}
+
+.c-timeline__empty {
+  margin: 0;
+  padding: 2.5rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--dusk);
+}

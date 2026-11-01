@@ -1,0 +1,76 @@
+/* =========================================================================
+   EVIDENCE PREVIEW (components/_evidence_preview_pop_up.php): a student's file in a plain pop-up — the title and ×,
+   a big file icon, the file's name and a line under it, optional details, Close. Teacher achievements (a reported
+   issue) and management's certificate requests (a missing record's evidence).
+   ========================================================================= */
+
+.c-evidence__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+}
+
+/* The look is the pop-up title's (pop-up.css) */
+.c-evidence__title {
+  margin: 0;
+}
+
+.c-evidence__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem;
+}
+
+.c-evidence__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--sand) 40%, transparent);
+  color: var(--umber);
+}
+
+.c-evidence__file {
+  text-align: center;
+}
+
+.c-evidence__file-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.c-evidence__file-title {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-soft);
+}
+
+.c-evidence__details {
+  width: 100%;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--ivory);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--graphite);
+  box-sizing: border-box;
+}
+
+.c-evidence__details p {
+  margin: 0 0 0.5rem;
+}
+
+.c-evidence__details p:last-child {
+  margin-bottom: 0;
+}
+
+.c-evidence__close {
+  padding: 0.5rem 1.75rem;
+}

@@ -1,0 +1,31 @@
+/* =========================================================================
+   DONUTS + EVENTS GRID: two donut charts and "Upcoming Events" (staff dashboards)
+   Only the arrangement; their looks are donut-chart.css and upcoming-events.css.
+   One column on phones, two on tablets, three on wide screens.
+   ========================================================================= */
+
+.l-donuts-events-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .l-donuts-events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* only "Upcoming Events" left (the donuts' module switched off): it takes the whole row. "Alone" = first, and
+     nothing shown after it (the same test as the other rows, where a pop-up <template> / <dialog> may follow) */
+  .l-donuts-events-grid > :first-child:not(:has(~ :not(template, dialog))) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .l-donuts-events-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

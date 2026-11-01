@@ -1,0 +1,52 @@
+/* =========================================================================
+   PDF PAGES (views/print/certificate.php, read by Dompdf): the A4 paper and its margins, a white page, and the
+   Poppins fonts from our own files (Dompdf can't fetch Google's). A long certificate runs onto a 2nd page by itself.
+   ========================================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 48px;
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 400;
+  src: url("../fonts/poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 500;
+  src: url("../fonts/poppins/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-style: italic;
+  src: url("../fonts/poppins/Poppins-MediumItalic.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 600;
+  src: url("../fonts/poppins/Poppins-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 700;
+  src: url("../fonts/poppins/Poppins-Bold.ttf");
+}
+
+body {
+  margin: 0;
+  background-color: var(--white);
+  font-family: "Poppins";
+  line-height: 1.1;
+}
+
+/* Dompdf measures a line by Poppins' tall letter box, so 1.1 here looks like the screen's 1.5 */
+.c-certificate__points {
+  line-height: 1.1;
+}

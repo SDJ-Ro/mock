@@ -1,0 +1,50 @@
+/* =========================================================================
+   EXPORT PDF BUTTON (components/_export_pdf_button.php): a light sky pill with a download icon.
+   The out-of-sight frame export-pdf.js prints from (.c-export-frame) lives here too.
+   ========================================================================= */
+
+.c-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, var(--skyblue) 60%, transparent);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  background: color-mix(in srgb, var(--skyblue) 25%, transparent);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--midnight);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--speed) ease, border-color var(--speed) ease, transform var(--speed) ease;
+}
+
+/* It lifts like every button */
+.c-export-btn:hover {
+  border-color: var(--skyblue);
+  background: color-mix(in srgb, var(--skyblue) 42%, transparent);
+  transform: translateY(-1px);
+}
+
+/* While the printable page loads ("Preparing PDF…"): the disabled look (global.css), a waiting cursor */
+.c-export-btn[aria-busy="true"] {
+  opacity: 0.4;
+  cursor: wait;
+}
+
+.c-export-btn .c-icon {
+  flex-shrink: 0;
+}
+
+/* The printable page is loaded here, out of sight, then printed */
+.c-export-frame {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border: 0;
+  opacity: 0;
+}

@@ -1,0 +1,8 @@
+/* =========================================================================
+   PROFILE GRID: My Profile's one column under the page header, in a stack with a 24px gap, so it sits
+   1.5rem lower than other pages' first row (padding, not margin: a margin would merge with the header's own).
+   ========================================================================= */
+
+.l-profile-grid {
+  padding-top: 1.5rem;
+}

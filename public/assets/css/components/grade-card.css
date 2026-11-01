@@ -1,0 +1,42 @@
+/* =========================================================================
+   GRADE CARD (components/_grade_card.php): a pale sky header (name, students · classes, + Add Class, Delete)
+   over its class rows (grade-class-row.css) — a line between each row, and above the class editor when it is here.
+   The white card itself: c-card (panel.css). The cards sit in two columns: css/layout/grade-grid.css.
+   ========================================================================= */
+
+.c-grade-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--skyblue) 35%, transparent);
+  background: color-mix(in srgb, var(--skyblue) 15%, transparent);
+  padding: 1rem 1.25rem;
+}
+
+.c-grade-card__name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-grade-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.c-grade-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-grade-card__classes > * + * {
+  border-top: 1px solid var(--line-faint);
+}

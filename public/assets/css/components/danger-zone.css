@@ -1,0 +1,32 @@
+/* =========================================================================
+   DANGER ZONE (components/_danger_zone.php): a pale red box — title and what will be lost on the left, the maroon
+   delete button on the right (a programme, an achievement).
+   ========================================================================= */
+
+.c-danger-zone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid color-mix(in srgb, var(--maroon) 30%, transparent);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  background: color-mix(in srgb, var(--maroon) 2%, transparent);
+}
+
+.c-danger-zone__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.c-danger-zone__text {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-soft);
+}

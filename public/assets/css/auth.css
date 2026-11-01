@@ -1,0 +1,438 @@
+.auth-shell {
+  min-height: 100vh;
+}
+
+.auth-visual {
+  display: none;   /* no photo on phones */
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--deepsea);
+}
+
+/* Photos are stacked on top of each other – only .is-active shows */
+.auth-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s;   /* fade when swapping */
+}
+
+.auth-visual img.is-active {
+  opacity: 1;
+}
+
+.auth-visual-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--deepsea) 85%, transparent), color-mix(in srgb, var(--deepsea) 10%, transparent) 60%, transparent);
+}
+
+.auth-visual-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* text sits at the bottom of the photo */
+  height: 100%;
+  padding: 2.5rem;
+  color: var(--white);
+}
+
+.auth-visual-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-xl);
+  background: var(--white);
+  color: var(--midnight);
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-visual-eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--skyblue);
+}
+
+.auth-visual-headline {
+  max-width: 26rem;
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  filter: drop-shadow(0 2px 6px color-mix(in srgb, var(--deepsea) 40%, transparent));
+}
+
+.auth-visual-copyright {
+  margin: 2rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+}
+
+.auth-form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5rem 1.25rem 2.5rem;   /* extra top space for the back button */
+}
+
+.auth-form-col {
+  width: 100%;
+  max-width: 28rem;
+}
+
+/* back button to the top-left corner */
+.auth-back-btn {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: var(--z-raised);
+}
+
+@media (min-width: 640px) {
+  .auth-form-section {
+    padding: 3.5rem 2rem;
+  }
+}
+
+/* Laptops: two columns, photo appears */
+@media (min-width: 1024px) {
+  .auth-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.88fr);
+  }
+
+  .auth-visual {
+    display: block;
+  }
+
+  .auth-back-btn {
+    top: 2rem;
+    left: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .auth-visual-inner {
+    padding: 3.5rem 4rem;
+  }
+
+  .auth-visual-headline {
+    font-size: 2.25rem;
+  }
+}
+
+
+/* ---- Heading above the form ---- */
+
+.auth-eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--flameorange);
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.auth-desc {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: var(--text-soft);
+}
+
+@media (min-width: 640px) {
+  .auth-title {
+    font-size: 2.25rem;
+  }
+}
+
+
+/* ---- Chooser: the 5 role links ---- */
+
+.auth-role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 2rem;
+}
+
+.auth-role {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-xl);
+  background: var(--white);
+  transition: border-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+.auth-role:hover {
+  border-color: var(--deepsea);
+  box-shadow: var(--shadow-md);
+}
+
+.auth-role-icon {
+  display: flex;
+  flex-shrink: 0;   /* never squash the icon box */
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-lg);
+}
+
+.auth-role-copy {
+  flex: 1;   /* text takes the remaining width */
+  min-width: 0;
+}
+
+.auth-role-name {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.auth-role-tagline {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-faint);
+}
+
+/* The arrow on the right */
+.auth-role > .c-icon {
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+  color: var(--text-faint);
+}
+
+
+/* ---- Sign-in form ---- */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+/* Blue info box (management + admin) */
+.auth-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--skyblue) 30%, transparent);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--skyblue) 10%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.auth-notice p {
+  margin: 0;
+}
+
+/* On the chooser the notice sits above the role list, not inside a form */
+.auth-notice--top {
+  margin-top: 1.5rem;
+}
+
+.auth-notice-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--midnight);
+  color: var(--white);
+}
+
+/* The error box (banner.css) above the sign-up form; inside a form, the form's gap spaces it */
+.auth-form-col > .c-banner {
+  margin-top: 1rem;
+}
+
+.auth-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.auth-link {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--skyblue);
+  text-underline-offset: 4px;
+}
+
+.auth-link:hover {
+  color: var(--flameorange);
+}
+
+/* A button that looks like the link (Cancel, "Forgot password?", "Resend code") */
+.auth-link--button {
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+/* The orange one ("Forgot password?", "Resend code") */
+.auth-link--orange {
+  color: var(--flameorange);
+  text-decoration-color: currentColor;
+}
+
+.auth-link--orange:hover {
+  color: var(--brightorange);
+}
+
+.auth-audited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.auth-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border: 1px dashed var(--tan);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.auth-demo:hover {
+  border-color: var(--flameorange);
+  color: var(--flameorange);
+}
+
+.auth-footnote {
+  margin-top: 1.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-faint);
+}
+
+/* The password's label with "Forgot password?" at the other end */
+.auth-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- "Forgot password?" pop-up: the shared frame (components/pop-up.css) in its own look ('forgot') ---- */
+.c-pop-up--forgot {
+  max-width: 28rem;
+  border: none;
+  background: var(--cream);
+  box-shadow: var(--shadow-xl);
+}
+
+.c-pop-up--forgot .c-pop-up__header {
+  padding: 1.25rem 1.5rem;
+  border-bottom-color: var(--alabaster);
+}
+
+.c-pop-up--forgot .c-pop-up__heading-group {
+  gap: 0.75rem;
+}
+
+.c-pop-up--forgot::backdrop {
+  background: color-mix(in srgb, var(--midnight) 60%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* A small solid orange square for the key, instead of the white badge */
+.c-pop-up--forgot .c-pop-up__icon-badge {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.1rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--flameorange);
+  color: var(--white);
+}
+
+.c-pop-up--forgot .c-pop-up__title {
+  margin: 0;
+}
+
+.c-pop-up--forgot .c-pop-up__description {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+}
+
+/* Its × is a rounded square, not a circle */
+.c-pop-up--forgot .c-btn--close {
+  border-radius: var(--radius-lg);
+}
+
+.fp-body {
+  padding: 1.5rem;
+}
+
+.fp-alert {
+  margin-bottom: 1.25rem;
+}
+
+/* The buttons under each step: Cancel + Send on the right / Start over left, Update right */
+.fp-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.fp-actions--split {
+  justify-content: space-between;
+}
+
+/* "(as registered with school)" after a field's label */
+.auth-label-note {
+  font-weight: 400;
+  text-transform: none;
+  color: var(--text-faint);
+}
+
+/* Sign-up step 2: "Didn't receive the email? Resend code" */
+.auth-resend {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  text-align: center;
+}
+

@@ -1,0 +1,72 @@
+/* =========================================================================
+   TEAM POP-UP (components/_team_pop_up.php + _roster_row.php): Add / Edit Team — name and age group above each
+   other beside the cover; the roster's head ("+ Add Member" on the right) and its member rows (name, grade,
+   position, ×); "No members yet." while the list is empty; Delete Team on the footer's left.
+   ========================================================================= */
+
+.c-team-pop-up__column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.c-team-pop-up__roster-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.c-team-pop-up__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* The "No members yet." line only while there is no row */
+.c-team-pop-up__rows:has(.c-roster-row) + .c-team-pop-up__empty {
+  display: none;
+}
+
+.c-team-pop-up__empty {
+  margin: 0;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.c-team-pop-up__delete {
+  margin-right: auto;
+}
+
+.c-roster-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-xl);
+  padding: 0.75rem;
+  background: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.c-roster-row__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: color-mix(in srgb, var(--maroon) 70%, transparent);
+  cursor: pointer;
+}
+
+.c-roster-row__remove:hover {
+  background: color-mix(in srgb, var(--maroon) 10%, transparent);
+  color: var(--maroon);
+}

@@ -1,0 +1,39 @@
+/* =========================================================================
+   CHART + CALENDAR GRID: the bar chart and the calendar side by side
+   Only the arrangement; their looks are bar-chart.css and calendar/calendar.css.
+   <div class="l-chart-calendar-grid"> … _bar_chart.php … calendar/_calendar.php … </div>
+   Wide screens: three columns, the first item (the chart) takes two. Narrower: one under the other.
+   --tight: 12px more above it and 12px (not 32px) to the next row (Academic, where section boxes follow)
+   ========================================================================= */
+
+.l-chart-calendar-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  min-width: 0;
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+
+.l-chart-calendar-grid--tight {
+  margin-top: 2.5rem;   /* joins the page header's 28px margin (the larger one wins): 40px = 28 + a 12px gap */
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .l-chart-calendar-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .l-chart-calendar-grid > :first-child {
+    grid-column: span 2;
+    min-width: 0;
+  }
+
+  /* only one of the two left (its module switched off): it takes the whole row. "Alone" = first, and nothing shown
+     after it (the calendar's pop-ups follow it as <template> / <dialog>, which never sit in the row) */
+  .l-chart-calendar-grid > :first-child:not(:has(~ :not(template, dialog))) {
+    grid-column: 1 / -1;
+  }
+}

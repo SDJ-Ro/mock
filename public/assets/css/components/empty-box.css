@@ -1,0 +1,64 @@
+/* =========================================================================
+   EMPTY BOX: the dashed white box when a list has nothing to show (notice board, approvals, audit log, feedback…:
+   one look, one name).
+   <div class="c-empty-box"><p class="c-empty-box__text">No notices found …</p><button class="c-empty-box__action">…</button></div>
+   --titled: solid line + icon + title (teacher achievements). Tinted ones are variants below.
+   ========================================================================= */
+
+.c-empty-box {
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-xl);
+  padding: 3rem 1.5rem;
+  background: var(--white);
+  text-align: center;
+}
+
+.c-empty-box__text {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* --titled: a solid line, an icon and a title above the text (the teacher's "No students found") */
+.c-empty-box--titled {
+  border: 1px solid var(--alabaster);
+  padding: 3rem 1rem;
+}
+
+.c-empty-box--titled .c-icon {
+  margin-bottom: 0.75rem;
+  color: var(--text-hint);
+}
+
+.c-empty-box__title {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.c-empty-box--titled .c-empty-box__text {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* --tinted: a cream box with a thicker dashed line, inside a white panel (a programme with no achievements yet) */
+.c-empty-box--tinted {
+  border-width: 2px;
+  border-color: var(--line);
+  padding: 2.5rem 1rem;
+  background: color-mix(in srgb, var(--cream) 50%, transparent);
+}
+
+/* A quiet link-like button under the text ("Clear filters") */
+.c-empty-box__action {
+  border: none;
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  color: var(--text-muted);
+  cursor: pointer;
+}

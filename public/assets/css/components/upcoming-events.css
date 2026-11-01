@@ -1,0 +1,55 @@
+/* =========================================================================
+   UPCOMING EVENTS (components/_upcoming_events.php)
+   The card with the next events: a date block, the name and a coloured tag per event
+   ========================================================================= */
+
+.c-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.c-events-list__empty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-faint);
+}
+
+.c-event-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* The small date block: day number over the month */
+.c-event-row__date {
+  min-width: 44px;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--sand) 30%, transparent);
+  background: var(--alabaster);
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.c-event-row__day {
+  display: block;
+  margin: 0 0 0.125rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--midnight);
+}
+
+.c-event-row__month {
+  display: block;
+  margin: 0;
+  color: var(--terracotta);
+}
+
+.c-event-row__name {
+  margin: 0 0 0.125rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--midnight);
+}

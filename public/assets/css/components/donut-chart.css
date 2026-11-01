@@ -1,0 +1,91 @@
+/* =========================================================================
+   DONUT CHART (components/_donut_chart.php)
+   The card box: panel.css · slice colours and the tooltip: chart.css ·
+   the row with 2 donuts + "Upcoming Events": css/layout/donuts-events-grid.css
+   ========================================================================= */
+
+/* The title sits 0.5rem above the ring */
+.c-donut-card > .c-panel__title {
+  margin-bottom: 0.5rem;
+}
+
+.c-donut-card__plot {
+  position: relative;
+  height: 11rem;
+  overflow: visible;
+}
+
+.c-donut-card__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Each slice is a circle's 20px outline in the slice's colour (only a dash of it: see _donut_chart.php) */
+.c-donut-card__slice {
+  fill: none;
+  stroke: var(--series-color);
+  stroke-width: 20;
+  cursor: pointer;
+  transition: opacity var(--speed) ease, filter var(--speed) ease;
+}
+
+.c-donut-card__slice:hover {
+  filter: brightness(1.08);
+}
+
+.c-donut-card__center {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.c-donut-card__center-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--midnight);
+}
+
+.c-donut-card__center-label {
+  margin-top: 0.125rem;
+}
+
+.c-donut-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.c-donut-card__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: var(--radius-lg);
+  padding: 0.25rem 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--midnight);
+  cursor: pointer;
+  transition: background-color var(--speed) ease;
+}
+
+.c-donut-card__legend-item:hover {
+  background: var(--alabaster);
+}
+
+.c-donut-card__legend-dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: var(--series-color);
+}
+

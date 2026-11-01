@@ -1,0 +1,9 @@
+/* =========================================================================
+   PEOPLE GRID: where the directory card sits under the page header (admin / management People; the teacher's
+   details page has the normal gap)
+   Only the arrangement; its look is people-directory.css.
+   ========================================================================= */
+
+.l-people-grid {
+  margin-top: 3.25rem;   /* joins the page header's 28px margin (the larger one wins): 52px */
+}

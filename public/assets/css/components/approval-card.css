@@ -1,0 +1,112 @@
+/* =========================================================================
+   APPROVAL CARD (components/_approval_card.php, Parent → Approvals)
+   The shared white card (c-card, panel.css) with a 6px terracotta edge (the parent's colour). The tags are
+   tag.css, the reason for no a banner (banner.css), the buttons button.css: here only their place and the card's
+   own text. How the cards line up: css/layout/approvals-grid.css.
+   ========================================================================= */
+
+.c-approval-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-left: 6px solid var(--terracotta);
+  padding: 1.25rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: c-fade-up 320ms ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-approval-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Tag, title and details on the left; the status on the right */
+.c-approval-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.c-approval-card__title {
+  margin: 0.5rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--midnight);
+}
+
+.c-approval-card__meta {
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* What it is: three lines at most */
+.c-approval-card__description {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* "Request from: …" and the date, in a soft box */
+.c-approval-card__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border: 1px solid var(--line-faint);
+  border-radius: var(--radius-xl);
+  padding: 0.75rem;
+  background: color-mix(in srgb, var(--alabaster) 35%, transparent);
+  font-size: 0.75rem;
+}
+
+.c-approval-card__from {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.c-approval-card__from strong {
+  font-weight: 600;
+  color: var(--midnight);
+}
+
+.c-approval-card__date {
+  margin: 0;
+  color: var(--text-faint);
+}
+
+/* The parent's reason for no (inside the red banner): a maroon label over the words in the normal text colour */
+.c-approval-card__note-label {
+  margin: 0 0 0.125rem;
+  color: var(--danger);
+}
+
+.c-approval-card__note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+/* Decline / Approve at the bottom (the buttons: button.css c-btn--decision; their forms add no box) */
+.c-approval-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.c-approval-card__action {
+  display: contents;
+}

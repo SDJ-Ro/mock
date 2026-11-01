@@ -1,0 +1,70 @@
+/* =========================================================================
+   SEARCH BOX: the white pill with a magnifier (notice board, people, feedback, complaints, audit …)
+   <label class="c-search"><svg class="c-icon">…</svg><input type="search" class="c-search__input" …></label>
+   Its width is the page's business (the bar it sits in); its height is every field's (42px). --rounded: a 10px
+   rounded rectangle (teacher achievements, term marks).
+   --small: 34px, 10px corners (People's filter rows).
+   ========================================================================= */
+
+.c-search {
+  position: relative;
+  display: block;
+}
+
+.c-search .c-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-hint);
+  pointer-events: none;
+}
+
+.c-search__input {
+  width: 100%;
+  height: 2.625rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 0 1.25rem 0 2.75rem;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--midnight);
+  transition: border-color var(--speed) ease;
+}
+
+.c-search__input::placeholder {
+  color: var(--text-hint);
+}
+
+/* Same as every field: a sky border while typing (the ring itself: global.css) */
+.c-search__input:focus {
+  border-color: var(--skyblue);
+}
+
+/* --rounded: a rounded rectangle, 10px (teacher achievements, term marks) */
+.c-search--rounded .c-icon {
+  left: 14px;
+  color: var(--text-hint);
+}
+
+.c-search--rounded .c-search__input {
+  border-color: var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0 1rem 0 2.5rem;
+  font-size: 0.875rem;
+}
+
+/* --small: 34px, 12px text, 10px corners (People's filter rows) */
+.c-search--small .c-icon {
+  left: 12px;
+}
+
+.c-search--small .c-search__input {
+  height: 2.125rem;
+  border-color: var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0 0.75rem 0 2.25rem;
+  font-size: 0.75rem;
+}

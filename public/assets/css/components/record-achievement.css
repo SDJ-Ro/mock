@@ -1,0 +1,133 @@
+/* =========================================================================
+   RECORD ACHIEVEMENT POP-UP (components/_record_achievement_pop_up.php), on the shared pop-up frame (pop-up.css).
+   .c-pop-up--record-achievement · --review-issue (the same form, filled in, with a red header icon)
+   Inside: the student box, the sand fields (form-field.css .c-fields--sand), the evidence card (review), the footer.
+   The evidence preview pop-up it opens: evidence-preview.css.
+   ========================================================================= */
+
+/* ---- This pop-up's frame: 38rem wide, almost the screen's height (only the fields scroll), a white header
+   with no line under it ---- */
+.c-pop-up--record-achievement,
+.c-pop-up--review-issue {
+  max-width: 38rem;
+  max-height: calc(100vh - 1rem);
+}
+
+.c-pop-up--record-achievement .c-pop-up__header,
+.c-pop-up--review-issue .c-pop-up__header {
+  border-bottom: 0;
+  background: transparent;
+}
+
+.c-pop-up--record-achievement .c-pop-up__icon-badge {
+  border: 0;
+  background: color-mix(in srgb, var(--white) 65%, transparent);
+}
+
+.c-pop-up--review-issue .c-pop-up__icon-badge {
+  border: 0;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ---- The form: its fields, then the footer (both pop-up.css's c-pop-up__form) ---- */
+.c-record-form {
+  gap: 1.125rem;   /* a white strip between the fields and the footer */
+}
+
+.c-record-form__issue {
+  gap: 0.625rem;
+  margin-bottom: 0.25rem;
+  padding: 0.875rem 1rem;
+  line-height: 1.45;
+}
+
+.c-record-form__issue .c-icon {
+  margin-top: 2px;
+}
+
+.c-record-form__issue p {
+  margin: 0;
+}
+
+.c-record-form__issue strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* The student: initials, name, index, and where the teacher knows them from (CLASS) */
+.c-record-form__student {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0.625rem 1rem;
+  background: var(--ivory);
+}
+
+.c-record-form__who {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-record-form__name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.c-record-form__code {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* The student's evidence (review): file icon, name + details, View File */
+.c-record-form__evidence {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--alabaster);
+  border-radius: var(--radius-lg);
+  padding: 0.875rem 1.125rem;
+  background: var(--ivory);
+}
+
+.c-record-form__file-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--sand) 40%, transparent);
+  color: var(--umber);
+}
+
+.c-record-form__file {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-record-form__file-name {
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c-record-form__file-meta {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.c-record-form__view-file {
+  flex-shrink: 0;
+}
+
