@@ -168,7 +168,7 @@ return [
     // Ages that make sense: a parent from 15; teachers 21–65; management 21–70
     'ages' => [
         'parent'     => ['min' => 15],
-        'teacher'    => ['min' => 21, 'max' => 65],
+        'teacher'    => ['min' => 21, 'max' => 29],
         'management' => ['min' => 21, 'max' => 70],
     ],
 
