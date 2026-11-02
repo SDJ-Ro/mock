@@ -28,7 +28,7 @@ return [
     'default_minutes' => 60,
 
     // The dashboards' "Upcoming Events" card: how many events, and each category's tag colour
-    'upcoming_count' => 3,
+    'upcoming_count' => 5,
     'tag_colors'     => [
         'General'         => 'sky',
         'Academic'        => 'sand',
