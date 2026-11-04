@@ -108,11 +108,13 @@ return static function (Router $router): void
         $router->get('/parent/feedback', [FeedbackController::class, 'parent']);
     }
 
-    // Complaints (the parent's and management's page; example data until the complaints backend is built)
+    // Complaints: parents send inquiries; management resolves them with one answer.
     if (feature('complaints'))
     {
         $router->get('/parent/complaints', [ComplaintController::class, 'parent']);
+        $router->post('/parent/complaints/send', [ComplaintController::class, 'send']);
         $router->get('/management/complaints', [ComplaintController::class, 'management']);
+        $router->post('/management/complaints/resolve', [ComplaintController::class, 'resolve']);
     }
 
     // Character certificates (the student's and management's page; example data until the certificates backend is built)

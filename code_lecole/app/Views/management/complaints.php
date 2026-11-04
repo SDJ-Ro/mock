@@ -1,8 +1,7 @@
 <?php
 // Management's Inquiries & Complaints: search + category + status filters and every inquiry as a card with
 // the parent's name; "Mark as Resolved" opens a message box under the card (complaints.js). Data:
-// ComplaintController::management() (example data until the complaints backend is built; resolving saves
-// nothing yet).
+// ComplaintController::management() loads the inquiries, and the resolve form sends a POST request.
 $tabTitle = 'Inquiries & Complaints';
 $styles   = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'empty-box', 'form-field', 'complaints'];
 $scripts  = ['dropdown', 'complaints'];
