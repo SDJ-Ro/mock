@@ -29,6 +29,11 @@ return [
         'wait_for_approval' => ['teacher'],                          // their new notices and edits wait (only with feature('approvals'))
     ],
 
+    'complaints' => [
+        'send'    => ['parent'],       // about the selected child only (checked by ComplaintController)
+        'resolve' => ['management'],   // one answer to an inquiry still in progress
+    ],
+
     'audit' => [
         'view' => ['admin'],   // the Audit Log page
     ],
