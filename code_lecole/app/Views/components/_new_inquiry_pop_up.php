@@ -1,15 +1,15 @@
 <?php
 // The parent's "New Inquiry or Complaint" pop-up, in the shared frame (_pop_up.php); the page header's
-// "+ New Inquiry" opens it. Sending saves nothing yet: the form closes and says so (data-mock-message,
-// feedback-banner.js). The fields: form-field.css; its sky icon badge: complaints.css.
-// Set before requiring: $children (app/Mock/complaints.php). From the page: $categories (config/complaints.php).
+// "+ New Inquiry" opens it. The selected child is displayed here; the controller reads its ID from the session.
+// Set before requiring: $children (selected child's name), $categories and $csrfField.
 ob_start();
 ?>
-<form class="c-pop-up__form" data-mock-message="Inquiry submitted.">
+<form class="c-pop-up__form" method="post" action="/parent/complaints/send">
+  <?= $csrfField ?>
   <div class="c-pop-up__body">
     <label class="c-field">
       <span class="c-label c-field__label">Subject</span>
-      <input type="text" class="c-field__input" name="subject" maxlength="150" required placeholder="e.g. Clarification on Chemistry Revision Syllabus">
+      <input type="text" class="c-field__input" name="subject" maxlength="<?= e(config('complaints.limits.subject')) ?>" required placeholder="e.g. Clarification on Chemistry Revision Syllabus">
     </label>
 
     <div class="c-field-pair">
@@ -30,7 +30,7 @@ ob_start();
         <?php
         $dropdownId    = 'j-new-inquiry-student';
         $dropdownLabel = words('Associated {student}');
-        $name          = 'student';
+        $name          = '';
         $options       = $children;
         $selectedValue = $children[0];
         require __DIR__ . '/_dropdown.php';
@@ -40,13 +40,13 @@ ob_start();
 
     <label class="c-field">
       <span class="c-label c-field__label">Message</span>
-      <textarea class="c-field__input c-field__input--area" name="message" rows="5" required placeholder="Describe your inquiry or concern in detail…"></textarea>
+      <textarea class="c-field__input c-field__input--area" name="message" rows="5" maxlength="<?= e(config('complaints.limits.body')) ?>" required placeholder="Describe your inquiry or concern in detail…"></textarea>
     </label>
   </div>
 
   <div class="c-pop-up__footer">
     <button type="button" class="c-btn c-btn--outline j-pop-up-close">Cancel</button>
-    <button type="submit" class="c-btn c-btn--solid"><?= icon('send', 16) ?><span>Submit Inquiry</span></button>
+    <button type="submit" class="c-btn c-btn--solid" <?= $children[0] === '' ? 'disabled' : '' ?>><?= icon('send', 16) ?><span>Submit Inquiry</span></button>
   </div>
 </form>
 <?php

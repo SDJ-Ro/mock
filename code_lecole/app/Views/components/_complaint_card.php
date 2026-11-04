@@ -2,11 +2,11 @@
 // One inquiry / complaint, on the parent's and management's Inquiries & Complaints: the status,
 // category and date, the title, the message, the student (+ the parent, for management), and the school's answer
 // once it is resolved. The left edge and the answer's tint are the category's colour (config/complaints.php).
-// Management also gets "Mark as Resolved": it shows a form under the card (complaints.js) whose sending only pretends
-// to save for now (data-mock-message, feedback-banner.js). Its look: complaints.css (+ panel.css, tag.css, button.css).
+// Management also gets "Mark as Resolved": it shows a form under the card (complaints.js) and posts one answer.
+// Its look: complaints.css (+ panel.css, tag.css, button.css).
 // Set before requiring:
-//   $complaintCard  one inquiry (app/Mock/complaints.php)
-// From the page: $categories, $statuses (config/complaints.php), $canResolve (management: true).
+//   $complaintCard  one inquiry from ComplaintController::card()
+// From the page: $categories, $statuses (config/complaints.php), $canResolve (management: true), $csrfField.
 [$complaintStatus, $complaintIcon] = $statuses[$complaintCard['status']];
 $complaintResolved = $complaintCard['status'] === 'resolved';
 ?>
@@ -47,10 +47,12 @@ $complaintResolved = $complaintCard['status'] === 'resolved';
   <?php endif; ?>
 
   <?php if ($canResolve && !$complaintResolved): ?>
-    <form class="c-complaint-card__answer c-complaint-card__resolve j-resolve-form" data-mock-message="Inquiry resolved." hidden>
-      <input type="text" class="c-field__input c-complaint-card__input" name="response" maxlength="1000" required autocomplete="off"
+    <form class="c-complaint-card__answer c-complaint-card__resolve j-resolve-form" method="post" action="/management/complaints/resolve" hidden>
+      <input type="text" class="c-field__input c-complaint-card__input" name="response" maxlength="<?= e(config('complaints.limits.response')) ?>" required autocomplete="off"
              aria-label="<?= e(words('Message to the {parent}')) ?>"
              placeholder="<?= e(words('Write a message to the {parent} explaining the resolution…')) ?>">
+      <?= $csrfField ?>
+      <input type="hidden" name="id" value="<?= e($complaintCard['id']) ?>">
       <button type="button" class="c-btn c-btn--close j-resolve-cancel" aria-label="Cancel"><?= icon('close', 16) ?></button>
       <button type="submit" class="c-btn c-btn--moss c-complaint-card__send"><?= icon('send', 14) ?>Resolve</button>
     </form>

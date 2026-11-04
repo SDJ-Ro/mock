@@ -1,7 +1,7 @@
 <?php
 // The parent's Inquiries & Complaints: search + category + status filters, their inquiries as cards (with the
-// school's answer once resolved), "+ New Inquiry" → its pop-up. Data: ComplaintController::parent() (example data
-// until the complaints backend is built; New Inquiry saves nothing yet).
+// school's answer once resolved), "+ New Inquiry" → its pop-up. Data: ComplaintController::parent() loads
+// inquiries for the selected child; the pop-up sends a POST request to save a new one.
 $tabTitle = 'Inquiries & Complaints';
 $styles   = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'empty-box', 'form-field', 'complaints'];
 $scripts  = ['dropdown'];
