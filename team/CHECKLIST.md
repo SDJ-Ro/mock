@@ -403,9 +403,11 @@ approvals, Audit log, Child profile (information, achievements), honours board.
 - ☐ B-5 **Feedback** — the class teacher writes to a student: Student / Parent / Both (student-only invisible to
   parents), kinds (praise / constructive / concern), one-way, read marks. Has: `feedback` (no audience yet).
   Example data now: Mock/feedback
-- ☐ B-6 **Complaints** — the parent writes (recipient: class teacher / head teacher / principal, category, subject,
-  body, child), one-way, management marks resolved with an answer. Has: `complaints`, `complaint_messages` (a
-  thread: the proposal says one-way). Example data now: Mock/complaints
+- ✅ B-6 **Complaints** (2026-11-04) — the parent sends category, subject and body about the selected child to the
+  management panel. Management gives one answer and marks it resolved; the parent sees the answer. Update 041 creates
+  the one-way `complaints` table; `ComplaintModel` replaces Mock/complaints. No individual recipient choice.
+  Checked: all updates 001–041 on an isolated MySQL 8 Docker database; localhost parent → management → parent flow,
+  CSRF, array-shaped fields, wrong role, signed out, and second resolution refused; `bin/check.sh` 0 errors.
   - **Notification list** (owner, 2026-10-29: every feature adds who is told what, plus notes on how to build it;
     nothing is built yet — no table, no bell. B-7 is built **last**: the owner has another idea for it, to hear first):
     | When | Who is told |
@@ -422,9 +424,11 @@ approvals, Audit log, Child profile (information, achievements), honours board.
     | Team / position changes (B-2): placed in a team (by hand or on accept), a position set / changed, taken out of a team, their team deleted | that student (+ their parents?) |
     | An award is recorded (B-2 / B-3) | every participant + their parents |
     | A permission request (trip / event) is sent; its reply-by date is near (B-8) | the students' parents |
-    | Feedback written (B-5) · complaint sent / resolved (B-6) · leaving date set (B-4 / B-9) | as each item says |
-- ☐ B-7 **Notifications** — in-platform only: interest → parent, parent's yes → teacher in charge, complaint →
-  recipient, leaving date → class teacher / TICs / management, new notice … No table yet
+    | Complaint sent (B-6) | management |
+    | Complaint resolved (B-6) | its parent |
+    | Feedback written (B-5) · leaving date set (B-4 / B-9) | as each item says |
+- ☐ B-7 **Notifications** — in-platform only: interest → parent, parent's yes → teacher in charge, complaint sent →
+  management, complaint resolved → parent, leaving date → class teacher / TICs / management, new notice … No table yet
 - ☐ B-8 **Permission request cards** — trips / events (name, date, place, cost) → parents approve / reject with
   time; the teacher in charge can't take a student without a yes. No tables yet (new; not in the old design)
 - ☐ B-9 **Year-end** — promote every active student a grade (class mapping chosen by management), Grade 13 →
