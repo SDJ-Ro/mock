@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\AchievementModel;
+
 // The data the achievements timeline shows (components/_achievements_timeline.php), worked out once:
-// used by the Achievements pages (AchievementController, example data), People's profile pop-up and the parent's
-// Child profile (real ones).
+// used by the Achievements pages (AchievementController), People's profile pop-up and the parent's Child profile.
 final class AchievementTimeline
 {
+    // Everything on one student's timeline, as items (newest first is byYear()'s job): their achievements (a class
+    // teacher's, a club's or sport's, an approved missing-record request — all rows of `achievements`) and the
+    // automatic ones from their marks (RecordBook). $books: the student's record books when the page has them
+    // already (People's pop-up); null = read them here (only when term marks are on).
+    public static function forStudent(int $studentId, ?array $books = null): array
+    {
+        $books ??= feature('term_marks') ? RecordBook::forStudent($studentId) : [];
+
+        return [...self::items((new AchievementModel())->ofStudent($studentId)), ...RecordBook::awards($books)];
+    }
+
     // The four number cards above a timeline (_metric_card.php): total, the last year, clubs / sports, academic.
     // "Earned in Last Year" = this year and last year (worked out from today, never a typed year).
     public static function metrics(array $items): array
