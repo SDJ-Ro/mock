@@ -7,9 +7,7 @@
 //   $fileBoxRequired  true: the form can't be sent without a file
 //   $fileBoxTypes     the types allowed: the file's type => the word the hint shows (['application/pdf' => 'PDF', …])
 //   $fileBoxKb        the largest size, in KB (5120 → the hint says "up to 5 MB")
-$fbWords = array_values($fileBoxTypes);
-$fbLast  = array_pop($fbWords);
-$fbHint  = ($fbWords === [] ? $fbLast : implode(', ', $fbWords) . " or {$fbLast}") . ', up to ' . round($fileBoxKb / 1024) . ' MB';
+$fbHint = word_list($fileBoxTypes) . ', up to ' . round($fileBoxKb / 1024) . ' MB';
 ?>
 <?php // The whole box is the file input's label: clicking it opens the file chooser (no script needed) ?>
 <label class="c-field__file c-field__file--sand j-file-box">
@@ -20,4 +18,4 @@ $fbHint  = ($fbWords === [] ? $fbLast : implode(', ', $fbWords) . " or {$fbLast}
   <span class="c-field__hint"><?= e($fbHint) ?></span>
   <span class="c-field__file-name j-file-box-name" hidden></span>
 </label>
-<?php unset($fileBoxName, $fileBoxRequired, $fileBoxTypes, $fileBoxKb, $fbWords, $fbLast, $fbHint); ?>
+<?php unset($fileBoxName, $fileBoxRequired, $fileBoxTypes, $fileBoxKb, $fbHint); ?>
