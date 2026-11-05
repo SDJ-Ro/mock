@@ -9,7 +9,6 @@ declare(strict_types=1);
 // activity (what happened, oldest first). Each request has its own activity.
 return [
     'student'      => '2021/0456',   // the certificate a student sees
-    'classTeacher' => 'M. Perera',   // who a student's missing-record request goes to
 
     'certificates' => [
         [

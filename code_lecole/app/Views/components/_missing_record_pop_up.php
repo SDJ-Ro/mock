@@ -1,11 +1,13 @@
 <?php
 // The student's "Submit Missing Record Request" pop-up, in the shared frame (_pop_up.php); the "Something
-// missing?" card opens it. Sending saves nothing yet: the form closes and says so (data-mock-message,
-// feedback-banner.js). The fields: form-field.css; the record types: config/certificates.php.
-// Set before requiring: $classTeacher (who the request goes to: app/Mock/certificates.php).
+// missing?" card opens it. Sending it: AchievementController::sendRequest() (B-3) — the request and its evidence (a
+// file, required: the shared file box, file-box.js) go to the student's class teacher this year.
+// The fields: form-field.css; the record types: config/certificates.php; the evidence's types and size:
+// config/achievements.php. Set before requiring: $classTeacher (their class teacher's name, or null: none yet).
 ob_start();
 ?>
-<form class="c-pop-up__form" data-mock-message="Missing record request sent.">
+<form class="c-pop-up__form" method="post" action="/student/achievements/request" enctype="multipart/form-data">
+  <?= $csrfField ?>
   <div class="c-pop-up__body">
     <div class="c-field">
       <span class="c-label c-field__label">Record Type <span class="c-field__required c-field__required--terracotta">*</span></span>
@@ -35,11 +37,27 @@ ob_start();
     <label class="c-field">
       <span class="c-label c-field__label">Details &amp; Reason <span class="c-field__required c-field__required--terracotta">*</span></span>
       <textarea class="c-field__input c-field__input--area" name="details" rows="3" required
-                placeholder="Explain what is missing and why it should appear on your character certificate…"></textarea>
+                maxlength="1000" placeholder="Explain what is missing and why it should appear on your character certificate…"></textarea>
     </label>
 
+    <div class="c-field">
+      <span class="c-label c-field__label">Evidence <span class="c-field__required c-field__required--terracotta">*</span></span>
+      <?php
+      // Required: a request is only sent with its evidence
+      $fileBoxName     = 'evidence';
+      $fileBoxRequired = true;
+      $fileBoxTypes    = config('achievements.proof_types');
+      $fileBoxKb       = config('achievements.proof_kb');
+      require __DIR__ . '/_file_box.php';
+      ?>
+    </div>
+
     <p class="c-banner c-banner--info"><?= icon('info', 16) ?>
-      <span><?= e(words('This request will be automatically routed to your {Class} {Teacher} ') . "({$classTeacher}) for initial verification.") ?></span>
+      <?php if ($classTeacher === null): ?>
+        <span><?= e(words('Your {class} has no {class} {teacher} yet. Please ask the office.')) ?></span>
+      <?php else: ?>
+        <span><?= e(words('This request will be routed to your {Class} {Teacher}') . " ({$classTeacher}) for review.") ?></span>
+      <?php endif; ?>
     </p>
   </div>
 
