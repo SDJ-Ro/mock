@@ -27,4 +27,14 @@ return [
         'clubs'      => ['label' => 'Clubs',      'type' => 'Clubs & Societies', 'tone' => 'fern'],
         'leadership' => ['label' => 'Leadership', 'type' => 'Leadership',        'tone' => 'violet'],
     ],
+
+    // A proof file (the teacher's Supporting Proof, the student's Evidence): the types allowed (the file's type =>
+    // the word the hint shows) and the largest size in KB. The file box (_file_box.php) builds its hint from these.
+    'proof_types' => [
+        'application/pdf' => 'PDF',
+        'image/png'       => 'PNG',
+        'image/jpeg'      => 'JPG',
+        'image/webp'      => 'WebP',
+    ],
+    'proof_kb' => 5120,   // 5 MB
 ];

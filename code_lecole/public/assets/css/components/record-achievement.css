@@ -2,7 +2,6 @@
    RECORD ACHIEVEMENT POP-UP (components/_record_achievement_pop_up.php), on the shared pop-up frame (pop-up.css).
    .c-pop-up--record-achievement · --review-issue (the same form, filled in, with a red header icon)
    Inside: the student box, the sand fields (form-field.css .c-fields--sand), the evidence card (review), the footer.
-   The evidence preview pop-up it opens: evidence-preview.css.
    ========================================================================= */
 
 /* ---- This pop-up's frame: 38rem wide, almost the screen's height (only the fields scroll), a white header

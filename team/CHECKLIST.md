@@ -352,8 +352,8 @@ approvals, Audit log, Child profile (information, achievements), honours board.
   - ☐ check.sh's 4 "same lines" CSS warnings (one from 2c: `.c-join-card__name`) — a shared look to decide with the owner
   - ☐ The PHP server still runs with 2 MB / 8 MB: until it is restarted with the README command, a photo over 2 MB
     says "That file is too big" (checked)
-  - ☐ B-3: verification of the Achievements pages' own records; the student's own Achievements page (example data:
-    a club award shows in People's pop-up and the Child profile, not there yet); honours-board picks
+  - ☑ B-3 (2026-11-05): the Achievements pages' own records count as verified; the student's own Achievements page
+    is real (club awards show there too) — the honours-board picks are still open (see B-3 below)
   - ☐ B-4: certificates read these achievements (their `extracurricular_id`, team, result)
   - ☐ "Programme" stays the screen word, so the PHP names (`$programme`, `programmeUrl`…) match it and stay
   - ☐ **Owner (by hand):** delete these unused example photos from `public/assets/images/examples/` (checked with
@@ -394,9 +394,37 @@ approvals, Audit log, Child profile (information, achievements), honours board.
   age group from date of birth, capacity 300 per age group, positions with dates, leave requests (history kept),
   the club's own notices + events (calendar / notices already target activities), awards + gallery.
   Has: `activities`, `activity_members`. Example data now: Mock/extracurricular
-- ☐ B-3 **Achievements** — the teacher records one (student(s), level, result, evidence upload), verification
-  (teacher in charge → management), the student's timeline + number cards, a student's "missing record" issue,
-  the honours board picks. Has: `achievements`, `achievement_students`. Example data now: Mock/achievements
+- ☑ B-3 **Achievements — built 2026-11-05 (Havindu; every decision: `team/handover/havindu-b3-log.md`).**
+  Updates 042 (`missing_record_requests`; `achievements.issued_by / proof_path / proof_name`) and 043 (demo: row 6
+  "Top of the Grade — Term 1" removed — the marks give Amaya that award live; 1 pending request from Amaya to Alex).
+  Decided (owner + lead, 2026-11-03/04): the class teacher records for their own class this year (Record pop-up,
+  proof optional); the teacher in charge records for their programme's current members through B-2's "Add
+  achievement" form (their card's Record links to it); every `achievements` row counts as verified (no verify step,
+  no delete, no edit); a student's missing-record request is sent from the existing pop-up on the Character
+  Certificate page with Evidence (required), goes to their CURRENT class teacher (looked up live, never stored), who
+  approves it (it becomes an achievement, the evidence = its proof) or rejects it with a reason. Proof files: PDF /
+  PNG / JPG / WebP, 5 MB (`config/achievements.php` proof_types, proof_kb), private in `storage/uploads/proofs/`,
+  opened only through `GET /teacher/achievements/file` for the class teacher it goes to.
+  Built: `_file_box.php` + `file-box.js` (shared; B-12 can reuse it) · `Upload::document()`, `exists()`, `send()`,
+  `forget()` for private files · `keepingUploads()` → `core/Controller.php` · `AchievementModel::add()` ·
+  `MissingRecordModel` · `PeopleModel::classTeacherOfStudent()`, `classStudents()` ·
+  `AchievementTimeline::forStudent()` (student page, Child profile, People's pop-up) · `AchievementController`
+  (pages on real data; record, sendRequest, approve, reject, viewFile) · `config/permissions.php` 'achievements' ·
+  the Record pop-up's Level + Result, Reject + reason pop-up, View File link · the banner names the real class teacher.
+  Removed: `Mock/achievements.php` (owner: `git rm`), the two `data-mock-message` attributes, the evidence-preview
+  pop-up on the teacher's page (management's certificate page still uses it), the certificates mock's `classTeacher`.
+  Tested (a fresh test database built from every update, then dropped; the local one untouched): 4 attacks on all
+  4 new POSTs + the GET file route, every validation case (type / level / date / future date / not my student /
+  unknown id / someone else's request / already answered / no reason / no class teacher / fake, too big and array
+  files), the saves (rows, Audit Log, files), a failed save leaves no file, a database error shows the error page
+  (no SQL, no paths), B-2 award add + delete unchanged, every touched page for each role (0 new log lines).
+  - ☐ The honours board picks (`on_honours_board`): not in this round — still open
+  - ☐ Parked: the teacher in charge → management verification chain (management's check stays in B-4); a
+    programme's past members on the teacher's page; "My Requests" for the student (log L3)
+  - ☐ For the lead: log L2 (this entry replaces the old "verification" wording), L4 (the demo request's file can't be
+    in git), L5 (B-6 has 041, B-3 has 042 / 043: merge B-6 first)
+  - ☐ **Owner (by hand):** delete the now-unused example photos `public/assets/images/examples/face-01, 02, 03, 05,
+    08, 09 .jpg` (checked with grep: nothing uses them)
 - ☐ B-4 **Character certificates** — built from verified records (B-2, B-3), draft preview (pending marked),
   management's final verification, PDF download locked until verified, leaving date (stops new entries, warns),
   certificate requests + missing-record requests. Has: `certificates` (old shape). Example data now: Mock/certificates

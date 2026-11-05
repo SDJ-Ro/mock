@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\AchievementModel;
 use App\Models\ClassModel;
 use App\Models\PeopleModel;
 use App\Services\AcademicWatch;
@@ -435,7 +434,7 @@ class PeopleController extends Controller
             'book'        => isset($tabs['academics']) ? RecordBook::shown($books, null) : null,
             'memberships' => isset($tabs['extracurriculars']) ? (new PeopleModel())->memberships($id) : null,
             'timeline'    => isset($tabs['achievements'])
-                ? AchievementTimeline::byYear([...AchievementTimeline::items((new AchievementModel())->ofStudent($id)), ...RecordBook::awards($books)])
+                ? AchievementTimeline::byYear(AchievementTimeline::forStudent($id, $books))
                 : null,
         ];
     }

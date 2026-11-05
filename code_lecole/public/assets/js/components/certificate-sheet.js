@@ -58,6 +58,26 @@
   // Edit wording ⇄ Done editing (management only)
   const editButton = document.querySelector('.j-certificate-edit');
 
+  function fillWording(form)
+  {
+    frame.querySelectorAll('.j-certificate-editable').forEach(list =>
+    {
+      const field = form.elements.namedItem(list.dataset.certificateSection);
+
+      if (field) field.value = list.innerText.trim();
+    });
+  }
+
+  document.querySelectorAll('.j-certificate-action').forEach(form => form.addEventListener('submit', event =>
+  {
+    fillWording(form);
+
+    if (form.dataset.confirmFinalise && !window.confirm('If you click OK, this certificate will be available for the student to download and print as a PDF.'))
+    {
+      event.preventDefault();
+    }
+  }));
+
   editButton?.addEventListener('click', () =>
   {
     const editing = editButton.getAttribute('aria-pressed') !== 'true';
@@ -67,5 +87,10 @@
     frame.querySelector('.j-certificate-sheet').classList.toggle('c-certificate--editing', editing);
     frame.querySelectorAll('.j-certificate-editable').forEach(list => list.contentEditable = String(editing));
     show();
+
+    if (!editing)
+    {
+      document.querySelector('.j-certificate-draft')?.requestSubmit();
+    }
   });
 })();

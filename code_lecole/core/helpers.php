@@ -285,6 +285,18 @@ if (!function_exists('initials'))
     }
 }
 
+// word_list(['PDF', 'PNG', 'JPG']) → "PDF, PNG or JPG" (a file box's hint, an upload's refusal); one word → that word
+if (!function_exists('word_list'))
+{
+    function word_list(array $words): string
+    {
+        $words = array_values($words);
+        $last  = array_pop($words);
+
+        return $words === [] ? (string) $last : implode(', ', $words) . " or {$last}";
+    }
+}
+
 if (!function_exists('icon'))
 {
     // One icon from components/icons.php: icon('plus', 16) or icon('chevronDown', 14, 'c-dropdown__chevron')

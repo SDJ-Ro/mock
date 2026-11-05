@@ -1,19 +1,13 @@
 /* =========================================================================
    CERTIFICATES: how the Character Certificate pages line up. Only the arrangement; the looks are
    certificates.css, certificate-card.css, certificate-sheet.css.
-   Management: under the header the filter bar (filter-bar-grid.css), the pathway tabs on the right, the groups of
+   Management: under the header the filter bar (filter-bar-grid.css), the groups of
    capsule cards; one certificate: Back + Print, then the certificate panel and its activity.
    Student: the certificate (+ its note) on the left, the "Something missing?" card on the right.
    ========================================================================= */
 
 .l-certificates {
   margin-top: 3.25rem;   /* joins the page header's 28px margin (the larger one wins): 52px = the other pages' gap */
-}
-
-.l-certificates__pathways {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1.75rem;
 }
 
 .l-certificates__group {
