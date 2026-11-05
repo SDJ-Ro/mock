@@ -261,6 +261,21 @@ abstract class Controller
         return is_array($values) ? array_values(array_filter($values, 'is_string')) : [];
     }
 
+    // Runs a save; if it fails, the files just uploaded for it are deleted again (nothing points at them), and the
+    // error goes on (the error page). Returns what the save returns. $newUploads: what Upload::image() / document() gave.
+    protected function keepingUploads(callable $save, array $newUploads): mixed
+    {
+        try
+        {
+            return $save();
+        }
+        catch (\Throwable $error)
+        {
+            array_map([Upload::class, 'forget'], $newUploads);
+            throw $error;
+        }
+    }
+
     protected function sendJson(array $data, int $statusCode = 200): never
     {
         http_response_code($statusCode);
