@@ -416,6 +416,35 @@ class PeopleModel extends Model
         return $statement->fetchColumn() !== false;
     }
 
+    // A student's class teacher this year → ['id', 'name'], or null (no class, or the class has none yet)
+    public function classTeacherOfStudent(int $studentId): ?array
+    {
+        $statement = $this->db->prepare(
+            'SELECT ct.teacher_id AS id, p.full_name AS name FROM current_class_students cs
+             JOIN current_class_teachers ct ON ct.class_id = cs.class_id JOIN profiles p ON p.account_id = ct.teacher_id
+             WHERE cs.student_id = :student'
+        );
+        $statement->execute(['student' => $studentId]);
+
+        return $statement->fetch() ?: null;
+    }
+
+    // The students of the class this teacher is class teacher of this year (not switched off), by first name:
+    // [['id', 'name', 'code', 'photo'], …]
+    public function classStudents(int $teacherId): array
+    {
+        $statement = $this->db->prepare(
+            "SELECT u.id, p.full_name AS name, p.code, p.photo_url AS photo FROM current_class_teachers ct
+             JOIN current_class_students cs ON cs.class_id = ct.class_id
+             JOIN user_accounts u ON u.id = cs.student_id JOIN profiles p ON p.account_id = u.id
+             WHERE ct.teacher_id = :me AND u.activation_status <> 'INACTIVE'
+             ORDER BY p.first_name, p.last_name"
+        );
+        $statement->execute(['me' => $teacherId]);
+
+        return $statement->fetchAll();
+    }
+
     // A teacher's qualifications, in the order typed: [['degree', 'institution', 'year_obtained'], …]
     public function qualifications(int $teacherId): array
     {
