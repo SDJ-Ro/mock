@@ -5,7 +5,7 @@
    spaces it. A form picks its look ONCE, on its own element, and every field inside follows it:
      .c-fields--sky       the notice form (sky boxes)
      .c-fields--calendar  the calendar's "Add event" pop-up (stone boxes, bronze checkbox and radios)
-     .c-fields--sand      the Record Achievement pop-up (warm dashed file box)
+     .c-fields--sand      the Record Achievement pop-up (the warm dashed file box itself: c-field__file--sand, any form)
      .c-fields--people    People's Add pages (alabaster boxes; the * in the role's colour: c-field__required--{tone})
      no look              the sign-in, sign-up and "Forgot password?" forms
    Two sizes: c-field__input (42px, forms) and c-field__input--small (34px, a box inside a card).
@@ -307,8 +307,10 @@
   margin-bottom: 0;
 }
 
-/* The file box: the whole dashed box is the file input's label (no script opens the chooser) */
-.c-fields--sand .c-field__file {
+/* The warm file box (_file_box.php): the whole dashed box is the file input's label (no script opens the chooser).
+   It is a class on the box, not on the form, so a form of any look can have it (the Record pop-up, the missing-record
+   request). */
+.c-field__file--sand {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -323,28 +325,28 @@
   transition: border-color var(--speed) ease, background-color var(--speed) ease;
 }
 
-.c-fields--sand .c-field__file:hover,
-.c-fields--sand .c-field__file:focus-within {
+.c-field__file--sand:hover,
+.c-field__file--sand:focus-within {
   border-color: var(--clay);
   background: var(--bisque);
 }
 
-.c-fields--sand .c-field__file .c-icon {
+.c-field__file--sand .c-icon {
   margin-bottom: 0.5rem;
   color: var(--umber);
 }
 
-.c-fields--sand .c-field__file-title {
+.c-field__file--sand .c-field__file-title {
   font-size: 0.875rem;
   color: var(--midnight);
 }
 
-.c-fields--sand .c-field__hint {
+.c-field__file--sand .c-field__hint {
   color: var(--text-muted);
 }
 
 /* The chosen file's name, in a sand pill */
-.c-fields--sand .c-field__file-name {
+.c-field__file--sand .c-field__file-name {
   margin-top: 0.5rem;
   border-radius: var(--radius-full);
   padding: 0.25rem 0.625rem;
@@ -352,7 +354,7 @@
   font-size: 0.8125rem;
 }
 
-.c-fields--sand .c-field__file-name[hidden] {
+.c-field__file--sand .c-field__file-name[hidden] {
   display: none;
 }
 

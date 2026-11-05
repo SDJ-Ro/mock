@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\PeopleModel;
 use App\Services\CertificatePdf;
 use Core\Controller;
 
@@ -63,7 +64,7 @@ class CertificateController extends Controller
 
         $this->page('student/certificates', $user, [
             'certificate'  => $this->find(array_map([$this, 'prepare'], $mock['certificates']), $mock['student']),
-            'classTeacher' => $mock['classTeacher'],
+            'classTeacher' => (new PeopleModel())->classTeacherOfStudent((int) $user['id'])['name'] ?? null,   // the missing-record pop-up (B-3)
         ]);
     }
 

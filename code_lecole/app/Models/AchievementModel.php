@@ -8,7 +8,9 @@ use Core\Model;
 
 // Achievements and the students they belong to (tables: achievements, achievement_students, achievement_photos).
 // The public honours board and People's profile pop-up read it; a club's or sport's own achievements (with their
-// gallery) are added and changed on its Extracurricular page; the Achievements pages add theirs when they are built.
+// gallery) are added and changed on its Extracurricular page; the class teacher adds theirs on the Achievements page
+// (add(): no club, no gallery; also an approved missing-record request, MissingRecordModel::approve()).
+// Every row counts as verified: only a teacher (or management / admin for a club) ever adds one.
 class AchievementModel extends Model
 {
     // Each achievement with its students' names as one text ("Amaya Wijeratne, Nethmi Perera")
@@ -18,8 +20,8 @@ class AchievementModel extends Model
         FROM achievements a";
 
     // The columns an achievement form may fill (the SQL is built from these names only)
-    private const COLUMNS = ['title', 'category', 'level', 'achieved_on', 'result', 'medal', 'event_name', 'organiser', 'venue',
-                             'age_group', 'team', 'summary', 'others', 'photo_url'];
+    private const COLUMNS = ['title', 'category', 'level', 'achieved_on', 'result', 'medal', 'event_name', 'organiser', 'issued_by',
+                             'venue', 'age_group', 'team', 'summary', 'others', 'photo_url', 'proof_path', 'proof_name'];
 
     // The public honours board (landing page): the achievements marked for it, newest first; $limit = only the first few
     public function honoursBoard(?int $limit = null): array
@@ -140,6 +142,28 @@ class AchievementModel extends Model
             }
 
             return [$achievementId, $unused];
+        });
+    }
+
+    // A class teacher's achievement (not a club's: no extracurricular_id, no gallery), all or nothing: its values (keys
+    // from COLUMNS) and its students. Returns its id.
+    public function add(array $values, array $studentIds, int $by): int
+    {
+        return $this->transaction(function () use ($values, $studentIds, $by): int
+        {
+            $values  = array_intersect_key($values, array_flip(self::COLUMNS));
+            $columns = array_keys($values);
+            $this->db->prepare('INSERT INTO achievements (' . implode(', ', $columns) . ', added_by) VALUES (:' . implode(', :', $columns) . ', :by)')
+                ->execute($values + ['by' => $by]);
+            $achievementId = (int) $this->db->lastInsertId();
+            $student       = $this->db->prepare('INSERT INTO achievement_students (achievement_id, student_id) VALUES (:id, :student)');
+
+            foreach ($studentIds as $studentId)
+            {
+                $student->execute(['id' => $achievementId, 'student' => $studentId]);
+            }
+
+            return $achievementId;
         });
     }
 

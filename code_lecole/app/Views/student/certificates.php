@@ -1,11 +1,12 @@
 <?php
 // The student's Character Certificate: Download / Print (the PDF) and Request Character Certificate in the
 // header; the A4 certificate with its pages and the "Preview Draft" note; the "Something missing?" card → the
-// missing-record pop-up. The certificate is example data (the same for every student) and the two
-// pop-ups save nothing yet (they only say so). Data: CertificateController::student() → $certificate, $classTeacher.
+// missing-record pop-up. The certificate is example data (the same for every student) and the certificate request
+// pop-up saves nothing yet (it only says so); the missing-record request is real (B-3, AchievementController).
+// Data: CertificateController::student() → $certificate, $classTeacher.
 $tabTitle = 'Character Certificate';
 $styles   = ['page-header', 'panel', 'tag', 'dropdown', 'form-field', 'certificate-sheet', 'certificates'];
-$scripts  = ['dropdown', 'certificate-sheet'];
+$scripts  = ['dropdown', 'certificate-sheet', 'file-box'];
 $grids    = ['certificates'];
 
 require dirname(__DIR__) . '/layouts/page_top.php';

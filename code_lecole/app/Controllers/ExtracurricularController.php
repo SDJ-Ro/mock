@@ -769,21 +769,6 @@ class ExtracurricularController extends Controller
         return $award;
     }
 
-    // Runs a save; if it fails, the photos just uploaded for it are deleted again (nothing points at them), and the
-    // error goes on (the error page). Returns what the save returns.
-    private function keepingUploads(callable $save, array $newUploads): mixed
-    {
-        try
-        {
-            return $save();
-        }
-        catch (\Throwable $error)
-        {
-            array_map([Upload::class, 'forget'], $newUploads);
-            throw $error;
-        }
-    }
-
     // The teacher pickers' options: "Assignment pending" (nobody) first, then every teacher who isn't switched off
     private function teacherOptions(): array
     {

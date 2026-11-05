@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\AchievementModel;
 use App\Models\PeopleModel;
 use App\Services\AchievementTimeline;
-use App\Services\RecordBook;
 
 // The parent's Child profile and the "Viewing" switch: which child the whole parent
 // portal shows (Controller::requireRole() keeps it as $user['child']). Every tab reuses what is already built:
@@ -72,8 +70,7 @@ class ChildProfileController extends ExtracurricularController
     // as the four number cards and the timeline
     private function achievements(int $childId): array
     {
-        $awards = feature('term_marks') ? RecordBook::awards(RecordBook::forStudent($childId)) : [];
-        $items  = [...AchievementTimeline::items((new AchievementModel())->ofStudent($childId)), ...$awards];
+        $items = AchievementTimeline::forStudent($childId);
 
         return ['metrics' => AchievementTimeline::metrics($items), 'timeline' => AchievementTimeline::byYear($items)];
     }
