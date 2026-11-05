@@ -3,7 +3,9 @@
 // Its look: student-card.css. Used by teacher/achievements ('grid', 'banner') and teacher/term_marks ('marks').
 // Set first:
 //   $studentCard        ['name', 'code', 'photo' (or ''), 'tone' (slate · steel · taupe · sand · seafoam · sage);
-//                        'grid' also reads 'from' ('Class' | 'Extracurricular') and 'issue' (a reported missing record)]
+//                        'grid' / 'banner' also read 'id', 'from' ('Class' | 'Extracurricular'), 'issue' (a pending
+//                        missing-record request) and 'recordUrl' (null: Record opens the Record pop-up; an address:
+//                        Record goes there — a club / sport's "Add achievement" form)]
 //   $studentCardVariant 'grid'   a coloured card in the grid: View (opens their timeline) + Record
 //                       'marks'  the same card with one "Edit Marks" button, which opens $studentCardTarget
 //                                (the id of their marks panel, term-marks-panel.js)
@@ -15,10 +17,12 @@
 $card      = $studentCard;
 $cardIssue = $studentCardVariant === 'grid' && $card['issue'];   // not "$issue": the page has its own (the Review Issue pop-up)
 $initials  = initials($card['name']);
+$recordUrl = $card['recordUrl'] ?? null;
 ?>
 <?php if ($studentCardVariant !== 'banner'): ?>
   <article class="c-student-card c-student-card--<?= e($card['tone']) ?><?= $cardIssue ? ' c-student-card--issue' : '' ?> j-student-card"
-           data-name="<?= e($card['name']) ?>" data-code="<?= e($card['code']) ?>" data-from="<?= e($card['from'] ?? '') ?>" data-initials="<?= e($initials) ?>">
+           data-id="<?= e($card['id'] ?? '') ?>" data-name="<?= e($card['name']) ?>" data-code="<?= e($card['code']) ?>"
+           data-from="<?= e($card['from'] ?? '') ?>" data-initials="<?= e($initials) ?>">
     <?php if ($card['photo'] !== ''): ?>
       <img class="c-avatar c-avatar--large c-student-card__avatar" src="<?= e($card['photo']) ?>" alt="<?= e($card['name']) ?>">
     <?php else: ?>
@@ -38,15 +42,22 @@ $initials  = initials($card['name']);
         <a class="c-student-card__button c-student-card__button--view" href="/teacher/achievements?student=<?= e(rawurlencode($card['code'])) ?>">
           <?= icon('eye', 14) ?><span>View</span>
         </a>
-        <button type="button" class="c-student-card__button c-student-card__button--record j-record-open">
-          <?= icon('edit', 14) ?><span>Record</span>
-        </button>
+        <?php if ($recordUrl === null): ?>
+          <button type="button" class="c-student-card__button c-student-card__button--record j-record-open">
+            <?= icon('edit', 14) ?><span>Record</span>
+          </button>
+        <?php else: ?>
+          <a class="c-student-card__button c-student-card__button--record" href="<?= e($recordUrl) ?>">
+            <?= icon('edit', 14) ?><span>Record</span>
+          </a>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
   </article>
 <?php else: ?>
   <article class="c-student-card c-student-card--banner j-student-card"
-           data-name="<?= e($card['name']) ?>" data-code="<?= e($card['code']) ?>" data-from="<?= e($card['from']) ?>" data-initials="<?= e($initials) ?>">
+           data-id="<?= e($card['id']) ?>" data-name="<?= e($card['name']) ?>" data-code="<?= e($card['code']) ?>"
+           data-from="<?= e($card['from']) ?>" data-initials="<?= e($initials) ?>">
     <header class="c-student-card__banner">
       <div class="c-student-card__who">
         <?php if ($card['photo'] !== ''): ?>
@@ -69,9 +80,15 @@ $initials  = initials($card['name']);
             <?= icon('alertTriangle', 14) ?><span>View Issue</span>
           </button>
         <?php endif; ?>
-        <button type="button" class="c-student-card__button c-student-card__button--record j-record-open">
-          <?= icon('edit', 14) ?><span>Record Achievement</span>
-        </button>
+        <?php if ($recordUrl === null): ?>
+          <button type="button" class="c-student-card__button c-student-card__button--record j-record-open">
+            <?= icon('edit', 14) ?><span>Record Achievement</span>
+          </button>
+        <?php else: ?>
+          <a class="c-student-card__button c-student-card__button--record" href="<?= e($recordUrl) ?>">
+            <?= icon('edit', 14) ?><span>Record Achievement</span>
+          </a>
+        <?php endif; ?>
       </div>
     </header>
 
@@ -80,4 +97,4 @@ $initials  = initials($card['name']);
     </div>
   </article>
 <?php endif; ?>
-<?php unset($card, $cardIssue, $initials, $studentCard, $studentCardVariant, $studentCardContent, $studentCardTarget); ?>
+<?php unset($card, $cardIssue, $initials, $recordUrl, $studentCard, $studentCardVariant, $studentCardContent, $studentCardTarget); ?>

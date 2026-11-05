@@ -1,12 +1,14 @@
 <?php
-// The Record Achievement pop-up, on the shared pop-up frame (_pop_up.php).
-// It saves nothing yet: sending it closes it and shows "Achievement recorded." (record-achievement.js).
+// The Record Achievement pop-up, on the shared pop-up frame (_pop_up.php). Sending it: AchievementController (B-3).
 // Its look: record-achievement.css + form-field.css (the sand fields), dropdown, datepicker. Set first:
-//   $recordVariant 'record' → id j-record-achievement: empty; record-achievement.js puts in the student whose Record was clicked
-//                  'review' → id j-review-issue: a student's reported issue ($recordIssue, example data: app/Mock/achievements.php),
-//                             filled in, with the student's evidence instead of the upload box (+ the evidence preview pop-up)
+//   $recordVariant 'record' → id j-record-achievement: empty; record-achievement.js puts in the student whose Record
+//                             was clicked; it posts to /teacher/achievements/record (proof optional: the file box)
+//                  'review' → id j-review-issue: a student's missing-record request ($recordIssue,
+//                             AchievementController::issue()), filled in from it, with the student's evidence instead
+//                             of the upload box (View File opens it in a new tab); Approve & Record posts to
+//                             /teacher/achievements/approve, Reject opens the reason pop-up (j-reject-request)
 //   $recordStudent the student (review), or null (record)
-//   $recordIssue   the issue (review), or null
+//   $recordIssue   the request (review), or null
 $isReview  = $recordVariant === 'review';
 $popId     = $isReview ? 'j-review-issue' : 'j-record-achievement';
 $student   = $recordStudent;
@@ -16,7 +18,14 @@ $typeNames = array_column(config('achievements.groups'), 'type');   // Academic,
 
 ob_start();
 ?>
-<form class="c-pop-up__form c-record-form c-fields--sand j-record-form" data-mock-message="Achievement recorded.">
+<form class="c-pop-up__form c-record-form c-fields--sand j-record-form" method="post" enctype="multipart/form-data"
+      action="<?= e($isReview ? '/teacher/achievements/approve' : '/teacher/achievements/record') ?>">
+  <?= $csrfField ?>
+  <?php if ($isReview): ?>
+    <input type="hidden" name="request" value="<?= e($issue['id']) ?>">
+  <?php else: ?>
+    <input type="hidden" name="student" class="j-record-student" value="">
+  <?php endif; ?>
   <div class="c-pop-up__body">
     <?php if ($isReview): ?>
       <div class="c-banner c-banner--error c-record-form__issue" role="note">
@@ -40,19 +49,40 @@ ob_start();
       <?php
       $dropdownId    = "{$popId}-type";
       $options       = $typeNames;
-      $selectedValue = $isReview ? config("achievements.groups.{$issue['group']}.type") : null;
+      $selectedValue = null;
       $placeholder   = 'Select an achievement type';
       $prefix        = 'Type';
       $dropdownLabel = 'Achievement type';
       $name          = 'type';
+      $required      = 'Please select an achievement type.';
       require __DIR__ . '/_dropdown.php';
       ?>
     </div>
 
     <label class="c-field">
       <span class="c-label c-field__label">Achievement Title <span class="c-field__required">*</span></span>
-      <input class="c-field__input" type="text" name="title" value="<?= e($issue['title'] ?? '') ?>" placeholder="e.g. Debating Society – Senior Member" required>
+      <input class="c-field__input" type="text" name="title" maxlength="150" value="<?= e($issue['title'] ?? '') ?>" placeholder="e.g. Debating Society – Senior Member" required>
     </label>
+
+    <div class="c-field-pair">
+      <div class="c-field">
+        <span class="c-label c-field__label">Level <span class="c-field__required">*</span></span>
+        <?php
+        $dropdownId    = "{$popId}-level";
+        $options       = country('achievement_levels');
+        $selectedValue = null;
+        $placeholder   = 'Select a level';
+        $dropdownLabel = 'Level';
+        $name          = 'level';
+        $required      = 'Please select a level.';
+        require __DIR__ . '/_dropdown.php';
+        ?>
+      </div>
+      <label class="c-field">
+        <span class="c-label c-field__label">Result</span>
+        <input class="c-field__input" type="text" name="result" maxlength="100" placeholder="e.g. First Place, Runners Up">
+      </label>
+    </div>
 
     <div class="c-field-pair">
       <div class="c-field">
@@ -60,21 +90,22 @@ ob_start();
         <?php
         $datepickerId  = "{$popId}-date";
         $name          = 'date';
-        $selectedValue = $issue['date'] ?? date('Y-m-d');
+        $selectedValue = date('Y-m-d');
         $placeholder   = 'Select date';
         $tone          = 'sand';
+        $maxDate       = date('Y-m-d');   // not in the future
         require __DIR__ . '/_datepicker.php';
         ?>
       </div>
       <label class="c-field">
         <span class="c-label c-field__label">Verified / Issued By</span>
-        <input class="c-field__input" type="text" name="issuer" value="<?= e($issue['issuer'] ?? '') ?>" placeholder="e.g. Mr. Silva, Club Patron">
+        <input class="c-field__input" type="text" name="issuer" maxlength="150" placeholder="e.g. Mr. Silva, Club Patron">
       </label>
     </div>
 
     <label class="c-field">
       <span class="c-label c-field__label">Description <span class="c-field__required">*</span></span>
-      <textarea class="c-field__input c-field__input--area" name="description" rows="3" required
+      <textarea class="c-field__input c-field__input--area" name="description" rows="3" maxlength="600" required
                 placeholder="Explain the achievement details, accomplishments, or missing verification…"><?= e($issue['description'] ?? '') ?></textarea>
     </label>
 
@@ -87,7 +118,8 @@ ob_start();
             <p class="c-record-form__file-name"><?= e($issue['file']) ?></p>
             <p class="c-record-form__file-meta"><?= e($issue['file_meta']) ?></p>
           </div>
-          <button type="button" class="c-btn c-btn--solid c-btn--pill c-record-form__view-file" data-pop-up-open="j-evidence-preview"><?= icon('eye', 14) ?><span>View File</span></button>
+          <a class="c-btn c-btn--solid c-btn--pill c-record-form__view-file" href="/teacher/achievements/file?request=<?= e($issue['id']) ?>"
+             target="_blank" rel="noopener"><?= icon('eye', 14) ?><span>View File</span></a>
         </div>
       </div>
     <?php else: ?>
@@ -107,6 +139,9 @@ ob_start();
 
   <footer class="c-pop-up__footer">
     <button type="button" class="c-btn c-btn--ghost j-pop-up-close">Cancel</button>
+    <?php if ($isReview): ?>
+      <button type="button" class="c-btn c-btn--outline" data-pop-up-open="j-reject-request">Reject</button>
+    <?php endif; ?>
     <button type="submit" class="c-btn c-btn--sunshine"><?= e($isReview ? 'Approve & Record' : 'Record Achievement') ?></button>
   </footer>
 </form>
@@ -123,13 +158,32 @@ require __DIR__ . '/_pop_up.php';
 
 <?php if ($isReview): ?>
   <?php
-  // The student's evidence, opened from "View File" (example content)
-  $evidenceId      = 'j-evidence-preview';
-  $evidenceTitle   = words('{Student} Evidence Preview');
-  $evidenceFile    = $issue['file'];
-  $evidenceLine    = $issue['file_title'];
-  $evidenceDetails = ['Issued by' => $issue['issued_by'], 'Date' => $issue['issued_on'], 'Content' => $issue['content']];
-  require __DIR__ . '/_evidence_preview_pop_up.php';
+  // Reject: the reason goes back with the request (opened from the Review pop-up's Reject button)
+  ob_start();
+  ?>
+  <form class="c-pop-up__form c-fields--sand" method="post" action="/teacher/achievements/reject">
+    <?= $csrfField ?>
+    <input type="hidden" name="request" value="<?= e($issue['id']) ?>">
+    <div class="c-pop-up__body">
+      <label class="c-field">
+        <span class="c-label c-field__label">Reason <span class="c-field__required">*</span></span>
+        <textarea class="c-field__input c-field__input--area" name="reason" rows="3" maxlength="300" required
+                  placeholder="<?= e(words('Tell the {student} why this record is not added…')) ?>"></textarea>
+      </label>
+    </div>
+    <footer class="c-pop-up__footer">
+      <button type="button" class="c-btn c-btn--ghost j-pop-up-close">Cancel</button>
+      <button type="submit" class="c-btn c-btn--maroon">Reject Request</button>
+    </footer>
+  </form>
+  <?php
+  $popUpContent     = ob_get_clean();
+  $popUpId          = 'j-reject-request';
+  $popUpIcon        = 'alertTriangle';
+  $popUpEyebrow     = 'Issue Report';
+  $popUpTitle       = "Reject Request — {$student['name']}";
+  $popUpDescription = 'The request is closed as rejected; your reason is kept with it.';
+  require __DIR__ . '/_pop_up.php';
   ?>
 <?php endif; ?>
 <?php unset($isReview, $popId, $student, $issue, $initials, $typeNames, $recordVariant, $recordStudent, $recordIssue); ?>

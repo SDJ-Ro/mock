@@ -167,11 +167,17 @@ return static function (Router $router): void
         }
     }
 
-    // Achievements (the student's and the teacher's page; example data until the backend is built)
+    // Achievements: the student's and the teacher's page; the class teacher records one; the student's missing-record
+    // request (from the Character Certificate page) and the class teacher's answer; a request's evidence file
     if (feature('achievements'))
     {
         $router->get('/student/achievements', [AchievementController::class, 'student']);
+        $router->post('/student/achievements/request', [AchievementController::class, 'sendRequest']);
         $router->get('/teacher/achievements', [AchievementController::class, 'teacher']);
+        $router->post('/teacher/achievements/record', [AchievementController::class, 'record']);
+        $router->post('/teacher/achievements/approve', [AchievementController::class, 'approve']);
+        $router->post('/teacher/achievements/reject', [AchievementController::class, 'reject']);
+        $router->get('/teacher/achievements/file', [AchievementController::class, 'viewFile']);
     }
 
     // The student's Academic Records + its printable page, and the class teacher's Term Marks (save, publish)

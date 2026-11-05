@@ -1,9 +1,10 @@
 <?php
 // Teacher achievements: their students as cards (search + Class / Extracurricular filter); View opens one
-// student's timeline (?student=…), Record opens the Record pop-up. Data: AchievementController::teacher()
-// (example data until the achievements backend is built; Record saves nothing yet).
+// student's timeline (?student=…); Record opens the Record pop-up (their class) or the programme's "Add achievement"
+// form (a club / sport they run). A student's missing-record request: the red ring, View Issue → the Review pop-up.
+// Data: AchievementController::teacher().
 $tabTitle = 'Achievements';
-$styles   = ['page-header', 'panel', 'search-field', 'dropdown', 'empty-box', 'tag', 'student-card', 'achievements-timeline', 'form-field', 'datepicker', 'record-achievement', 'evidence-preview'];
+$styles   = ['page-header', 'panel', 'search-field', 'dropdown', 'empty-box', 'tag', 'student-card', 'achievements-timeline', 'form-field', 'datepicker', 'record-achievement'];
 $scripts  = ['dropdown', 'datepicker', 'achievements-timeline', 'student-cards', 'record-achievement', 'file-box'];
 $grids    = ['student-cards'];
 
@@ -24,7 +25,7 @@ require dirname(__DIR__) . '/layouts/page_top.php';
     </label>
     <?php
     $dropdownId    = 'j-student-from';
-    $options       = [['value' => 'all', 'label' => 'All Categories'], ['value' => 'Class', 'label' => word('class')], 'Extracurricular'];
+    $options       = [['value' => 'all', 'label' => 'All Categories'], word('class'), 'Extracurricular'];   // the cards' 'from'
     $selectedValue = 'all';
     $prefix        = 'Filter';
     $dropdownLabel = 'Filter achievements category';
