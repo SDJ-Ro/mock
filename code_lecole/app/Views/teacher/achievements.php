@@ -4,7 +4,7 @@
 // (example data until the achievements backend is built; Record saves nothing yet).
 $tabTitle = 'Achievements';
 $styles   = ['page-header', 'panel', 'search-field', 'dropdown', 'empty-box', 'tag', 'student-card', 'achievements-timeline', 'form-field', 'datepicker', 'record-achievement', 'evidence-preview'];
-$scripts  = ['dropdown', 'datepicker', 'achievements-timeline', 'student-cards', 'record-achievement'];
+$scripts  = ['dropdown', 'datepicker', 'achievements-timeline', 'student-cards', 'record-achievement', 'file-box'];
 $grids    = ['student-cards'];
 
 require dirname(__DIR__) . '/layouts/page_top.php';

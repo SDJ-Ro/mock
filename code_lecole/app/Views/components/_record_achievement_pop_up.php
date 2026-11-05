@@ -92,15 +92,15 @@ ob_start();
       </div>
     <?php else: ?>
       <div class="c-field">
-        <span class="c-label c-field__label">Supporting Proof <span class="c-field__required">*</span></span>
-        <?php // The whole box is the file input's label: clicking it opens the file chooser (no script needed) ?>
-        <label class="c-field__file">
-          <input type="file" class="c-field__hidden-input j-record-file" name="proof" accept="image/*,.pdf">
-          <?= icon('upload', 28) ?>
-          <span class="c-field__file-title"><strong>Click to upload</strong> or drag and drop</span>
-          <span class="c-field__hint">Photos or PDFs, up to 10MB each</span>
-          <span class="c-field__file-name j-record-file-name" hidden></span>
-        </label>
+        <span class="c-label c-field__label">Supporting Proof</span>
+        <?php
+        // Optional: a teacher may record without a file
+        $fileBoxName     = 'proof';
+        $fileBoxRequired = false;
+        $fileBoxTypes    = config('achievements.proof_types');
+        $fileBoxKb       = config('achievements.proof_kb');
+        require __DIR__ . '/_file_box.php';
+        ?>
       </div>
     <?php endif; ?>
   </div>
