@@ -233,28 +233,6 @@
   color: var(--text-muted);
 }
 
-.c-request-card__fields {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin: 0 0 1rem;
-  font-size: 0.75rem;
-}
-
-.c-request-card__fields div {
-  display: flex;
-  justify-content: space-between;
-}
-
-.c-request-card__fields dt {
-  color: var(--text-muted);
-}
-
-.c-request-card__fields dd {
-  margin: 0;
-  font-weight: 500;
-}
-
 .c-request-card__title {
   margin: 0 0 0.25rem;
   font-size: 0.875rem;
@@ -268,7 +246,7 @@
   color: var(--text-soft);
 }
 
-/* A white box inside the card: who it went to, management's note, one evidence file */
+/* A white box inside the card: who it went to or the teacher's reason */
 .c-request-card__box {
   margin-bottom: 1rem;
   border: 1px solid color-mix(in srgb, var(--sand) 70%, transparent);
@@ -297,65 +275,6 @@
 .c-request-card__assigned strong {
   font-weight: 700;
   color: var(--midnight);
-}
-
-.c-request-card__assigned .c-tag {
-  margin-left: auto;
-}
-
-/* The evidence list and the timeline: a label over their rows; --line: a line above */
-.c-request-card__section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.c-request-card__section .c-request-card__box {
-  margin-bottom: 0;
-}
-
-.c-request-card__section--line {
-  border-top: 1px solid var(--alabaster);
-  padding-top: 1rem;
-}
-
-.c-request-card__file {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.c-request-card__file-icon {
-  display: flex;
-  border-radius: var(--radius-xs);
-  padding: 6px;
-  background: var(--cream);
-  color: var(--terracotta);
-}
-
-.c-request-card__file-name {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-width: 0;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.c-request-card__file-name small {
-  font-size: 0.625rem;
-  color: var(--text-faint);
-}
-
-/* Approve / Reject: two equal buttons (button.css c-btn--decision); their forms add no box */
-.c-request-card__actions {
-  flex-direction: row;
-  margin-bottom: 0;
-}
-
-.c-request-card__action {
-  display: contents;
 }
 
 /* ---- The student's page: the header's two buttons, the "Preview Draft" note, the "Something missing?" card ---- */

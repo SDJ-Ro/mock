@@ -8,6 +8,20 @@ $subtitle = 'Manage curriculum structure, assessment progress, and term schedule
 require __DIR__ . '/_page_header.php';
 ?>
 
+<?php if ($canSetGraduationDate): ?>
+  <section class="c-card c-person__body" aria-label="Graduation date">
+    <h2 class="c-panel__title">Graduation date</h2>
+    <form method="post" action="/admin/academic/graduation-date">
+      <?= $csrfField ?>
+      <label class="c-field">
+        <span class="c-label c-field__label"><?= e(grade_name((int) config('white_label.academic.grade_numbers.last'))) ?> graduation date</span>
+        <input class="c-field__input" type="date" name="graduation_date" value="<?= e($graduationBatch['graduation_date'] ?? '') ?>" required>
+      </label>
+      <button type="submit" class="c-btn c-btn--solid c-btn--compact">Save date</button>
+    </form>
+  </section>
+<?php endif; ?>
+
 <div class="l-chart-calendar-grid l-chart-calendar-grid--tight">
   <?php if ($chartConfig !== null): ?>
     <?php require __DIR__ . '/_bar_chart.php'; ?>

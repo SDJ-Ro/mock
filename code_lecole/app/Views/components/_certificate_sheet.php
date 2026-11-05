@@ -25,8 +25,8 @@ $sheetFacts    = [
 
 <article class="c-certificate<?= !empty($sheetEditable) ? ' j-certificate-sheet' : '' ?>">
   <header class="c-certificate__header">
-    <p class="c-certificate__school"><?= e(school('name')) ?></p>
-    <p class="c-certificate__motto"><?= e(school('motto')) ?></p>
+    <p class="c-certificate__school"><?= e($sheet['schoolName']) ?></p>
+    <p class="c-certificate__motto"><?= e($sheet['schoolMotto']) ?></p>
     <div class="c-certificate__rule"></div>
     <h2 class="c-certificate__title">Character Certificate</h2>
     <p class="c-certificate__awarded"><span class="c-certificate__soft">Awarded to</span> <strong><?= e($sheet['name']) ?></strong></p>
@@ -62,7 +62,7 @@ $sheetFacts    = [
           <span class="c-certificate__note c-certificate__edit-note">Editable (Press Enter for a new point)</span>
         <?php endif; ?>
       </div>
-      <ul class="c-certificate__points<?= !empty($sheetEditable) ? ' c-certificate__points--editable j-certificate-editable' : '' ?>">
+      <ul class="c-certificate__points<?= !empty($sheetEditable) ? ' c-certificate__points--editable j-certificate-editable' : '' ?>" data-certificate-section="<?= e($sheetSection) ?>">
         <?php foreach ($sheet[$sheetSection] as $sheetPoint): ?>
           <li><?= e($sheetPoint) ?></li>
         <?php endforeach; ?>
@@ -79,7 +79,7 @@ $sheetFacts    = [
 
   <div class="c-certificate__footer">
     <div class="c-certificate__issued">
-      <p class="c-certificate__issued-on">Issued on <?= e(date(country('date_format'), strtotime($sheet['requested']))) ?></p>
+      <p class="c-certificate__issued-on"><?= $sheet['status'] === 'issued' ? 'Issued on ' : 'Draft preview · ' ?><?= e(date(country('date_format'), strtotime($sheet['requested']))) ?></p>
       <p class="c-certificate__soft"><?= e(words('{Student} pathway: ') . config("certificates.pathways.{$sheet['pathway']}")[1]) ?></p>
     </div>
     <div class="c-certificate__signature"><span><?= e(word('principal')) ?> Signature</span></div>

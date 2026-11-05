@@ -2,7 +2,7 @@
 // Management's Character Certificates: the list (search + status tabs + pathway tabs; links, the server
 // picks the cards) in two groups of capsule cards, or one certificate (?student=…): Back, Print certificate (the PDF),
 // a header with Student Requests / Edit wording / Finalise, the A4 certificate with its pages, its activity.
-// The data is example data and Finalise / Approve / Reject save nothing yet (they only say so).
+// The data is real. Finalise issues one graduating student's certificate after confirmation.
 // Data: CertificateController::management() → $certificate (one) or $filters, $counts, $groups.
 $tabTitle = 'Character Certificates';
 $styles   = ['page-header', 'search-field', 'tabs', 'panel', 'tag', 'empty-box', 'certificate-card', 'certificate-sheet', 'certificates', 'evidence-preview'];
@@ -46,14 +46,6 @@ require dirname(__DIR__) . '/components/_page_header.php';
       </div>
     </div>
 
-    <div class="l-certificates__pathways">
-      <nav class="c-tabs" aria-label="Pathway">
-        <?php foreach (['' => 'All'] + array_map(fn (array $pathway): string => $pathway[0], config('certificates.pathways')) as $pathwayKey => $pathwayName): ?>
-          <a class="c-tabs__tab" href="<?= e($certificatesLink(['pathway' => $pathwayKey])) ?>" aria-selected="<?= $filters['pathway'] === $pathwayKey ? 'true' : 'false' ?>"><?= e($pathwayName) ?></a>
-        <?php endforeach; ?>
-      </nav>
-    </div>
-
     <?php
     $certificateGroups = [
         'pending' => ['alertCircle', 'Certificates needing review', 'Pending Review'],
@@ -87,9 +79,11 @@ require dirname(__DIR__) . '/components/_page_header.php';
   <div class="l-certificates">
     <div class="l-certificates__toolbar">
       <a class="c-btn c-btn--back" href="/management/character-certificate"><?= icon('chevronLeft', 16) ?><span>Back</span></a>
-      <a class="c-btn c-btn--solid c-btn--compact" href="<?= e('/management/character-certificate/pdf?student=' . rawurlencode($certificate['id'])) ?>" target="_blank">
-        <?= icon('printer', 14) ?>Print Certificate
-      </a>
+      <?php if ($certificate['status'] === 'issued'): ?>
+        <a class="c-btn c-btn--solid c-btn--compact" href="<?= e('/management/character-certificate/pdf?student=' . $certificate['studentId']) ?>" target="_blank"><?= icon('printer', 14) ?>Print Certificate</a>
+      <?php else: ?>
+        <a class="c-btn c-btn--solid c-btn--compact" aria-disabled="true" tabindex="-1"><?= icon('printer', 14) ?>Print Certificate</a>
+      <?php endif; ?>
     </div>
 
     <section class="c-certificate-panel">
@@ -108,11 +102,16 @@ require dirname(__DIR__) . '/components/_page_header.php';
               <span class="c-certificate-panel__count"><?= e($certificate['waitingCount']) ?></span>
             <?php endif; ?>
           </button>
-          <button type="button" class="c-btn c-btn--outline c-btn--compact j-certificate-edit" aria-pressed="false">
-            <?= icon('edit', 14) ?><span class="j-certificate-edit-label">Edit Wording</span>
-          </button>
           <?php if ($certificate['status'] === 'pending'): ?>
-            <form data-mock-message="Certificate issued.">
+            <button type="button" class="c-btn c-btn--outline c-btn--compact j-certificate-edit" aria-pressed="false">
+              <?= icon('edit', 14) ?><span class="j-certificate-edit-label">Edit Wording</span>
+            </button>
+            <form method="post" action="/management/character-certificate/finalise" class="j-certificate-action" data-confirm-finalise="1">
+              <?= $csrfField ?>
+              <input type="hidden" name="student" value="<?= e($certificate['studentId']) ?>">
+              <?php foreach (array_keys(config('certificates.sections')) as $formSection): ?>
+                <input type="hidden" name="<?= e($formSection) ?>" value="">
+              <?php endforeach; ?>
               <button type="submit" class="c-btn c-btn--maroon c-btn--compact"><?= icon('send', 14) ?>Finalise</button>
             </form>
           <?php endif; ?>
@@ -123,11 +122,21 @@ require dirname(__DIR__) . '/components/_page_header.php';
         <?php
         $sheet         = $certificate;
         $sheetFor      = 'screen';
-        $sheetEditable = true;
+        $sheetEditable = $certificate['status'] === 'pending';
         require dirname(__DIR__) . '/components/_certificate_sheet.php';
         ?>
       </div>
     </section>
+
+    <?php if ($certificate['status'] === 'pending'): ?>
+      <form method="post" action="/management/character-certificate/draft" class="j-certificate-action j-certificate-draft" hidden>
+        <?= $csrfField ?>
+        <input type="hidden" name="student" value="<?= e($certificate['studentId']) ?>">
+        <?php foreach (array_keys(config('certificates.sections')) as $formSection): ?>
+          <input type="hidden" name="<?= e($formSection) ?>" value="">
+        <?php endforeach; ?>
+      </form>
+    <?php endif; ?>
 
     <?php if ($certificate['activity'] !== []): ?>
       <section class="c-card c-certificates__activity">
