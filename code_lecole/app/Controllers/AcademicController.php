@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\GraduationBatchModel;
 use App\Models\Assignments;
 use App\Models\ClassModel;
 use App\Models\PeopleModel;
@@ -91,6 +92,8 @@ class AcademicController extends Controller
         $numbers = config('white_label.academic.grade_numbers');
 
         $this->page("{$role}/academic", $user, [
+            'graduationBatch'     => $role === 'admin' && feature('certificates') ? (new GraduationBatchModel())->current() : null,
+            'canSetGraduationDate' => feature('certificates') && can('certificates.set_date'),
             'pageUrl'             => $this->pageUrl($role),
             'chartConfig'         => $this->chart($grades),
             'calendarConfig'      => feature('calendar') ? CalendarFeed::config($user) : null,
@@ -105,6 +108,34 @@ class AcademicController extends Controller
             'classForm'           => $this->getFlash('class_form'),   // a refused class save: what was typed and where
             'stageForm'           => $this->getFlash('stage_form'),
         ]);
+    }
+
+    // The admin sets the date that makes this year's final grade ready for certificate review.
+    public function graduationDate(): never
+    {
+        $user = $this->requireRole('admin');
+
+        if (!can('certificates.set_date') || !feature('certificates'))
+        {
+            $this->refuse('You cannot change the graduation date.', '/admin/academic', 403);
+        }
+
+        $date = $this->postText('graduation_date');
+        $parsed = \DateTimeImmutable::createFromFormat('!Y-m-d', $date);
+
+        if ($parsed === false || $parsed->format('Y-m-d') !== $date)
+        {
+            $this->refuse('Choose a valid graduation date.', '/admin/academic', 422);
+        }
+
+        if (!(new GraduationBatchModel())->saveCurrent($date, (int) $user['id']))
+        {
+            $this->refuse('Create the final grade first, or this batch already has an issued certificate.', '/admin/academic', 409);
+        }
+
+        $this->log($user, 'GRADUATION_DATE_SET', $date);
+        $this->setFlash('notice', 'Graduation date saved.');
+        $this->redirect('/admin/academic');
     }
 
     // POST /{role}/academic/grades/add — a new grade with its first class ("12-A")

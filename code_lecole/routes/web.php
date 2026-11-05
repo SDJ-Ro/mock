@@ -115,14 +115,16 @@ return static function (Router $router): void
         $router->get('/management/complaints', [ComplaintController::class, 'management']);
     }
 
-    // Character certificates (the student's and management's page; example data until the certificates backend is built)
-    // + the PDF (Dompdf)
+    // Graduating certificates: live drafts, management review and finalisation, issued PDF only.
     if (feature('certificates'))
     {
         $router->get('/student/certificates', [CertificateController::class, 'student']);
         $router->get('/student/certificates/pdf', [CertificateController::class, 'pdf', 'student']);
         $router->get('/management/character-certificate', [CertificateController::class, 'management']);
         $router->get('/management/character-certificate/pdf', [CertificateController::class, 'pdf', 'management']);
+        $router->post('/management/character-certificate/draft', [CertificateController::class, 'saveDraft']);
+        $router->post('/management/character-certificate/finalise', [CertificateController::class, 'finalise']);
+        $router->post('/admin/academic/graduation-date', [AcademicController::class, 'graduationDate']);
     }
 
     // Extracurricular (four roles' pages): the list, one programme (?id=), one achievement (?award=); the teacher's

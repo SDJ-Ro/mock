@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Models\AchievementModel;
+use App\Models\CertificateModel;
 use App\Models\ExtracurricularModel;
 use App\Models\MissingRecordModel;
 use App\Models\PeopleModel;
@@ -101,6 +102,14 @@ class AchievementController extends Controller
         if (!can('achievements.request'))
         {
             $this->refuse('Only a ' . strtolower(word('student')) . ' can send a missing-record request.', $back, 403);
+        }
+
+        $certificates = new CertificateModel();
+        $batch = $certificates->batchOf((int) $user['id']);
+
+        if ($batch !== null && ($certificates->saved((int) $user['id'], (int) $batch['school_year'])['status'] ?? '') === 'issued')
+        {
+            $this->refuse('The issued certificate can no longer be changed.', $back, 409);
         }
 
         $teacher = (new PeopleModel())->classTeacherOfStudent((int) $user['id'])

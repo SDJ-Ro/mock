@@ -57,6 +57,12 @@ return [
         'review'  => ['teacher'],   // open a request's evidence, approve or reject it: only the student's class teacher now
     ],
 
+    'certificates' => [
+        'set_date' => ['admin'],       // the yearly final-grade graduation date on Academic
+        'finalise' => ['management'],  // edit a due draft and issue one student's certificate
+        'download' => ['student', 'management'], // only an issued certificate; students get their own
+    ],
+
     'profile' => [
         'password' => ['admin', 'management', 'teacher', 'parent'],   // "Change Password" on My Profile (not students)
     ],
