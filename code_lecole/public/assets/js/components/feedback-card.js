@@ -1,8 +1,10 @@
 /**
  * Feedback card (components/_feedback_card.php): clicking a card (or Enter / Space on it) opens the same card in full
  * in the detail pop-up — a copy of it with c-feedback-card--full (feedback.css shows the whole text and the
- * "Official Feedback Record" footer). The filters are a normal form (the server picks the cards); New Feedback is a
- * pop-up of its own (data-pop-up-open) whose form only pretends to save (data-mock-message, feedback-banner.js).
+ * "Official Feedback Record" footer). A card its reader hasn't opened yet holds a hidden form: the first open sends
+ * it in the background (FeedbackController::read() marks it read) and removes it, so it is sent once (if that send
+ * fails, nothing is shown: the card still comes with the form next time, and is sent again then).
+ * The filters are a normal form (the server picks the cards); New Feedback is a pop-up of its own (data-pop-up-open).
  */
 (function ()
 {
@@ -10,6 +12,15 @@
 
   function openInFull(card)
   {
+    const read = card.querySelector('.j-feedback-read');
+
+    if (read)
+    {
+      fetch(read.action, { method: 'POST', body: new FormData(read), headers: { Accept: 'application/json' } })
+        .catch(() => {});
+      read.remove();
+    }
+
     const copy = card.cloneNode(true);
 
     copy.classList.add('c-feedback-card--full');
