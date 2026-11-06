@@ -46,6 +46,7 @@ return [
             ['label' => 'Achievements',          'href' => '/student/achievements',    'icon' => 'achievements',    'feature' => 'achievements'],
             ['label' => 'Character Certificate', 'href' => '/student/certificates',    'icon' => 'certificate',     'feature' => 'certificates'],
             ['label' => 'Notice Board',          'href' => '/student/notice',          'icon' => 'mail',            'feature' => 'notices'],
+            ['label' => 'Feedback',              'href' => '/student/feedback',        'icon' => 'feedback',        'feature' => 'feedback'],
         ],
     ],
 
