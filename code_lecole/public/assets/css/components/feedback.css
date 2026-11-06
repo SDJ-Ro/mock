@@ -61,8 +61,8 @@
   color: var(--text-faint);
 }
 
-/* "Parent: … | Parent of …" (the teacher's page) */
-.c-feedback-card__parent {
+/* "To Nethmi Perera · Student: Read · Parent: Unread" (the teacher's page: who it went to, read / unread) */
+.c-feedback-card__to {
   margin: 0;
   color: var(--text-soft);
 }
@@ -72,7 +72,7 @@
   margin-top: 0.125rem;
 }
 
-.c-feedback-card__subject {
+.c-feedback-card__title {
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
@@ -171,7 +171,7 @@
   box-shadow: var(--shadow-xl);
 }
 
-.c-feedback-card--full .c-feedback-card__subject {
+.c-feedback-card--full .c-feedback-card__title {
   font-size: 1.125rem;
 }
 

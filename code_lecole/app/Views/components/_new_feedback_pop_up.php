@@ -1,11 +1,16 @@
 <?php
-// The teacher's "New Feedback" pop-up, in the shared frame (_pop_up.php); the page
-// header's "+ New Feedback" opens it. The choices are example data and sending saves nothing yet: the form
-// closes and says so (data-mock-message, feedback-banner.js). The fields: form-field.css.
-// Set before requiring: $students, $subjects (app/Mock/feedback.php), $types (config/feedback.php).
+// The teacher's "New Feedback" pop-up, in the shared frame (_pop_up.php); the page header's "+ New Feedback" opens
+// it. Sends POST /teacher/feedback/save (FeedbackController::save(), which checks every value again). The fields:
+// form-field.css. Set before requiring:
+//   $students   the students of their class: [['value' => id, 'label' => 'Nethmi Perera (STU-…) - Grade 10-A'], …]
+//   $subjects   the class's subjects + the general one (names)
+//   $audiences  config/feedback.php 'audiences' (key → name)
+// From the page: $types (config/feedback.php), $csrfField.
+$lengths = config('feedback.lengths');
 ob_start();
 ?>
-<form class="c-pop-up__form" data-mock-message="Feedback sent.">
+<form class="c-pop-up__form" method="post" action="/teacher/feedback/save">
+  <?= $csrfField ?>
   <div class="c-pop-up__body">
     <div class="c-field">
       <span class="c-label c-field__label"><?= e(words('Select {Student}')) ?> <span class="c-field__required c-field__required--terracotta">*</span></span>
@@ -14,7 +19,19 @@ ob_start();
       $dropdownLabel = words('Select {student}');
       $name          = 'student';
       $options       = $students;
-      $selectedValue = $students[0];
+      $selectedValue = $students[0]['value'];
+      require __DIR__ . '/_dropdown.php';
+      ?>
+    </div>
+
+    <div class="c-field">
+      <span class="c-label c-field__label">Audience <span class="c-field__required c-field__required--terracotta">*</span></span>
+      <?php
+      $dropdownId    = 'j-new-feedback-audience';
+      $dropdownLabel = 'Who reads it';
+      $name          = 'audience';
+      $options       = array_map(fn (string $key, string $label): array => ['value' => $key, 'label' => $label], array_keys($audiences), $audiences);
+      $selectedValue = array_key_first($audiences);
       require __DIR__ . '/_dropdown.php';
       ?>
     </div>
@@ -33,10 +50,10 @@ ob_start();
       </div>
 
       <div class="c-field">
-        <span class="c-label c-field__label">Subject <span class="c-field__required c-field__required--terracotta">*</span></span>
+        <span class="c-label c-field__label"><?= e(word('subject')) ?> <span class="c-field__required c-field__required--terracotta">*</span></span>
         <?php
         $dropdownId    = 'j-new-feedback-subject';
-        $dropdownLabel = 'Subject';
+        $dropdownLabel = word('subject');
         $name          = 'subject';
         $options       = $subjects;
         $selectedValue = $subjects[0];
@@ -47,12 +64,12 @@ ob_start();
 
     <label class="c-field">
       <span class="c-label c-field__label">Feedback Title / Topic <span class="c-field__required c-field__required--terracotta">*</span></span>
-      <input type="text" class="c-field__input" name="title" maxlength="150" required placeholder="e.g. Algebra Assessment Performance Review">
+      <input type="text" class="c-field__input" name="title" maxlength="<?= e($lengths['title']) ?>" required placeholder="e.g. Algebra Assessment Performance Review">
     </label>
 
     <label class="c-field">
       <span class="c-label c-field__label">Feedback Content <span class="c-field__required c-field__required--terracotta">*</span></span>
-      <textarea class="c-field__input c-field__input--area c-new-feedback__content" name="content" rows="4" required
+      <textarea class="c-field__input c-field__input--area c-new-feedback__content" name="content" rows="4" maxlength="<?= e($lengths['message']) ?>" required
                 placeholder="<?= e(words('Write comprehensive feedback note for the {parent} and {student}…')) ?>"></textarea>
     </label>
   </div>
@@ -68,6 +85,6 @@ $popUpId          = 'j-new-feedback';
 $popUpSize        = 'wide';
 $popUpEyebrow     = 'Feedback Channel';
 $popUpTitle       = 'Create New Feedback';
-$popUpDescription = words('Send positive, constructive, or disciplinary feedback to {parents}');
+$popUpDescription = words('Send positive, constructive, or disciplinary feedback to a {student}, their {parents}, or both');
 require __DIR__ . '/_pop_up.php';
-unset($students, $subjects);
+unset($students, $subjects, $audiences, $lengths);
