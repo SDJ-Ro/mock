@@ -54,4 +54,9 @@ return [
     'profile' => [
         'password' => ['admin', 'management', 'teacher', 'parent'],   // "Change Password" on My Profile (not students)
     ],
+
+    'feedback' => [
+        'write' => ['teacher'],             // New Feedback: only a class teacher, only to the students of their class this year
+        'read'  => ['student', 'parent'],   // their own (a student) / their children's (a parent), as its audience says
+    ],
 ];
