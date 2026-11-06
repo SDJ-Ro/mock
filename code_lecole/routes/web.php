@@ -101,11 +101,19 @@ return static function (Router $router): void
         $router->post('/parent/approvals/answer', [ApprovalController::class, 'answer']);
     }
 
-    // Feedback (the teacher's and the parent's page; example data until the feedback backend is built)
+    // Feedback: the teacher's Feedback Channel + New Feedback (save), the parent's and the student's page; a card
+    // opened by its reader is marked read (who: config/permissions.php 'feedback')
     if (feature('feedback'))
     {
         $router->get('/teacher/feedback', [FeedbackController::class, 'teacher']);
+        $router->post('/teacher/feedback/save', [FeedbackController::class, 'save']);
         $router->get('/parent/feedback', [FeedbackController::class, 'parent']);
+        $router->get('/student/feedback', [FeedbackController::class, 'student']);
+
+        foreach (config('permissions.feedback.read') as $role)
+        {
+            $router->post("/{$role}/feedback/read", [FeedbackController::class, 'read', $role]);
+        }
     }
 
     // Complaints (the parent's and management's page; example data until the complaints backend is built)

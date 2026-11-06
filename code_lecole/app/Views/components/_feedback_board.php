@@ -1,7 +1,7 @@
 <?php
-// The part both Feedback pages share: the filter bar (search + type; a GET form, the server picks the cards),
-// the cards (_feedback_card.php) in their grid, the "nothing found" box, and the pop-up that shows one card in full
-// (feedback-card.js fills it). Layout: css/layout/filter-bar-grid.css, feedback-grid.css; looks: feedback.css,
+// The part the three Feedback pages (teacher, parent, student) share: the filter bar (search + type; a GET form,
+// the server picks the cards), the cards (_feedback_card.php) in their grid, the "nothing found" box, and the pop-up
+// that shows one card in full (feedback-card.js fills it). Layout: css/layout/filter-bar-grid.css, feedback-grid.css; looks: feedback.css,
 // search-field.css, dropdown.css, empty-box.css.
 // From FeedbackController: $filters (q, type), $types (config/feedback.php), $feedback (the cards that match).
 // From the page: $currentPath.

@@ -5,7 +5,7 @@
  * must stay until it has been read.
  * A message PHP printed on the stack (data-message + data-type, after a save) is shown as soon as the page opens.
  * A form on a page that still shows example data (nothing is saved yet) only pretends to save:
- *   <form data-mock-message="Feedback sent."> → sending it closes its pop-up, empties it and shows that message
+ *   <form data-mock-message="Certificate requested."> → sending it closes its pop-up, empties it and shows that message
  */
 (function ()
 {

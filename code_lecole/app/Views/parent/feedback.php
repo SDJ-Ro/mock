@@ -1,6 +1,6 @@
 <?php
-// The parent's Teacher Feedback: search + type filter and the feedback cards (click → the card in full).
-// Data: FeedbackController::parent() (example data until the feedback backend is built).
+// The parent's Teacher Feedback: search + type filter and the feedback written for the parents of the child the
+// portal is showing (click → the card in full; the first open marks it read). Data: FeedbackController::parent().
 $tabTitle = words('{Teacher} Feedback');
 $styles   = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'empty-box', 'feedback'];
 $scripts  = ['dropdown', 'feedback-card'];

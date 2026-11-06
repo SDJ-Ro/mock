@@ -400,9 +400,26 @@ approvals, Audit log, Child profile (information, achievements), honours board.
 - ☐ B-4 **Character certificates** — built from verified records (B-2, B-3), draft preview (pending marked),
   management's final verification, PDF download locked until verified, leaving date (stops new entries, warns),
   certificate requests + missing-record requests. Has: `certificates` (old shape). Example data now: Mock/certificates
-- ☐ B-5 **Feedback** — the class teacher writes to a student: Student / Parent / Both (student-only invisible to
-  parents), kinds (praise / constructive / concern), one-way, read marks. Has: `feedback` (no audience yet).
-  Example data now: Mock/feedback
+- ☑ B-5 **Feedback — built 2026-11-06** (Havindu, `feature/b5-feedback`). Update 045: `feedback` made again
+  (027 had dropped 016's): student, teacher, kind (positive / constructive / negative — the screen's words, the
+  checklist's "praise / concern"), audience (student / parent / both), subject (its name, kept as text), title,
+  message (2000), `student_read_at`, `parent_read_at`; 8 demo rows (Alex → Nethmi, Amaya: the example data's
+  texts). `FeedbackModel` (add, sentBy, forParent, forStudent, find, markRead, students). `FeedbackController`:
+  the 3 pages read the model; `save()` (POST /teacher/feedback/save: `can('feedback.write')`, Validator, only a
+  student of their class this year, a subject of the class or "General Conduct", Audit Log `FEEDBACK_SENT`,
+  flash); `read()` (POST /{student|parent}/feedback/read, JSON, sent by feedback-card.js the first time a card is
+  opened: only the student / their parents, as the audience says; anything else → the same 404).
+  `config/permissions.php` 'feedback' (write: teacher, read: student, parent); `config/feedback.php` + audiences,
+  general, lengths. New: the student's page (`student/feedback.php`, sidebar link). The teacher's card shows
+  "To Nethmi Perera · Student: Read · Parent: Unread"; New Feedback has an Audience dropdown and is hidden for a
+  teacher without a class. Mock/feedback no longer read (deleted in the same pull request). Tested on a fresh
+  database (43 files, 0 errors): 4 attacks on both POSTs, 15 validation cases, 7 "not yours" reads, a database
+  error (the 500 page, details in the log). Log: `team/handover/havindu-b5-log.md`.
+  - ☐ "Feedback written" notification → B-7 (the student and / or their parents, by audience)
+  - ☐ Look changes for the lead to confirm: the student's Feedback page + sidebar link; the Audience field; the
+    teacher's "To … · Read / Unread" line (was the example data's parent line); the pop-up's description
+  - ☐ The older lines "Feedback, Complaints follow the chosen child" (Child profile) and "backend later: real
+    feedback / complaints" (section 10) are done for feedback — tick them after B-6 (shared lines)
 - ☐ B-6 **Complaints** — the parent writes (recipient: class teacher / head teacher / principal, category, subject,
   body, child), one-way, management marks resolved with an answer. Has: `complaints`, `complaint_messages` (a
   thread: the proposal says one-way). Example data now: Mock/complaints
