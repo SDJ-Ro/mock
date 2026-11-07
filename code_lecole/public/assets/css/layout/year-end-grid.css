@@ -1,0 +1,11 @@
+/* =========================================================================
+   YEAR-END GRID: the Year-End page's two panels (1 · the mapping, 2 · the preview), one under the other, at a
+   reading width. Only the arrangement; their look is year-end.css (+ panel.css).
+   <div class="l-year-end-grid"> <section class="c-panel c-year-end">… </section> … </div>
+   ========================================================================= */
+
+.l-year-end-grid {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 52rem;
+}

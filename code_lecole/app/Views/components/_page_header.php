@@ -5,7 +5,8 @@
 //   $title         the heading
 //   $subtitle      (optional) the line under it
 //   $headerButton  (optional) the "+" button on the right: ['label' => 'Post Notice', 'href' => '/admin/notice?post'] goes to
-//                  a page; ['label' => …, 'popUp' => 'j-…'] opens that pop-up (pop-up.js, no script of the page's own)
+//                  a page; ['label' => …, 'popUp' => 'j-…'] opens that pop-up (pop-up.js, no script of the page's own);
+//                  'icon' => 'graduationCap' (optional) instead of the "+" (Academic's Year-End)
 //   $headerContent (optional) anything else on the right, as HTML collected with ob_start() (People's role tabs,
 //                  the teacher's search)
 ?>
@@ -19,7 +20,7 @@
 
   <?php if (isset($headerButton['href'])): ?>
     <a class="c-btn c-btn--pill c-btn--sky" href="<?= e($headerButton['href']) ?>">
-      <?= icon('plus') ?>
+      <?= icon($headerButton['icon'] ?? 'plus') ?>
       <span><?= e($headerButton['label']) ?></span>
     </a>
   <?php elseif (isset($headerButton)): ?>

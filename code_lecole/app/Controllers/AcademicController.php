@@ -104,6 +104,7 @@ class AcademicController extends Controller
             'subjectTeachers'     => $classes->subjectTeachers(),
             'classForm'           => $this->getFlash('class_form'),   // a refused class save: what was typed and where
             'stageForm'           => $this->getFlash('stage_form'),
+            'canRunYearEnd'       => can('academic.year_end'),   // the header's Year-End button (YearEndController)
         ]);
     }
 

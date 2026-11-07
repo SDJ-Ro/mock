@@ -20,6 +20,7 @@ use App\Controllers\PeopleAddController;
 use App\Controllers\PeopleController;
 use App\Controllers\ProfileController;
 use App\Controllers\TermMarkController;
+use App\Controllers\YearEndController;
 use Core\Router;
 
 return static function (Router $router): void
@@ -197,6 +198,13 @@ return static function (Router $router): void
             $router->post("/{$role}/academic/subject-teacher", [AcademicController::class, 'saveSubjectTeacher', $role]);
             $router->post("/{$role}/academic/stages/save", [AcademicController::class, 'saveStage', $role]);
             $router->post("/{$role}/academic/stages/delete", [AcademicController::class, 'deleteStage', $role]);
+        }
+
+        // Year-End (from the Academic page): every student up one grade, the final grade leaves — once a school year
+        foreach (config('permissions.academic.year_end') as $role)
+        {
+            $router->get("/{$role}/academic/year-end", [YearEndController::class, 'show', $role]);
+            $router->post("/{$role}/academic/year-end/run", [YearEndController::class, 'run', $role]);
         }
     }
 

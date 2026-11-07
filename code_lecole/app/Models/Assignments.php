@@ -8,8 +8,8 @@ use Core\Model;
 
 // Who is where this school year: a student's class, a class's class teacher, a subject's teacher in a class, a club /
 // sport's teacher in charge (class_students, class_teachers, subject_teachers, teachers_in_charge — each row has a year).
-// The only place that writes them. Pages read this year's rows through the current_… views (database/updates/028);
-// earlier years stay in the tables untouched.
+// The only place that writes them, and the only place a new school year starts (yearEnd(), B-9). Pages read this
+// year's rows through the current_… views (database/updates/028); earlier years stay in the tables untouched.
 class Assignments extends Model
 {
     // The current school year (SchoolYear::current()): every write below is for it
@@ -59,6 +59,48 @@ class Assignments extends Model
     public function setTeacherInCharge(int $extracurricularId, ?int $teacherId): void
     {
         $this->save('teachers_in_charge', ['extracurricular_id' => $extracurricularId], $teacherId);
+    }
+
+    // Year-end (B-9), all in ONE transaction: the next school year starts (it becomes the current one), each student
+    // goes to their class there ($moves: student id => class id), every teacher's place is copied to it unchanged
+    // (class, subject, in charge: management changes them later on the usual pages) and the leavers' club / sport
+    // memberships end ('left_school'). Earlier years' rows are only read, never changed. Returns the new year.
+    // Anything fails → nothing at all is saved (the year doesn't start). Null = $fromYear is no longer the current year
+    // (someone ran it a moment ago): nothing done. FOR UPDATE makes a second run at the same moment wait, then see that.
+    public function yearEnd(int $fromYear, array $moves, array $leavers, int $by): ?int
+    {
+        return $this->transaction(function () use ($fromYear, $moves, $leavers, $by): ?int
+        {
+            if ((int) $this->db->query('SELECT MAX(year) FROM school_years FOR UPDATE')->fetchColumn() !== $fromYear)
+            {
+                return null;
+            }
+
+            $newYear = $fromYear + 1;
+
+            $this->db->prepare('INSERT INTO school_years (year) VALUES (:year)')->execute(['year' => $newYear]);
+
+            foreach ($moves as $studentId => $classId)
+            {
+                $this->placeStudent($studentId, $classId);   // the current year is now $newYear
+            }
+
+            // The three teacher tables: a fixed list in the code, never from a form
+            foreach (['class_teachers' => 'class_id', 'subject_teachers' => 'class_id, subject_id', 'teachers_in_charge' => 'extracurricular_id'] as $table => $keys)
+            {
+                $this->db->prepare("INSERT INTO {$table} (year, {$keys}, teacher_id) SELECT :new, {$keys}, teacher_id FROM {$table} WHERE year = :old")
+                    ->execute(['new' => $newYear, 'old' => $fromYear]);
+            }
+
+            $clubs = new ExtracurricularModel();
+
+            foreach ($leavers as $studentId)
+            {
+                $clubs->endMemberships(null, $studentId, 'left_school', $by);
+            }
+
+            return $newYear;
+        });
     }
 
     // This year's row of a teacher table: replaced by $teacherId, or removed (null). Both steps or neither.
