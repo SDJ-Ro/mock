@@ -427,7 +427,26 @@ approvals, Audit log, Child profile (information, achievements), honours board.
   recipient, leaving date → class teacher / TICs / management, new notice … No table yet
 - ☐ B-8 **Permission request cards** — trips / events (name, date, place, cost) → parents approve / reject with
   time; the teacher in charge can't take a student without a yes. No tables yet (new; not in the old design)
-- ☐ B-9 **Year-end** — promote every active student a grade (class mapping chosen by management), Grade 13 →
+- ☑ B-9 **Year-end — built 2026-11-06** (Havindu, `feature/b9-year-end`; no update file: nothing new to store).
+  The Academic page's header → **Year-End** (`/{admin|management}/academic/year-end`, `permissions.academic.year_end`).
+  1 mapping: every class with its active students → next year's class (the next grade's, the same section
+  suggested); the final grade (`academic.php` grade_numbers.last, as B-4) leaves. 2 preview (GET, saves nothing):
+  who goes where / leaves, teachers carried over, warnings (two classes into one, no class teacher) and problems.
+  3 run (question pop-up): `Assignments::yearEnd()` in ONE transaction — the next `school_years` row, each student
+  placed (`placeStudent`), class / subject teachers and teachers in charge copied unchanged, the leavers'
+  memberships ended (`endMemberships`, left_school); Audit Log `YEAR_END_RUN`. A leaver = no class in the new year
+  (no leaving column; B-4 keeps the date per year in `graduation_batches`). Refused: no choice / another grade's or
+  a made-up class / over `classes.capacity` / the next grade has no classes / the year's last term not published
+  (term marks on) / the year has no terms / no active students / the page's year isn't the current one ("Year-end
+  for 2026 has already been run."). Tested on a throw-away database: 4 attacks, 11 refusals, a run (2 moved, 1
+  left, 3 + 6 + 4 teachers carried over, 12 tables of past rows identical before and after), the run again
+  refused, a database error rolled back, the five roles' pages after year-end (also a leaver's and their parent's). Log: `team/handover/havindu-b9-log.md`.
+  Also fixed: `DashboardController`'s `$on` took `array` but gets null (every dashboard crashed after year-end).
+  - ☐ **Held back** — parked, the design is in the log (owner decides; not built)
+  - ☐ The new year has no terms until B-13's School Year dates (Term Marks shows none; the next year-end waits)
+  - ☐ "Leaving date set" notification → B-7 (class teacher, teachers in charge, management)
+  - ☐ Look change for the lead: the Year-End button on Academic + the Year-End page
+- (the original B-9 note) **Year-end** — promote every active student a grade (class mapping chosen by management), Grade 13 →
   leaving, class teachers reassigned, history untouched. Needs B-1's `class_enrolments`
   - Owner's ideas (2026-10-29, discuss in detail at B-9): **held back** — a student with too many low marks (e.g.
     more than 3 subjects under the pass mark, or a very low average) is not promoted automatically: next year they
