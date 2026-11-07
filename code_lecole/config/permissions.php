@@ -34,7 +34,8 @@ return [
     ],
 
     'academic' => [
-        'edit' => ['admin', 'management'],   // the Academic page: grades, classes, teachers, curriculum stages
+        'edit'     => ['admin', 'management'],   // the Academic page: grades, classes, teachers, curriculum stages
+        'year_end' => ['admin', 'management'],   // Year-End: every student up one grade, the final grade leaves (once a year)
     ],
 
     'people' => [
