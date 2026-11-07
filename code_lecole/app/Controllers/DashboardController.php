@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $board = (require dirname(__DIR__) . '/Mock/dashboards.php')[$role];
         $board = feature('term_marks') ? MarksDashboard::fill($role, $user, $board) : $board;
         $board = feature('extracurricular') ? ExtracurricularDashboard::fill($role, $user, $board) : $board;
-        $on    = fn (array $piece): bool => $piece !== null && feature($piece['feature']);
+        $on    = fn (?array $piece): bool => $piece !== null && feature($piece['feature']);
 
         $this->page("{$role}/dashboard", $user, [
             'metrics'        => array_values(array_filter($board['metrics'], $on)),
