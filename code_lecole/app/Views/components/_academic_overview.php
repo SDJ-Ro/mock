@@ -5,6 +5,13 @@
 // Data: AcademicController::overview(). From the frame: $csrfField (and the sliding banner: what a save or refusal left).
 $title    = 'Academic Overview';
 $subtitle = 'Manage curriculum structure, assessment progress, and term schedules.';
+
+// Year-End (once a school year): its own page (YearEndController)
+if ($canRunYearEnd)
+{
+    $headerButton = ['label' => 'Year-End', 'href' => "{$pageUrl}/year-end", 'icon' => 'graduationCap'];
+}
+
 require __DIR__ . '/_page_header.php';
 ?>
 
