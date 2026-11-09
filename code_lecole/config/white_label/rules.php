@@ -25,7 +25,7 @@ return [
 
     // Extracurricular (B-2): how many members one age group of a programme may have, unless the programme sets its own
     // ("Limit of Students per Age Group"; a club without age groups: the whole club). Requests waiting don't count.
-    'age_group_limit' => 300,
+    'age_group_limit' => 250,
 
     // A student's age group is their age on this day (month-day) of the school year
     'age_cutoff' => '01-31',
