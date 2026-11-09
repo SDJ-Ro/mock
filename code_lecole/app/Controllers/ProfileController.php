@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Models\PeopleModel;
 use App\Models\UserModel;
+use App\Services\AccountEmails;
 use App\Services\PersonDetails;
 use Core\Controller;
 use Core\Upload;
@@ -122,6 +123,7 @@ class ProfileController extends Controller
         $users->changePassword($user['id'], password_hash($password, PASSWORD_DEFAULT));
         session_regenerate_id(true);   // a new session ID, like after signing in
         $this->log($user, 'PASSWORD_CHANGED', 'from My Profile');
+        AccountEmails::passwordChanged($account, 'in My Profile');
 
         $this->setFlash('notice', 'Password updated.');
         $this->redirect($back);
