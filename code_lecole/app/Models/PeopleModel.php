@@ -37,10 +37,10 @@ class PeopleModel extends Model
         $statement = $this->db->prepare(
             'SELECT u.id, u.identifier, u.role, u.activation_status, u.last_login_at, u.created_at,
                     p.*, cs.class_id, sd.birth_certificate, sd.admission_date, sd.previous_school, sd.blood_group,
-                    sd.medical_notes, sd.religion, sd.nationality, sd.address_area, sd.address_district, sd.address_region,
+                    sd.medical_notes, sd.religion, sd.nationality, sd.address_area, sd.address_district, sd.address_region, sd.house, sd.prefect_role,
                     c.name AS class_name, g.sort_order AS grade_number, ct.full_name AS class_teacher,
                     pd.relationship, pd.occupation, pd.employer, pd.passport, pd.home_phone, pd.office_phone,
-                    st.job_title, st.subjects, st.join_date, st.experience_years,
+                    st.job_title, st.subjects, st.join_date, st.experience_years, st.office_phone, st.employment_status,
                     COALESCE(pd.office_address, st.office_address) AS office_address
              FROM user_accounts u
              JOIN profiles p ON p.account_id = u.id

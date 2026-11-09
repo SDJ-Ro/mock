@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\PeopleModel;
+use App\Models\SchoolYear;
 
 // Every detail a profile card can show about one person (PeopleModel::find()), worked out once and written the way
 // people read it: dates in the country's format, names joined, the school's words. A card points at one of these keys
@@ -40,6 +41,10 @@ final class PersonDetails
             'subjects'          => $person['subjects'],
             'experience'        => $person['experience_years'] === null ? '' : (string) $person['experience_years'],
             'office_address'    => $person['office_address'],
+            'office_phone'      => $person['office_phone'],
+            'employment_status' => $person['employment_status'],
+            'house'             => $person['house'],
+            'prefect_role'      => $person['prefect_role'],
             'relationship'      => $person['relationship'],
             'occupation'        => $person['occupation'],
             'employer'          => $person['employer'],
@@ -62,6 +67,8 @@ final class PersonDetails
             'guardian'          => $guardian['full_name'] ?? '',
             'guardian_phone'    => $guardian['phone'] ?? '',
             'guardian_email'    => $guardian['identifier'] ?? '',   // parents sign in with their email
+            'qualifications'    => implode('; ', array_map(fn (array $q): string => $q['degree'] . ($q['institution'] ? " — {$q['institution']}" : '') . ($q['year_obtained'] ? " ({$q['year_obtained']})" : ''), $person['qualifications'])),
+            'school_year'       => (string) (new SchoolYear())->current(),
             'children'          => implode(', ', array_map(fn (array $child): string => "{$child['full_name']} (" . ($child['class_name'] ?? '—') . ')', $person['children'])),
         ];
 
