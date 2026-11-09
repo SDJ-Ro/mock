@@ -1,9 +1,10 @@
 <?php
 // Admin's Audit Log: search + activity / actor filters, then one card per event.
 // The filters are a GET form (search: Enter; a dropdown: sends at once — dropdown.js, data-submit-on-change).
-// Data: AuditController::index() → $logs, $filters (action, role, q), $actionNames (code → short name).
+// Data: AuditController::index() → $logs (this page's events), $total, $page, $pages, $filters (action, role, q),
+// $actionNames (code → short name).
 $tabTitle = 'Audit Logs';
-$styles   = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'empty-box', 'audit'];
+$styles   = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'empty-box', 'pager', 'audit'];
 $scripts  = ['dropdown'];
 
 $actorNames = ['' => 'All actors'];
@@ -62,7 +63,14 @@ require dirname(__DIR__) . '/layouts/page_top.php';
       </div>
     <?php endif; ?>
   </div>
+
+  <?php
+  $pagerPage  = $page;
+  $pagerPages = $pages;
+  $pagerLink  = fn (int $target): string => url_with("/{$currentRole}/audit", $filters + ['page' => $target > 1 ? $target : '']);
+  require dirname(__DIR__) . '/components/_pager.php';
+  ?>
 </div>
 <?php
-unset($actorNames, $actorRole);
+unset($actorNames, $actorRole, $pagerPage, $pagerPages, $pagerLink);
 require dirname(__DIR__) . '/layouts/page_bottom.php';

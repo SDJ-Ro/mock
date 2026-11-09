@@ -1,0 +1,24 @@
+/* =========================================================================
+   PAGER (components/_pager.php): the Previous / Page 2 of 5 / Next links under a list (People, Audit Log).
+   The buttons are the shared c-btn (button.css); here only their row.
+   ========================================================================= */
+
+.c-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+/* At the bottom of a table: a line above and room around */
+.c-pager--ruled {
+  border-top: 1px solid var(--alabaster);
+  padding: 1rem;
+}
+
+.c-pager__number {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
