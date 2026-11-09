@@ -13,7 +13,7 @@ use Core\Validator;
 
 // My Profile (every role): see your details, change the ones config/profile.php allows, change your password.
 // Both changes are normal forms: the server checks them, saves, and shows the page again with a "saved" message.
-// The cards each role sees: config/profile.php 'layout'; example values (details nobody stores yet): app/Mock/profiles.php.
+// The cards each role sees: config/profile.php 'layout'.
 class ProfileController extends Controller
 {
     // GET /{role}/profile. After a refused save the page opens in edit mode with what was typed.
@@ -139,17 +139,16 @@ class ProfileController extends Controller
         $layout   = config("profile.layout.{$role}");
         $editable = config("profile.editable.{$role}");
         $values   = PersonDetails::values($person);
-        $mock     = (require dirname(__DIR__) . '/Mock/profiles.php')[$role];
 
         // [label, icon, where from, 'wide'?] → one card. The label's {Class}, {Student}… become the school's words.
-        $card = function (array $field) use ($mock, $values, $editable, $typed, $person): array
+        $card = function (array $field) use ($values, $editable, $typed, $person): array
         {
             $column = in_array($field[2], $editable, true) ? $field[2] : null;   // the profiles column its box saves to
 
             return [
                 'label' => words($field[0]),
                 'icon'  => $field[1],
-                'value' => ($field[2] === 'mock' ? $mock[$field[0]] : ($values[$field[2]] ?? '')) ?: '—',
+                'value' => ($values[$field[2]] ?? '') ?: '—',
                 'edit'  => $column,
                 'raw'   => $column === null ? '' : ($typed[$column] ?? (string) $person[$column]),   // what the box holds when editing
                 'wide'  => ($field[3] ?? null) === 'wide',
@@ -178,7 +177,7 @@ class ProfileController extends Controller
             'hero'      => [
                 'role'    => $role,
                 'name'    => $person['full_name'],
-                'eyebrow' => $this->eyebrow($person, $values, $mock),
+                'eyebrow' => $this->eyebrow($person, $values),
                 'sub'     => $values['portal'] . ' · ' . school('name') . ' ' . word('institution') . ' Management',
                 'id'      => $values['code'],
                 'status'  => ucfirst(strtolower($person['activation_status'])),
@@ -191,12 +190,12 @@ class ProfileController extends Controller
     }
 
     // The line above the name: the role's wording, with the real detail where the school has it
-    private function eyebrow(array $person, array $values, array $mock): string
+    private function eyebrow(array $person, array $values): string
     {
         return match ($person['role'])
         {
-            'admin'      => $mock['eyebrow'],
-            'management' => $person['job_title'] ?: $mock['eyebrow'],
+            'admin'      => word('admin'),
+            'management' => $person['job_title'] ?: word('management'),
             'teacher'    => $values['subject'] ? "Senior Faculty · {$values['subject']} Department" : 'Faculty',
             'parent'     => word('parent') . ' / Guardian' . ($person['relationship'] ? " · {$person['relationship']}" : ''),
             'student'    => word('student') . ($person['class_name'] ? " · {$person['class_name']}" : ''),

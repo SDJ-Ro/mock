@@ -8,6 +8,7 @@ declare(strict_types=1);
 $nationalId = country('national_id.label');   // the country's name for the ID card
 $area       = country('address_parts');       // the three address parts' names
 $relations  = ['Father', 'Mother', 'Guardian'];
+$employment = ['Permanent Full-Time', 'Permanent Part-Time', 'Contract', 'Temporary'];   // a staff member's employment status
 
 return [
     // The profile pop-up's information, per role: [title, icon, columns, the cards].
@@ -22,7 +23,8 @@ return [
             ['{Student} Information', 'user', 4, [['{Grade}', 'grade'], ['{Class} / Section', 'class', '', 'class_id'],
                 ['Birth Certificate No.', 'birth_certificate', '', 'birth_certificate'], ['Date of Birth', 'dob', '', 'date_of_birth'],
                 ['Gender', 'gender', '', 'gender'], ['Admission Date', 'admission', '', 'admission_date'], ['Blood Group', 'blood_group', '', 'blood_group'],
-                ['Nationality', 'nationality', '', 'nationality'], ['Religion', 'religion', '', 'religion'], ['Previous {Institution}', 'previous_school', '', 'previous_school']]],
+                ['Nationality', 'nationality', '', 'nationality'], ['Religion', 'religion', '', 'religion'], ['Previous {Institution}', 'previous_school', '', 'previous_school'],
+                ['House', 'house', '', 'house'], ['Prefect Role', 'prefect_role', '', 'prefect_role']]],
             ['Residential Details', 'mapPin', 2, [['Residential Address', 'address', 'wide', 'address'], [$area['area']['label'], 'address_area', '', 'address_area'],
                 [$area['district']['label'], 'address_district', '', 'address_district'], [$area['region']['label'], 'address_region', '', 'address_region']]],
             ['Medical Notes', 'heart', 2, [['Medical Conditions / Notes', 'medical_notes', 'wide', 'medical_notes']]],
@@ -35,7 +37,8 @@ return [
             ['Extracurricular Assignment ({Teacher} in Charge)', 'trophy', 2, [['Assigned Programmes', 'in_charge', 'wide']]],
             ['Personal & Employment', 'briefcase', 2, [['Full Name', 'full_name', '', 'first_name,last_name'], [$nationalId, 'national_id', '', 'national_id'],
                 ['Date of Birth', 'dob', '', 'date_of_birth'], ['Experience (Years)', 'experience', '', 'experience_years'], ['Join Date', 'join', '', 'join_date'],
-                ['Office Address', 'office_address', '', 'office_address']]],
+                ['Office Address', 'office_address', '', 'office_address'], ['Office Phone', 'office_phone', '', 'office_phone'],
+                ['Employment Status', 'employment_status', '', 'employment_status']]],
             ['Emergency Contact Details', 'phone', 2, [['Emergency Contact Name', 'emergency_name', '', 'emergency_name'],
                 ['Emergency Contact Number', 'emergency_phone', '', 'emergency_phone']]],
             ['{Subject} Teaching Assignments', 'bookOpen', 2, 'subjects'],
@@ -54,7 +57,8 @@ return [
         ],
         'management' => [
             ['Contact & Account', 'mail', 2, [['Reg. Number', 'code'], ['{Institution} Mail', 'identifier'], ['Mobile Number', 'phone', '', 'phone']]],
-            ['Employment', 'briefcase', 2, [['Job Title', 'job_title', '', 'job_title'], ['Joining Date', 'join', '', 'join_date'], ['Office Address', 'office_address', '', 'office_address']]],
+            ['Employment', 'briefcase', 2, [['Job Title', 'job_title', '', 'job_title'], ['Joining Date', 'join', '', 'join_date'], ['Office Address', 'office_address', '', 'office_address'],
+                ['Office Phone', 'office_phone', '', 'office_phone']]],
             ['Personal Information', 'user', 2, [['Full Name', 'full_name', '', 'first_name,last_name'], [$nationalId, 'national_id', '', 'national_id'],
                 ['Date of Birth', 'dob', '', 'date_of_birth'], ['Personal Email', 'personal_email', '', 'personal_email'], ['Residential Address', 'address', 'wide', 'address']]],
             ['Emergency Contact', 'phone', 2, [['Emergency Name', 'emergency_name', '', 'emergency_name'], ['Emergency Contact', 'emergency_phone', '', 'emergency_phone']]],
@@ -107,6 +111,10 @@ return [
         'home_phone'        => ['text', 'phone'],
         'office_phone'      => ['text', 'phone'],
         'office_address'    => ['text', 'max:300'],
+        'office_phone'      => ['text', 'phone'],
+        'employment_status' => ['choice', 'in:' . implode(',', $employment)],
+        'house'             => ['choice', 'in:' . implode(',', school('houses'))],
+        'prefect_role'      => ['text', 'max:100'],
         'job_title'         => ['text', 'max:100'],
         'subjects'          => ['text', 'max:255'],   // the subjects a teacher may teach ("Science, Physics")
         'join_date'         => ['date', 'date'],
