@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Models\AuditLog;
 use App\Models\UserModel;
 use App\Models\VerificationCode;
+use App\Services\AccountEmails;
 use Core\Controller;
 use Core\Mailer;
 
@@ -353,7 +354,11 @@ class AuthController extends Controller
         }
 
         $users = new UserModel();
-        $users->resetPassword((int) $forgot['account_id'], password_hash($password, PASSWORD_DEFAULT));
+
+        if ($users->resetPassword((int) $forgot['account_id'], password_hash($password, PASSWORD_DEFAULT)))
+        {
+            AccountEmails::passwordChanged(['id' => $forgot['account_id'], 'role' => $role, 'identifier' => $forgot['identifier']], 'with a reset code');
+        }
 
         (new AuditLog())->record('PASSWORD_RESET', (int) $forgot['account_id'], $forgot['identifier'], "{$role} portal");
         unset($_SESSION['forgot']);

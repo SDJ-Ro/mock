@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Models\CalendarModel;
 use App\Models\NoticeModel;
 use Core\Controller;
+use Core\Upload;
 use Core\Validator;
 
 // The notice board, for every role (addresses: config/notices.php). Everyone reads; admin, management and teachers
@@ -14,6 +15,8 @@ use Core\Validator;
 // wait for the admin's Approve / Reject on the admin's board ('Awaiting Approval' tab; permissions 'notices.wait_for_approval').
 // Every action is a normal form: the server checks it, saves it and shows the board again with a message at its top.
 // The post / edit form is the same page with ?post or ?edit=5 (components/_add_notice_page.php).
+// A notice's attachment (PDF, Word, JPG, PNG) is saved in storage/uploads/notices — not in public/, so it is opened only
+// through attachment(), which asks the same "may this person see the notice?" as the board (Core\Upload::document()).
 class NoticeController extends Controller
 {
     private const RULES = [
@@ -67,7 +70,7 @@ class NoticeController extends Controller
         $user     = $this->requireRole($role);
         $id       = (int) $this->postText('id') ?: null;
         $existing = $id === null ? null : $this->manageable($user, $id);
-        $values   = $this->typedValues();
+        $values   = $this->typedValues($existing);
         $notice   = $this->checked($user, $role, $values, $existing);   // back to the form with the reason, or the row to save
 
         // A waiting role's new notice or edit waits (again); anyone else's edit keeps the notice's state. Only approved ones stay pinned.
@@ -90,7 +93,27 @@ class NoticeController extends Controller
             $notice += ['author_id' => $user['id'], 'author_role' => $role];
         }
 
+        // The attachment: a new file replaces the old one (saved only now, when everything else is right)
+        [$file, $fileName, $fileError] = Upload::document($_FILES['attachment'] ?? [], 'notices', (int) (config('notices.max_file_mb') * 1024));
+
+        if ($fileError !== null)
+        {
+            $this->setFlash('notice_form', $values);
+            $this->refuse($fileError, config("notices.board.{$role}.url") . ($existing === null ? '?post' : "?edit={$existing['id']}"), 422);
+        }
+
+        if ($file !== null)
+        {
+            $notice += ['attachment_file' => $file, 'attachment_name' => $fileName];
+        }
+
         $id = (new NoticeModel())->save($id, $notice);
+
+        if ($file !== null && $existing !== null)
+        {
+            Upload::forgetDocument($existing['attachment_file'], 'notices');
+        }
+
         $this->log($user, $existing === null ? 'NOTICE_POSTED' : 'NOTICE_UPDATED', "#{$id} {$notice['title']}");
 
         $this->done($role, $existing === null ? 'Notice published.' : 'Notice updated.');
@@ -127,9 +150,36 @@ class NoticeController extends Controller
         $notice = $this->manageable($user, (int) $this->postText('id'));
 
         (new NoticeModel())->delete((int) $notice['id']);
+        Upload::forgetDocument($notice['attachment_file'], 'notices');
         $this->log($user, 'NOTICE_DELETED', "#{$notice['id']} {$notice['title']}");
 
         $this->done($role, 'Notice deleted.');
+    }
+
+    // GET {board}/attachment?id=5 — downloads the notice's file, only for someone who may see the notice (a waiting or
+    // scheduled notice's file: only those who see the notice itself). Always a download, never shown by the browser.
+    public function attachment(string $role): void
+    {
+        $user   = $this->requireRole($role);
+        $notice = (new NoticeModel())->findFor($user, (int) $this->queryText('id'));
+        $path   = $notice === null ? null : Upload::documentPath($notice['attachment_file'], 'notices');
+
+        if ($path === null)
+        {
+            $this->refuse('That file is no longer available.', config("notices.board.{$role}.url"), 404);
+        }
+
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        $shown     = str_replace(['"', "\r", "\n"], '', (string) $notice['attachment_name']);
+
+        header('Content-Type: ' . Upload::DOCUMENT_DOWNLOAD_TYPES[$extension]);
+        header('Content-Disposition: attachment; filename="' . addcslashes(preg_replace('/[^\x20-\x7E]/', '_', $shown), '\\') . '"; filename*=UTF-8\'\'' . rawurlencode($shown));
+        header('Content-Length: ' . filesize($path));
+        header('X-Content-Type-Options: nosniff');
+        header('Cache-Control: private, no-store');
+        readfile($path);
+
+        exit;
     }
 
     // POST {board}/review (approvers only: routes/web.php) — Approve / Reject a waiting notice; a reason is needed to reject
@@ -263,7 +313,7 @@ class NoticeController extends Controller
     }
 
     // The form as it was sent, in the form's own shape (shown again if something is wrong)
-    private function typedValues(): array
+    private function typedValues(?array $existing): array
     {
         return [
             'title'           => $this->postText('title', 200),
@@ -275,7 +325,7 @@ class NoticeController extends Controller
             'publish_at'      => $this->postText('publish_at', 10),
             'expires_at'      => $this->postText('expires_at', 10),
             'pinned'          => $this->postText('pinned') === '1',
-            'attachment_name' => null,
+            'attachment_name' => $existing['attachment_name'] ?? null,   // a file can't be put back in the box: show the one it has
         ];
     }
 

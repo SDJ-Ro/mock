@@ -2,7 +2,7 @@
 // The teacher's details page: the students of the classes they teach, with their parents, view only.
 // The page itself: components/_people_directory.php. Data: PeopleController::students().
 $tabTitle      = words('{Student} Details');
-$styles        = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'tabs', 'info-card', 'empty-box', 'people-directory', 'people-table', 'person-profile', 'record-book', 'achievements-timeline'];
+$styles        = ['page-header', 'search-field', 'dropdown', 'panel', 'tag', 'tabs', 'info-card', 'empty-box', 'people-directory', 'pager', 'people-table', 'person-profile', 'record-book', 'achievements-timeline'];
 $scripts       = ['dropdown', 'record-book', 'achievements-timeline', 'people-profile'];
 $grids         = [];
 $directoryView = 'teacher';

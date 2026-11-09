@@ -75,6 +75,7 @@ return static function (Router $router): void
         foreach (config('notices.board') as $role => $board)
         {
             $router->get($board['url'], [NoticeController::class, 'board', $role]);
+            $router->get("{$board['url']}/attachment", [NoticeController::class, 'attachment', $role]);
 
             if (in_array($role, config('permissions.notices.post'), true))
             {

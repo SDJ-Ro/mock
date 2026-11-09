@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // The Audit Log page (admin/audit): who may open it is config/permissions.php ('audit.view').
 return [
-    'shown' => 350,   // the newest events that match the filters
+    'per_page' => 25,   // the events on one page of the Audit Log
 
     // Each person's role → their card's colour; an event with no account (an unknown ID signing in) = 'system'
     'tones' => [

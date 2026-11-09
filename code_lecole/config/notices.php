@@ -42,5 +42,5 @@ return [
     'audience_tones' => ['all' => 'linen', 'student' => 'sky', 'teacher' => 'sunshine', 'parent' => 'terracotta', 'management' => 'maroon'],
 
     'max_pinned'  => 5,   // pinned notices at the top at one time (live ones)
-    'max_file_mb' => 2,   // the attachment limit the form shows (uploads come later)
+    'max_file_mb' => 2,   // the attachment limit (the form shows it; Core\Upload::document() enforces it)
 ];

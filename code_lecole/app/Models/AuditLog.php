@@ -10,10 +10,11 @@ use Core\Model;
 // Written by Controller::log() and AuthController; read by the admin's Audit Log page (AuditController).
 class AuditLog extends Model
 {
-    // The newest events that match the filters, newest first, with the person's role and name from their account
-    // (never guessed from the text of the ID). $filters: action ('' = all), role ('' = all, 'system' = no
-    // account), q (words in the ID, name, details or address). The controller only passes values from fixed lists.
-    public function recent(array $filters, int $limit): array
+    // One page of the events that match the filters, newest first, with the person's role and name from their
+    // account (never guessed from the text of the ID), and how many events match in all → [rows, total].
+    // $filters: action ('' = all), role ('' = all, 'system' = no account), q (words in the ID, name, details or
+    // address). The controller only passes values from fixed lists.
+    public function page(array $filters, int $page, int $perPage): array
     {
         $where  = [];
         $values = [];
@@ -41,17 +42,21 @@ class AuditLog extends Model
             $values += ['q1' => $like, 'q2' => $like, 'q3' => $like, 'q4' => $like];
         }
 
-        $statement = $this->db->prepare(
-            'SELECT l.id, l.identifier, l.action, l.details, l.created_at, u.role, p.full_name
-             FROM audit_log l
+        $from = ' FROM audit_log l
              LEFT JOIN user_accounts u ON u.id = l.account_id
              LEFT JOIN profiles p ON p.account_id = l.account_id'
-            . ($where === [] ? '' : ' WHERE ' . implode(' AND ', $where))
-            . ' ORDER BY l.id DESC LIMIT ' . $limit
+            . ($where === [] ? '' : ' WHERE ' . implode(' AND ', $where));
+
+        $count = $this->db->prepare('SELECT COUNT(*)' . $from);
+        $count->execute($values);
+
+        $statement = $this->db->prepare(
+            'SELECT l.id, l.identifier, l.action, l.details, l.created_at, u.role, p.full_name' . $from
+            . ' ORDER BY l.id DESC LIMIT ' . $perPage . ' OFFSET ' . (max(1, $page) - 1) * $perPage
         );
         $statement->execute($values);
 
-        return $statement->fetchAll();
+        return [$statement->fetchAll(), (int) $count->fetchColumn()];
     }
 
     // Every kind of action that has happened (the activity filter's list)

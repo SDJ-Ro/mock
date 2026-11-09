@@ -440,8 +440,25 @@ approvals, Audit log, Child profile (information, achievements), honours board.
 - ☐ B-10 **Dashboards** — the 5 dashboards' number cards, bar chart, donuts from B-1 … B-6. Example data now:
   Mock/dashboards
 - ☐ B-11 **Profile details nobody stores yet** — My Profile's example values (Mock/profiles.php)
-- ☐ B-12 **Smaller ones** — notice attachments (upload, the form already has the box), Audit Log paging (only the
-  newest are reachable), "Changed your password" email
+- ☑ **B-12 Smaller ones — built 2026-11-08 (Apeksha).**
+  - Notice attachments: `Core\Upload::document()` saves a PDF, DOC, DOCX, JPG or PNG in `storage/uploads/notices/`
+    (not public: nobody opens it by its address); the real content decides the type (a renamed .php / .exe / .svg /
+    fake image / a zip that is not a Word file → refused), random saved name, original name shown, 2 MB
+    (`notices.max_file_mb`). `NoticeController::save()` keeps the file on an edit without one, replaces it (old file
+    deleted) and deletes it with the notice. `GET {board}/attachment?id=` (route for every board) → a download only for
+    someone who may see the notice (same `NoticeModel::findFor()` as the board), `Content-Disposition: attachment`,
+    `nosniff`. No ZipArchive needed.
+  - Audit Log paging: 25 events a page (`audit.per_page`, was "newest 350"); `AuditLog::page()` returns the page and the
+    total; the page links are a new shared `components/_pager.php` + `pager.css`, and People's directory uses it too
+    (its own copy of the markup / CSS is gone).
+  - "Your password was changed" email: `App\Services\AccountEmails::passwordChanged()` + `emails/password_changed.php`,
+    sent after My Profile's change and after a reset with a code (never when the code or current password is wrong);
+    a student's goes to the parent's address, like their other emails. No password in it.
+  Tested: valid and hostile files (13 cases), edit keep / replace / bad file, delete (disk files = DB references),
+  download for admin / teacher / management / student / parent / signed out / bad ids, paging with filters and odd
+  `page` values, the three email cases and the no-email cases, `bin/check.sh` 0 errors.
+  - ☐ Not built (the owner decides the look): a "remove the attachment" box on the notice form — a notice's file can be
+    replaced, not removed except by deleting the notice
 - ☐ B-13 **Settings, edited where they belong** (owner, 2026-10-29; right after B-1; each design shown first).
   `config/white_label/` stays the starting values (a new install still only changes those files); an admin change is
   saved in a `school_settings` table that overrides the file value; `school()`, `word()`, the rules read through one
