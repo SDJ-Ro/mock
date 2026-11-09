@@ -159,17 +159,13 @@ require __DIR__ . '/_page_header.php';
     ?>
   <?php endif; ?>
 
-  <?php if ($pages > 1): ?>
-    <nav class="c-people__pages" aria-label="Pages">
-      <?php if ($page > 1): ?>
-        <a class="c-btn c-btn--outline c-btn--small" href="<?= e($directoryLink(['page' => $page - 1])) ?>"><?= icon('chevronLeft', 14) ?>Previous</a>
-      <?php endif; ?>
-      <span class="c-people__page-number"><?= e("Page {$page} of {$pages}") ?></span>
-      <?php if ($page < $pages): ?>
-        <a class="c-btn c-btn--outline c-btn--small" href="<?= e($directoryLink(['page' => $page + 1])) ?>">Next<?= icon('chevronRight', 14) ?></a>
-      <?php endif; ?>
-    </nav>
-  <?php endif; ?>
+  <?php
+  $pagerPage  = $page;
+  $pagerPages = $pages;
+  $pagerLink  = fn (int $target): string => $directoryLink(['page' => $target]);
+  $pagerRuled = true;
+  require __DIR__ . '/_pager.php';
+  ?>
 </section>
 
 <?php
