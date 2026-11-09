@@ -19,6 +19,9 @@ return [
         'admin'      => ['src' => '/assets/images/Schoolbackground.jpg', 'alt' => "The L'École building and front lawn"],
     ],
 
+    // The houses a student can belong to (My Profile and People's profile pop-up)
+    'houses'        => ['Emerald House', 'Ruby House', 'Sapphire House', 'Amber House'],
+
     'email_domain'  => 'lecole.edu',
     'contact_email' => 'hello@lecole.edu',
     'support_email' => 'office@lecole.edu',
